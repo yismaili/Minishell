@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 18:48:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:33:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,30 @@ void	ft_export(t_struct *shell)
 	{
 		ft_print_export(shell);
 	}
-	while (shell->arguments[i])
+	if (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
 	{
-		env_aux = ft_split(shell->arguments[i], '=');
-		if (env_aux[1])
-			verify_if_env_exists(shell, env_aux);
-		else if (shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] == '=')
-		{
-			env_aux[1] = ft_strdup("");
-			verify_if_env_exists(shell, env_aux);
-		}
-		free(env_aux[0]);
-		free(env_aux[1]);
-		free(env_aux);
-		env_aux = NULL;
-		i++;
+			while (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
+			{
+				env_aux = ft_split(shell->arguments[i], '=');
+				if (env_aux[1])
+					verify_if_env_exists(shell, env_aux);
+				else if (shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] == '=')
+				{
+					env_aux[1] = ft_strdup("");
+					verify_if_env_exists(shell, env_aux);
+				}
+				free(env_aux[0]);
+				free(env_aux[1]);
+				free(env_aux);
+				env_aux = NULL;
+				i++;
+			}
 	}
+	else if (shell->arguments[i] && ft_isdigit(shell->arguments[1][0]))
+	{
+		printf("export: %s: not a valid identifier\n", shell->arguments[1]);
+	}
+	
 }
 
 void	verify_if_env_exists(t_struct *shell, char **env_aux)
