@@ -6,11 +6,24 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 17:31:05 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/04 23:34:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+
+// void    sig_handler(int signum)
+// {
+//     if (signum == SIGINT)
+//     {
+//         printf("\n");
+//         rl_on_new_line();
+//         rl_replace_line("", 0);
+//         rl_redisplay();
+//     }
+// }
 
 int	main(void)
 {
@@ -57,7 +70,9 @@ void	commande_tape(t_struct	*shell)
 	shell->home = ft_strdup(find_envernement(shell, "HOME"));
 	prompt = create_prompt();
 	shell->commande_tape = readline(prompt);
-	add_history(shell->commande_tape);
+	if (shell->commande_tape)
+        add_history(shell->commande_tape);
+	//signal(SIGINT, sig_handler);
 }
 
 char	*create_prompt(void)

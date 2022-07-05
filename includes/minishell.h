@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/06/24 15:38:21 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:19:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void inredirection(t_struct *shell);
 void outredirection(t_struct *shell);
 void next_run_commands(t_struct *shell);
 void next(int i, t_struct *shell, char*commande_read);
-void next_execution(t_struct *shell, int i);
+char	*next_execution(t_struct *shell, int i);
 void output_input(t_struct *shell);
 void check_to_execute(t_struct *shell);
 #endif

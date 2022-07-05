@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commande.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 13:58:48 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/05 19:29:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	execution(t_struct *shell)
 {
 	int		i;
 	int		id;
+	char	*faded = NULL;
 
 	i = 0;
 	builtin_exist(shell);
@@ -83,41 +84,54 @@ void	execution(t_struct *shell)
 		{
 			output_input(shell);
 			if (shell->arguments[0] != NULL)
+			{
 				while (shell->path[i] != NULL)
 				{
 					if (shell->arguments[0][0] == '|' && shell->arguments[1])
-						next_execution(shell, i);
+						faded = next_execution(shell, i);
 					else
-						next_execution(shell, i);
+						faded = next_execution(shell, i);
 					i++;
 				}
+			}
+			if (!faded)
+				printf("Minishell: %s: command not found\n", shell->arguments[0]);
 		}
 		else if (id > 0)
 			waitpid(id, NULL, 0);
 	}
 }
 
-void	next_execution(t_struct *shell, int i)
+char	*next_execution(t_struct *shell, int i)
 {
 	char	*command;
-	int		test;
 
-	command = ft_strdup(shell->path[i]);
+	command = NULL;
 	if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
 	{
 		command = ft_strjoin(shell->path[i], shell->arguments[1]);
-		test = execve(command, &shell->arguments[1], shell->env.env);
+		if (access(command, F_OK) == 0)
+		{
+			execve(command, &shell->arguments[1], shell->env.env);
+		}
 	}
 	if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
 	{
 		shell->arguments[0] = &shell->arguments[0][1];
 		command = ft_strjoin(shell->path[i], shell->arguments[0]);
-		test = execve(command, &shell->arguments[1], shell->env.env);
+		if (access(command, F_OK) == 0)
+		{
+			execve(command, &shell->arguments[1], shell->env.env);
+		}
 	}
 	else
 	{
 		command = ft_strjoin(shell->path[i], shell->arguments[0]);
-		test = execve(command, &shell->arguments[0], shell->env.env);
+		if (access(command, F_OK) == 0)
+		{
+			execve(command, &shell->arguments[0], shell->env.env);
+		}
 	}
 	free(command);
+	return (NULL);
 }
