@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/05 19:29:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:22:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,26 +111,20 @@ char	*next_execution(t_struct *shell, int i)
 	{
 		command = ft_strjoin(shell->path[i], shell->arguments[1]);
 		if (access(command, F_OK) == 0)
-		{
 			execve(command, &shell->arguments[1], shell->env.env);
-		}
 	}
 	if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
 	{
 		shell->arguments[0] = &shell->arguments[0][1];
 		command = ft_strjoin(shell->path[i], shell->arguments[0]);
 		if (access(command, F_OK) == 0)
-		{
 			execve(command, &shell->arguments[1], shell->env.env);
-		}
 	}
 	else
 	{
 		command = ft_strjoin(shell->path[i], shell->arguments[0]);
 		if (access(command, F_OK) == 0)
-		{
 			execve(command, &shell->arguments[0], shell->env.env);
-		}
 	}
 	free(command);
 	return (NULL);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
+#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/06/22 18:23:36 by souchen          ###   ########.fr        #
+#    Updated: 2022/07/06 02:47:22 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,20 +37,21 @@ all : $(NAME)
 
 $(NAME) : $(OBJ_FILES) $(LIBFT)
 	$(CC) $(OBJ_FILES) -lreadline $(LIBFT) $(FLAGS) -o $(NAME)
-# $(CC) $(OBJ_FILES) $(LIBFT) $(FLAGS) -o $(NAME)
 
 %.o : %.c $(HEADER)
 	@echo "$(RED)COMPILING$(RESET) $<"
 	$(CC)  $(FLAGS)  -c $< -o $@
 $(LIBFT):
 	make -C libft
-	make clean -C libft
+
 clean:
 	$(RM) $(OBJ_FILES)
+	@make fclean -C libft
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) libft/libft.a
+	@make fclean -C libft
+	@echo "\033[0;95m Everything is fcleaned in minishell!\033[m"
 
 re: fclean clean all
 
