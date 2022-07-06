@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/05 00:05:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/06 22:51:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,41 @@ bool	there_is_home(t_struct *shell)
 		return (false);
 }
 
-// void    replace_pwd(t_struct *env)
-// {
-//     char        *gt_pathname = NULL;
-// 	int			i = 0;
+void    replace_oldpwd(t_struct *env)
+{
+    char    *buff = NULL;
+	int		i = 0;
+   
+    buff = getcwd(buff, sizeof(buff));
+    while (env->env.tab1[i])
+    {
+        if (!ft_memcmp(env->env.tab1[i], "OLDPWD", 6))
+        {
+                free(env->env.tab2[i]);
+                env->env.tab2[i] = ft_strdup(buff);
+            return ;
+        }
+        i++;
+    }
+}
 
-//     while (env->arguments[i])
-//     {
-//         if (!ft_memcmp(env->arguments[i], "OLDPWD", 6))
-//         {
-//             free(env->arguments[i]);
-//             gt_pathname = getcwd(gt_pathname, sizeof(gt_pathname));
-//             env->arguments[i] = ft_strjoin("OLDPWD=", getcwd(gt_pathname, sizeof(gt_pathname)));
-//             return ;
-//         }
-// 		i++;
-//     }
-// }
+void    replace_pwd(t_struct *env)
+{
+    char    *buff = NULL;
+	int		i = 0;
+   
+    buff = getcwd(buff, sizeof(buff));
+    while (env->env.tab1[i])
+    {
+        if (!ft_memcmp(env->env.tab1[i], "PWD", 3))
+        {
+                free(env->env.tab2[i]);
+                env->env.tab2[i] = ft_strdup(buff);
+            return ;
+        }
+        i++;
+    }
+}
 
 int	ft_cd(t_struct *shell)
 {
@@ -61,10 +79,10 @@ int	ft_cd(t_struct *shell)
 			return (1);
 		}
 	}
-	global_number = chdir(arg_aux); // change the current dir
-	
-	if (global_number == -1)
-		printf("minishell: cd: %s: %s", shell->arguments[1], "no such file or directory\n");
+	replace_oldpwd(shell);
+	if (chdir(arg_aux) == -1)
+		printf("Minishell: cd: %s: %s", shell->arguments[1], "no such file or directory\n");
+	replace_pwd(shell);
 	free(arg_aux);
 	return (0);
 }

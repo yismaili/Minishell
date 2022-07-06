@@ -6,24 +6,22 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 23:34:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/06 22:21:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 
-// void    sig_handler(int signum)
-// {
-//     if (signum == SIGINT)
-//     {
-//         printf("\n");
-//         rl_on_new_line();
-//         rl_replace_line("", 0);
-//         rl_redisplay();
-//     }
-// }
+void    sig_handler(int signum)
+{
+    if (signum == SIGINT)
+    {
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+    }
+}
 
 int	main(void)
 {

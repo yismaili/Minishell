@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/07/06 02:47:22 by yismaili         ###   ########.fr        #
+#    Updated: 2022/07/06 17:05:56 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
 OBJ_FILES= $(FILES:.c=.o)
 
 HEADER = includes/minishell.h
+# HEADER += 
 LIBFT = libft/libft.a
 NAME = minishell
 # LINK=-L/goinfre/readline/a.out.dSYM
@@ -36,9 +37,10 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME) : $(OBJ_FILES) $(LIBFT)
-	$(CC) $(OBJ_FILES) -lreadline $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ_FILES) -lreadline  -L $(HOME)/goinfre/homebrew/Cellar/readline/8.1.2/lib  -I $(HOME)/goinfre/homebrew/Cellar/readline/8.1.2/include/readline/ $(LIBFT) $(FLAGS) -o $(NAME)
 
 %.o : %.c $(HEADER)
+	@echo $(HOME)
 	@echo "$(RED)COMPILING$(RESET) $<"
 	$(CC)  $(FLAGS)  -c $< -o $@
 $(LIBFT):

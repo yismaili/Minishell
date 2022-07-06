@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 19:33:52 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:40:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,30 @@ void ft_print_export(t_struct *env)
 	   i++;
 	}
 }
-
+// void	ft_sort_temp(t_struct *ptr)
+// {
+// 	//char	*temp;
+// 	int		j;
+// 	int i =0;
+// 	int len = ptr->env.len;
+// 	char temp[2000];
+// 	while (len)
+// 	{
+// 		j = 0;
+// 		while (ptr->env.env[i][j])
+// 		{
+// 			if(ptr->env.env[i][j] > ptr->env.env[i][j+1])
+// 			{
+// 				ft_strlcpy(temp, ptr->env.env[i], ft_strlen(ptr->env.env[i][j]));
+// 				ft_strpy(ptr->env.env[i][j], ptr->env.env[i], ft_strlen(&ptr->env.env[i][j + 1]));
+// 				ft_strpy(ptr->env.env[i], temp, ft_strlen(temp));
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 		len--;
+// 	}
+// }
 void	ft_export(t_struct *shell)
 {
 	int		i;
@@ -37,6 +60,7 @@ void	ft_export(t_struct *shell)
 	i = 1;
 	if (!shell->arguments[1])
 	{
+		//ft_sort_temp(shell);
 		ft_print_export(shell);
 	}
 	if (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
@@ -99,3 +123,4 @@ void	ajouter_envernement(t_struct *shell, char *new_elem_tab1, char *new_elem_ta
 	shell->env.tab1 = shell->env_aux.tab1;
 	shell->env.tab2 = shell->env_aux.tab2;
 }
+
