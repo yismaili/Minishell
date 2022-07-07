@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:06 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/07 15:40:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/07 19:34:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	run_builtin(t_struct *shell)
 	else if(!ft_strncmp(shell->arguments[0], "cd", 2))
 		ft_cd(shell);
 	else if(!ft_strncmp(shell->arguments[0] , "pwd", 3))
-		ft_pwd();
+		ft_pwd(shell);
 	else if(!ft_strncmp(shell->arguments[0], "echo", 4))
 		ft_echo(shell);
 	else if(!ft_strncmp(shell->arguments[0], "export", 6))
