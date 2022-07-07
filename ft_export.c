@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/06 15:40:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:32:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ void ft_print_export(t_struct *env)
 	while(i < env->env.len)
 	{
 		ft_putstr_fd("declare -x ", env->output_fd);
-	   ft_putstr_fd(env->env.tab1[i], env->output_fd);
-	   ft_putchar_fd('=',env->output_fd);
-	   ft_putstr_fd(env->env.tab2[i], env->output_fd);
-	   ft_putstr_fd("\n", env->output_fd);
-	   i++;
-	}
+		ft_putstr_fd(env->env.tab1[i], env->output_fd);
+		ft_putchar_fd('=',env->output_fd);
+		ft_putstr_fd("\"", env->output_fd);
+		ft_putstr_fd(env->env.tab2[i], env->output_fd);
+		ft_putstr_fd("\"", env->output_fd);
+		ft_putstr_fd("\n", env->output_fd);
+		i++;
+		}
 }
-// void	ft_sort_temp(t_struct *ptr)
+// void	ft_sort_export(t_struct *ptr)
 // {
 // 	//char	*temp;
 // 	int		j;
@@ -60,7 +62,7 @@ void	ft_export(t_struct *shell)
 	i = 1;
 	if (!shell->arguments[1])
 	{
-		//ft_sort_temp(shell);
+		//ft_sort_export(shell);
 		ft_print_export(shell);
 	}
 	if (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))

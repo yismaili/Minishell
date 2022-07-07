@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/05 20:22:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/07 19:26:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,30 @@ void	execution(t_struct *shell)
 char	*next_execution(t_struct *shell, int i)
 {
 	char	*command;
-
+	char    *buff;
+	// char **splt;
+	// char	*join_slach = NULL;
+   
 	command = NULL;
-	if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
+	buff = NULL;
+	if (!ft_memcmp(shell->commands[0], "./", 2))
+	{
+		buff = getcwd(buff, sizeof(buff));
+	 	//splt = ft_split(shell->commands[0], '/');
+		//join_slach = ft_strjoin(buff, "/");
+		//command = ft_strjoin(join_slach, splt[1]);
+		command = ft_strjoin(buff, "/minishell");
+		//printf("%s\n", command);
+		if (access(command, F_OK) == 0)
+			execve(command, &shell->arguments[0], shell->env.env);
+	}
+	else if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
 	{
 		command = ft_strjoin(shell->path[i], shell->arguments[1]);
 		if (access(command, F_OK) == 0)
 			execve(command, &shell->arguments[1], shell->env.env);
 	}
-	if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
+	else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
 	{
 		shell->arguments[0] = &shell->arguments[0][1];
 		command = ft_strjoin(shell->path[i], shell->arguments[0]);

@@ -6,11 +6,12 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:06 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 17:33:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/07 15:40:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
 int builtin_exist(t_struct *shell)
 {
 	if(!ft_strncmp(shell->arguments[0], "exit", 4))

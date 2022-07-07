@@ -6,12 +6,13 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/06 02:52:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:38:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "includes/minishell.h"
+
 void	ft_echo(t_struct *shell)
 {
 	if (shell->arguments[1])
