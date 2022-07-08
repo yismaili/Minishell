@@ -6,54 +6,90 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/07 17:32:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/08 04:55:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include"includes/minishell.h"
 
-void ft_print_export(t_struct *env)
+void	ft_print_export(char **export, t_struct	*shell)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 0;
-	while(i < env->env.len)
+	while (export[i])
 	{
-		ft_putstr_fd("declare -x ", env->output_fd);
-		ft_putstr_fd(env->env.tab1[i], env->output_fd);
-		ft_putchar_fd('=',env->output_fd);
-		ft_putstr_fd("\"", env->output_fd);
-		ft_putstr_fd(env->env.tab2[i], env->output_fd);
-		ft_putstr_fd("\"", env->output_fd);
-		ft_putstr_fd("\n", env->output_fd);
-		i++;
+		j = 0;
+		ft_putstr_fd("declare -x ", shell->output_fd);
+		while (export[i][j])
+		{
+			ft_putchar_fd(export[i][j], shell->output_fd);
+			if (export[i][j] == '=')
+			{
+				ft_putchar_fd('"', shell->output_fd);
+			}
+			j++;
 		}
+		ft_putchar_fd('"', shell->output_fd);
+		ft_putchar_fd('\n', shell->output_fd);
+		i++;
+	}
 }
-// void	ft_sort_export(t_struct *ptr)
-// {
-// 	//char	*temp;
-// 	int		j;
-// 	int i =0;
-// 	int len = ptr->env.len;
-// 	char temp[2000];
-// 	while (len)
-// 	{
-// 		j = 0;
-// 		while (ptr->env.env[i][j])
-// 		{
-// 			if(ptr->env.env[i][j] > ptr->env.env[i][j+1])
-// 			{
-// 				ft_strlcpy(temp, ptr->env.env[i], ft_strlen(ptr->env.env[i][j]));
-// 				ft_strpy(ptr->env.env[i][j], ptr->env.env[i], ft_strlen(&ptr->env.env[i][j + 1]));
-// 				ft_strpy(ptr->env.env[i], temp, ft_strlen(temp));
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 		len--;
-// 	}
-// }
+
+char	**ft_dup_env(t_struct *env)
+{
+	char	**dup_str;
+	int		len_env;
+	char	*first_join;
+	char	*second_join;
+	int		i;
+
+	len_env = env->env.len;
+	i = 0;
+	dup_str = (char **)malloc(sizeof(char *) * (len_env + 1));
+	if (!dup_str)
+		return (NULL);
+	dup_str[len_env] = 0;
+	while (i < len_env)
+	{
+		first_join = ft_strjoin(env->env.tab1[i], "=");
+		second_join = ft_strjoin(first_join, env->env.tab2[i]);
+		dup_str[i] = ft_strdup(second_join);
+		free(first_join);
+		free(second_join);
+		i++;
+	}
+	return (dup_str);
+}
+void		sort_env(t_struct *env)
+{
+	char	**dup_env;
+	char	*tmp;
+	int	i;
+	int	j;
+
+	dup_env = ft_dup_env(env);
+	i = 0;
+	while (dup_env[i])
+	{
+		j = i + 1;
+		while (dup_env[j])
+		{
+			if (ft_strcmp(dup_env[i], dup_env[j]) > 0)
+			{
+				tmp = dup_env[i];
+				dup_env[i] = dup_env[j];
+				dup_env[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	ft_print_export(dup_env, env);
+}
+
 void	ft_export(t_struct *shell)
 {
 	int		i;
@@ -61,10 +97,8 @@ void	ft_export(t_struct *shell)
 
 	i = 1;
 	if (!shell->arguments[1])
-	{
-		//ft_sort_export(shell);
-		ft_print_export(shell);
-	}
+
+		sort_env(shell);
 	if (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
 	{
 			while (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
