@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/08 01:38:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/08 05:00:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@
 # define GREEN "\001\033[1;32m\002"
 # define RED "\033[0;31m"
 
-int	global_number;
-typedef struct s_sort
-{
-    struct s_sort    *next;
-    char            *content;
-}   t_sort;
 typedef struct s_env
 {
 	char	**env;

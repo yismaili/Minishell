@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/08 04:55:07 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/08 05:04:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_print_export(char **export, t_struct	*shell)
 		i++;
 	}
 }
-
+// dup and join env in one array 
 char	**ft_dup_env(t_struct *env)
 {
 	char	**dup_str;
