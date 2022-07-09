@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/08 05:04:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/08 15:49:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	ft_export(t_struct *shell)
 
 	i = 1;
 	if (!shell->arguments[1])
-
 		sort_env(shell);
 	if (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
 	{

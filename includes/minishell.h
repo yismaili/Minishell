@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/08 05:00:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/09 02:30:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@
 # define WHITE "\001\033[0m\002"
 # define GREEN "\001\033[1;32m\002"
 # define RED "\033[0;31m"
-
+int		g_var;
+int		g_var1;
+int		g_var2;
 typedef struct s_env
 {
 	char	**env;
@@ -39,7 +41,6 @@ typedef struct s_env
 	char	**tab2;
 	int		position;
 }			t_env;
-
 typedef struct s_divise
 {
 	int		number_command;

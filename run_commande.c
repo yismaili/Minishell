@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/07 19:26:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/08 18:47:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	execution(t_struct *shell)
 		run_builtin(shell);
 	else
 	{
-				id = fork();
+		id = fork();
 		if (id < 0)
 			printf("Error fork\n");
 		else if (id == 0)
