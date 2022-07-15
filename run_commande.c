@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/08 18:47:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:24:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,43 +104,60 @@ void	execution(t_struct *shell)
 
 char	*next_execution(t_struct *shell, int i)
 {
-	char	*command;
+	char	*cmd_path;
 	char    *buff;
 	// char **splt;
 	// char	*join_slach = NULL;
    
-	command = NULL;
+	cmd_path = NULL;
 	buff = NULL;
 	if (!ft_memcmp(shell->commands[0], "./", 2))
 	{
 		buff = getcwd(buff, sizeof(buff));
-	 	//splt = ft_split(shell->commands[0], '/');
+	 	//splt = ft_split(shell->cmd_paths[0], '/');
 		//join_slach = ft_strjoin(buff, "/");
-		//command = ft_strjoin(join_slach, splt[1]);
-		command = ft_strjoin(buff, "/minishell");
-		//printf("%s\n", command);
-		if (access(command, F_OK) == 0)
-			execve(command, &shell->arguments[0], shell->env.env);
+		//cmd_path = ft_strjoin(join_slach, splt[1]);
+		cmd_path = ft_strjoin(buff, "/minishell");
+		//printf("%s\n", cmd_path);
+		if (access(cmd_path, F_OK) == 0)
+			execve(cmd_path, &shell->arguments[0], shell->env.env);
+		else
+			cmd_not_found(shell->arguments[0]);
 	}
 	else if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
 	{
-		command = ft_strjoin(shell->path[i], shell->arguments[1]);
-		if (access(command, F_OK) == 0)
-			execve(command, &shell->arguments[1], shell->env.env);
+		cmd_path = ft_strjoin(shell->path[i], shell->arguments[1]);
+		if (access(cmd_path, F_OK) == 0)
+			execve(cmd_path, &shell->arguments[1], shell->env.env);
+		else
+			cmd_not_found(shell->arguments[1]);
 	}
 	else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
 	{
 		shell->arguments[0] = &shell->arguments[0][1];
-		command = ft_strjoin(shell->path[i], shell->arguments[0]);
-		if (access(command, F_OK) == 0)
-			execve(command, &shell->arguments[1], shell->env.env);
+		cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
+		if (access(cmd_path, F_OK) == 0)
+			execve(cmd_path, &shell->arguments[1], shell->env.env);
+		else
+			cmd_not_found(shell->arguments[1]);
 	}
 	else
 	{
-		command = ft_strjoin(shell->path[i], shell->arguments[0]);
-		if (access(command, F_OK) == 0)
-			execve(command, &shell->arguments[0], shell->env.env);
+		cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
+		if (access(cmd_path, F_OK) == 0)
+			execve(cmd_path, &shell->arguments[0], shell->env.env);
+		else
+			cmd_not_found(shell->arguments[1]);
 	}
-	free(command);
+	free(cmd_path);
 	return (NULL);
+}
+
+void cmd_not_found(char *cmd)
+{
+	if (cmd)
+	{
+		printf("Minishell: %s:  command not found\n", cmd);
+		exit(1);
+	}
 }

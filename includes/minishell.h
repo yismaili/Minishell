@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/09 02:30:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:20:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_divise
 
 typedef struct s_arg
 {
-	char	*Lechemin;
+	char	*all_cmd;
 	char	*to_exec;
 	char    *txt_toprint;
 	char	quote;
@@ -135,4 +135,5 @@ char	*next_execution(t_struct *shell, int i);
 void output_input(t_struct *shell);
 void check_to_execute(t_struct *shell);
 void    sig_handler(int signum);
+void cmd_not_found(char *cmd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/06 22:51:49 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:43:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	ft_cd(t_struct *shell)
 	home = there_is_home(shell);
 	if (shell->arguments[1])
 	{
-		arg_aux = ft_strdup(shell->arg.Lechemin);
+		arg_aux = ft_strdup(shell->arg.all_cmd);
 	}
 	else
 	{

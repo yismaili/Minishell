@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/06/22 11:20:56 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/15 11:45:30 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_arg	*initial_arg(void)
 
 	arg = (t_arg *)malloc(sizeof(t_arg));
 	arg->first = NULL;
-	arg->Lechemin = NULL;
+	arg->all_cmd = NULL;
 	arg->txt_toprint = NULL;
 	arg->i = 0;
 	arg->init = 0;
@@ -36,10 +36,10 @@ void	free_arg(t_arg *arg)
 		free(arg->first);
 		arg->first = NULL;
 	}
-	if (arg-> Lechemin != NULL)
+	if (arg-> all_cmd != NULL)
 	{
-		free(arg->Lechemin);
-		arg->Lechemin = NULL;
+		free(arg->all_cmd);
+		arg->all_cmd = NULL;
 	}
 	if(arg-> txt_toprint != NULL)
 	{

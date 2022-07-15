@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 17:33:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:48:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	arguments_func(t_struct *shell)
 	if (shell->line_commande)
 	{
 		arg->position = find_char(shell->line_commande, ' ');
-		shell->arg.Lechemin = ft_strtrim(&(shell->line_commande)[arg->position], " ");
+		shell->arg.all_cmd = ft_strtrim(&(shell->line_commande)[arg->position], " ");
 		shell->arg.txt_toprint = ft_strtrim(&(shell->line_commande)[arg->position], " ");
 		shell->arguments = ft_split(shell->line_commande, ' ');
 		free_arg(arg);
