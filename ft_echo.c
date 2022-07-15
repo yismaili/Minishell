@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/07 16:38:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:32:29 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	print_echo(t_struct *shell ,char *echo_print)
 	q2 = 0;
 	if (!ft_strncmp(echo_print, "$?", 2))
 		printf("%d\n",0);
+	else if (!ft_strncmp(echo_print, "$PATH", ft_strlen(echo_print)))
+	{
+		printf("dsjkfhkdjfdksf\n");
+	}
 	else
 	{
 		while(i < ft_strlen(echo_print))

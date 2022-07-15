@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 12:24:03 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:04:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,55 @@ void	fun_redirection(t_struct *shell)
 		shell->cmp++;
 	}
 }
+char *execute_cmd(t_struct *shell)
+{
+	int i = 0;
+	char	*cmd_path;
+	char	*current_path;
+//	char **splt;
+	char	*join_slach = NULL;
 
+	while (shell->path[i])
+	{
+		cmd_path = NULL;
+		current_path = NULL;
+		if (!ft_memcmp(shell->commands[0], "./", 2))
+		{
+			current_path = getcwd(current_path, sizeof(current_path));
+			//splt = ft_split(shell->commands[0], '/');
+			join_slach = ft_strjoin(current_path, "/");
+			cmd_path = ft_strjoin(join_slach, "minishell");
+			if (access(cmd_path, F_OK) == 0)
+				execve(cmd_path, &shell->arguments[0], shell->env.env);
+		}
+		if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
+		{
+			cmd_path = ft_strjoin(shell->path[i], shell->arguments[1]);
+			if (access(cmd_path, F_OK) == 0)
+				execve(cmd_path, &shell->arguments[1], shell->env.env);
+		}
+		else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
+		{
+			shell->arguments[0] = &shell->arguments[0][1];
+			cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
+			if  (access(cmd_path, F_OK) == 0)
+				execve(cmd_path, &shell->arguments[1], shell->env.env);
+		}
+		else
+		{
+			cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
+			if  (access(cmd_path, F_OK) == 0)
+				execve(cmd_path, &shell->arguments[0], shell->env.env);
+		}
+		free(cmd_path);
+			i++;
+		}
+	return(NULL);
+}
 void	execution(t_struct *shell)
 {
 	int		i;
-	int		id;
+	pid_t	pid;
 	char	*faded = NULL;
 
 	i = 0;
@@ -77,80 +121,22 @@ void	execution(t_struct *shell)
 		run_builtin(shell);
 	else
 	{
-		id = fork();
-		if (id < 0)
+		pid = fork();
+		if (pid < 0)
 			printf("Error fork\n");
-		else if (id == 0)
+		else if (pid == 0)
 		{
 			output_input(shell);
 			if (shell->arguments[0] != NULL)
 			{
-				while (shell->path[i] != NULL)
-				{
-					if (shell->arguments[0][0] == '|' && shell->arguments[1])
-						faded = next_execution(shell, i);
-					else
-						faded = next_execution(shell, i);
-					i++;
-				}
+				faded = execute_cmd(shell);
+				if (!faded)
+					cmd_not_found(shell->arguments[1]);
 			}
-			if (!faded)
-				printf("Minishell: %s: command not found\n", shell->arguments[0]);
 		}
-		else if (id > 0)
-			waitpid(id, NULL, 0);
-	}
-}
-
-char	*next_execution(t_struct *shell, int i)
-{
-	char	*cmd_path;
-	char    *buff;
-	// char **splt;
-	// char	*join_slach = NULL;
-   
-	cmd_path = NULL;
-	buff = NULL;
-	if (!ft_memcmp(shell->commands[0], "./", 2))
-	{
-		buff = getcwd(buff, sizeof(buff));
-	 	//splt = ft_split(shell->cmd_paths[0], '/');
-		//join_slach = ft_strjoin(buff, "/");
-		//cmd_path = ft_strjoin(join_slach, splt[1]);
-		cmd_path = ft_strjoin(buff, "/minishell");
-		//printf("%s\n", cmd_path);
-		if (access(cmd_path, F_OK) == 0)
-			execve(cmd_path, &shell->arguments[0], shell->env.env);
 		else
-			cmd_not_found(shell->arguments[0]);
+			wait(0);
 	}
-	else if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
-	{
-		cmd_path = ft_strjoin(shell->path[i], shell->arguments[1]);
-		if (access(cmd_path, F_OK) == 0)
-			execve(cmd_path, &shell->arguments[1], shell->env.env);
-		else
-			cmd_not_found(shell->arguments[1]);
-	}
-	else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
-	{
-		shell->arguments[0] = &shell->arguments[0][1];
-		cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
-		if (access(cmd_path, F_OK) == 0)
-			execve(cmd_path, &shell->arguments[1], shell->env.env);
-		else
-			cmd_not_found(shell->arguments[1]);
-	}
-	else
-	{
-		cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
-		if (access(cmd_path, F_OK) == 0)
-			execve(cmd_path, &shell->arguments[0], shell->env.env);
-		else
-			cmd_not_found(shell->arguments[1]);
-	}
-	free(cmd_path);
-	return (NULL);
 }
 
 void cmd_not_found(char *cmd)

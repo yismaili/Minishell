@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/09 03:25:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:57:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ int	main(void)
 		commande_tape(&shell);
 		if (shell.commande_tape)
 		{
-			//if (shell.commande_tape[0])
-			//{
+			if (shell.commande_tape[0])
+			{
 				divise_commande(&shell, shell.commande_tape);
 				if (shell.commands[0][0] != '|')
 					run_commands(&shell);
 				else
-					printf("bash: syntax error near unexpected token `|'");
+					printf("Minishell: syntax error near unexpected token `|'\n");
 				free2(shell.commands);
 				free(shell.commande_tape);
-			//}
+			}
 		}
+			
 	}
 		
 }
