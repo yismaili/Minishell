@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 17:57:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/15 22:12:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	commande_tape(t_struct	*shell)
 	shell->commande_tape = readline(prompt);
 	if (shell->commande_tape)
         add_history(shell->commande_tape);
+	if (!shell->commande_tape)
+		exit(1);
 }
 
 char	*create_prompt(void)

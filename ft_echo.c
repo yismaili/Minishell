@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 18:32:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/16 00:03:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,30 @@ void	print_echo(t_struct *shell ,char *echo_print)
 	size_t i;
 	int q1;
 	int q2;
+	char **splted;
+
 	i = 0;
 	q1 = 0;
 	q2 = 0;
 	if (!ft_strncmp(echo_print, "$?", 2))
 		printf("%d\n",0);
-	else if (!ft_strncmp(echo_print, "$PATH", ft_strlen(echo_print)))
-	{
-		printf("dsjkfhkdjfdksf\n");
-	}
 	else
 	{
+		if (!ft_strncmp(echo_print, "$", 1))
+		{
+			splted = ft_split(echo_print, '$');
+			while (shell->env.tab1[i])
+			{
+				if (!ft_strncmp(shell->env.tab1[i], splted[0], ft_strlen(splted[0])))
+				{
+					ft_putstr_fd(shell->env.tab2[i], shell->output_fd);
+					printf("\n");
+					return ;
+				}
+				i++;
+			}
+		}
+		i = 0;
 		while(i < ft_strlen(echo_print))
 		{
 			if(echo_print[i] == QUOTE)
