@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 18:04:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:47:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,45 +68,16 @@ char *execute_cmd(t_struct *shell)
 {
 	int i = 0;
 	char	*cmd_path;
-	char	*current_path;
-//	char **splt;
-	char	*join_slach = NULL;
-
+	
+	cmd_path = NULL;
 	while (shell->path[i])
 	{
-		cmd_path = NULL;
-		current_path = NULL;
-		if (!ft_memcmp(shell->commands[0], "./", 2))
-		{
-			current_path = getcwd(current_path, sizeof(current_path));
-			//splt = ft_split(shell->commands[0], '/');
-			join_slach = ft_strjoin(current_path, "/");
-			cmd_path = ft_strjoin(join_slach, "minishell");
-			if (access(cmd_path, F_OK) == 0)
-				execve(cmd_path, &shell->arguments[0], shell->env.env);
-		}
-		if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
-		{
-			cmd_path = ft_strjoin(shell->path[i], shell->arguments[1]);
-			if (access(cmd_path, F_OK) == 0)
-				execve(cmd_path, &shell->arguments[1], shell->env.env);
-		}
-		else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
-		{
-			shell->arguments[0] = &shell->arguments[0][1];
-			cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
-			if  (access(cmd_path, F_OK) == 0)
-				execve(cmd_path, &shell->arguments[1], shell->env.env);
-		}
-		else
-		{
-			cmd_path = ft_strjoin(shell->path[i], shell->arguments[0]);
-			if  (access(cmd_path, F_OK) == 0)
-				execve(cmd_path, &shell->arguments[0], shell->env.env);
-		}
+		cmd_path = ft_strjoin(shell->path[i], shell->cmd_splited[0]);
+		if  (access(cmd_path, F_OK) == 0)
+			execve(cmd_path, shell->cmd_splited, shell->env.env);
 		free(cmd_path);
-			i++;
-		}
+		i++;
+	}
 	return(NULL);
 }
 void	execution(t_struct *shell)
@@ -131,7 +102,7 @@ void	execution(t_struct *shell)
 			{
 				faded = execute_cmd(shell);
 				if (!faded)
-					cmd_not_found(shell->arguments[1]);
+					cmd_not_found(shell->cmd_splited[0]);
 			}
 		}
 		else

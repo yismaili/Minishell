@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/06/22 22:11:53 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/16 20:04:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void ft_env(t_struct *shell)
 {
 	int n;
 	n = 0;
-	while(n < shell->env.len)
+	while(n < shell->env.len -1)
 	{
 	   ft_putstr_fd(shell->env.tab1[n], shell->output_fd);
 	   ft_putchar_fd('=',shell->output_fd);

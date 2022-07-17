@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/06 00:04:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/16 20:05:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	create_envernement(t_struct *shell, char **my_env)
 	len_envernement(shell);
 	init_tabs_struct_env(shell);
 	i = 0;
-	while (shell->env.env[i])
+	while (shell->env.env[i +1])
 	{
 		env_divise = ft_split(shell->env.env[i], '=');
 		shell->env.tab1[i] = ft_strdup(env_divise[0]);

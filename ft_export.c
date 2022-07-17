@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/08 15:49:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/17 01:35:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ char	**ft_dup_env(t_struct *env)
 	dup_str[len_env] = 0;
 	while (i < len_env)
 	{
-		first_join = ft_strjoin(env->env.tab1[i], "=");
-		second_join = ft_strjoin(first_join, env->env.tab2[i]);
+		first_join = ft_strjoin(env->env_aux.tab1[i], "=");
+		second_join = ft_strjoin(first_join, env->env_aux.tab2[i]);
 		dup_str[i] = ft_strdup(second_join);
 		free(first_join);
 		free(second_join);
@@ -98,14 +98,14 @@ void	ft_export(t_struct *shell)
 	i = 1;
 	if (!shell->arguments[1])
 		sort_env(shell);
-	if (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
+	if (shell->arguments[i] && check_export(shell) == 0)
 	{
-			while (shell->arguments[i] && !ft_isdigit(shell->arguments[1][0]))
+			while (shell->arguments[i] && check_export(shell) == 0)
 			{
 				env_aux = ft_split(shell->arguments[i], '=');
 				if (env_aux[1])
 					verify_if_env_exists(shell, env_aux);
-				else if (shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] == '=')
+				else if (shell->arguments[i])
 				{
 					env_aux[1] = ft_strdup("");
 					verify_if_env_exists(shell, env_aux);
@@ -117,7 +117,7 @@ void	ft_export(t_struct *shell)
 				i++;
 			}
 	}
-	else if (shell->arguments[i] && ft_isdigit(shell->arguments[1][0]))
+	else if (shell->arguments[i] && check_export(shell) == 1)
 	{
 		printf("export: %s: not a valid identifier\n", shell->arguments[1]);
 	}
@@ -151,11 +151,27 @@ void	ajouter_envernement(t_struct *shell, char *new_elem_tab1, char *new_elem_ta
 	shell->env_aux.tab1[i] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tab2[i] = ft_strdup(new_elem_tab2);
 	i++;
-	shell->env_aux.tab1[i] = NULL;
-	shell->env_aux.tab2[i] = NULL;
-	free1(shell->env.tab1);
-	free1(shell->env.tab2);
-	shell->env.tab1 = shell->env_aux.tab1;
-	shell->env.tab2 = shell->env_aux.tab2;
+	// shell->env_aux.tab1[i] = NULL;
+	// shell->env_aux.tab2[i] = NULL;
+	// free1(shell->env.tab1);
+	// free1(shell->env.tab2);
+	// shell->env.tab1 = shell->env_aux.tab1;
+	// shell->env.tab2 = shell->env_aux.tab2;
 }
 
+int check_export(t_struct *export)
+{
+	int i = 0;
+	char	**splted;
+
+	splted = ft_split(export->arguments[1], '=');
+	while (splted[0][i])
+	{
+		if(!ft_isalpha(splted[0][i]))
+			return(1);
+		i++;
+	}
+	i = 0;
+	free(splted);
+	return(0);
+}

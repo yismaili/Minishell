@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 17:22:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/16 20:18:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_struct
 	char	*home;
 	char	*commands[600];
 	char	**arguments;
+	char	**cmd_splited;
 	char	**path;
 	t_env	env_aux;
 	t_env	env;
@@ -134,4 +135,5 @@ void output_input(t_struct *shell);
 void check_to_execute(t_struct *shell);
 void    sig_handler(int signum);
 void cmd_not_found(char *cmd);
+int check_export(t_struct *export);
 #endif

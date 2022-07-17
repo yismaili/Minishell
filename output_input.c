@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/04 17:33:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:25:30 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	outredirection(t_struct *shell)
 			printf("Open Error\n");
 			exit(0);
 		}
-		//free(fichier1);
+		free(fichier1);
 	}
 	else
 	{
@@ -34,7 +34,7 @@ void	outredirection(t_struct *shell)
 			printf("Open error\n");
 			exit(0);
 		}
-		//free(fichier1);
+		free(fichier1);
 	}
 }
 

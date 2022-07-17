@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 11:48:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/16 19:46:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	find_char(char *string, char needle)
 void	arguments_func(t_struct *shell)
 {
 	t_arg	*arg;
+	char *cmd_joined;
+	char **spl;
 
 	arg = initial_arg();
 	shell->arguments = NULL;
@@ -39,6 +41,14 @@ void	arguments_func(t_struct *shell)
 		shell->arg.all_cmd = ft_strtrim(&(shell->line_commande)[arg->position], " ");
 		shell->arg.txt_toprint = ft_strtrim(&(shell->line_commande)[arg->position], " ");
 		shell->arguments = ft_split(shell->line_commande, ' ');
+		spl = ft_split(shell->line_commande, '|');
+		int i = 0;
+		while (spl[i])
+		{
+			cmd_joined = ft_strjoin(spl[i], spl[i + 1]);
+			i++;
+		}
+		shell->cmd_splited = ft_split(cmd_joined, ' ');
 		free_arg(arg);
 		free (shell->line_commande);
 
