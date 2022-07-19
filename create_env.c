@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/16 20:05:59 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:58:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	init_tabs_struct_env(t_struct *shell)
 		exit(0);
 	shell->env.tab2 = malloc(sizeof(char *) * (shell->env.len + 1));
 	if (!shell->env.tab2)
+		exit(0);
+}
+
+void	malloc_env_tmp(t_struct *shell)
+{
+	shell->env.tmp_var = malloc(sizeof(char *) * (shell->env.len + 1));
+	if (!shell->env.tmp_var)
+		exit(0);
+	shell->env.tmp_con = malloc(sizeof(char *) * (shell->env.len + 1));
+	if (!shell->env.tmp_con)
 		exit(0);
 }
 void	len_envernement(t_struct *shell)
@@ -39,7 +49,7 @@ void	create_envernement(t_struct *shell, char **my_env)
 	len_envernement(shell);
 	init_tabs_struct_env(shell);
 	i = 0;
-	while (shell->env.env[i +1])
+	while (shell->env.env[i])
 	{
 		env_divise = ft_split(shell->env.env[i], '=');
 		shell->env.tab1[i] = ft_strdup(env_divise[0]);
@@ -75,6 +85,27 @@ char	*find_envernement(t_struct *shell, char *search)
 	}
 	return (0);
 }
+char	*find_env_tmp(t_struct *shell, char *search)
+{
+	int	i;
+	int	length;
+	int	len_search;
+
+	i = 0;
+	shell->env.position_tmp = 0;
+	len_search = ft_strlen(search);
+	while (shell->env.tmp_var[i] && i < shell->env.len)
+	{
+		length = ft_strlen(shell->env.tmp_var[i]);
+		if (!ft_strncmp(shell->env.tmp_var[i], search, len_search) && length == len_search)
+		{
+			shell->env.position_tmp = i;
+			return (shell->env.tmp_con[i]);
+		}
+		i++;
+	}
+	return (0);
+}
 char	*get_current_dir(void)
 {
 	size_t	size;
@@ -84,4 +115,28 @@ char	*get_current_dir(void)
 	buf = NULL;
 	buf = getcwd(buf, size);
 	return (buf);
+}
+
+void	create_env_tmp(t_struct *shell, char **my_env)
+{
+	int		i;
+	char	**env_divise;
+	shell->env.env = my_env;
+	len_envernement(shell);
+	malloc_env_tmp(shell);
+	i = 0;
+	while (shell->env.env[i +1])
+	{
+		env_divise = ft_split(shell->env.env[i], '=');
+		shell->env.tmp_var[i] = ft_strdup(env_divise[0]);
+		if (env_divise[1])
+			shell->env.tmp_con[i] = ft_strdup(env_divise[1]);
+		else
+			shell->env.tmp_con[i] = ft_strdup("");
+		free(env_divise);
+		env_divise = NULL;
+		i++;
+	}
+	shell->env.tmp_var[i] = 0;
+	shell->env.tmp_con[i] = 0;
 }

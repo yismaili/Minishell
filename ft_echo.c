@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/16 13:54:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/19 23:03:29 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	print_echo(t_struct *shell ,char *echo_print)
 	int q1;
 	int q2;
 	char **splted;
+	char **splt_quot;
 
 	i = 0;
 	q1 = 0;
@@ -48,9 +49,10 @@ void	print_echo(t_struct *shell ,char *echo_print)
 		printf("%d\n",0);
 	else
 	{
-		if (!ft_strncmp(echo_print, "$", 1))
+		splt_quot = ft_split(echo_print, '"');
+		if (!ft_strncmp(splt_quot[0], "$", 1))
 		{
-			splted = ft_split(echo_print, '$');
+			splted = ft_split(splt_quot[0], '$');
 			while (shell->env.tab1[i])
 			{
 				if (!ft_strncmp(shell->env.tab1[i], splted[0], ft_strlen(splted[0])))

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/16 20:18:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:26:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include </Users/yismaili/goinfre/homebrew/Cellar/readline/8.1.2/include/readline/readline.h>
-# include </Users/yismaili/goinfre/homebrew/Cellar/readline/8.1.2/include/readline/history.h>
+# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -37,7 +37,10 @@ typedef struct s_env
 	int		len;
 	char	**tab1;
 	char	**tab2;
+	char	**tmp_var;
+	char	**tmp_con;
 	int		position;
+	int		position_tmp;
 }			t_env;
 typedef struct s_divise
 {
@@ -136,4 +139,9 @@ void check_to_execute(t_struct *shell);
 void    sig_handler(int signum);
 void cmd_not_found(char *cmd);
 int check_export(t_struct *export);
+int ft_search(t_struct *env, char *var);
+void	create_env_tmp(t_struct *shell, char **my_env);
+void	malloc_env_aux_tmp(t_struct *shell);
+void	malloc_env_tmp(t_struct *shell);
+char	*find_env_tmp(t_struct *shell, char *search);
 #endif

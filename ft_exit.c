@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/06/22 11:21:53 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/19 19:59:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	free1(char **array)
 
 	i = 0;
 while (array[i] != NULL)
-	{
-		free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
+{
+	free(array[i]);
+	array[i] = NULL;
+	i++;
+}
 	free(array);
 }
 

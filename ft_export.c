@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/17 01:35:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/19 22:22:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,21 @@ void	ft_print_export(char **export, t_struct	*shell)
 	while (export[i])
 	{
 		j = 0;
-		ft_putstr_fd("declare -x ", shell->output_fd);
-		while (export[i][j])
+		if (i != 0)
 		{
-			ft_putchar_fd(export[i][j], shell->output_fd);
-			if (export[i][j] == '=')
+			ft_putstr_fd("declare -x ", shell->output_fd);
+			while (export[i][j])
 			{
-				ft_putchar_fd('"', shell->output_fd);
+				ft_putchar_fd(export[i][j], shell->output_fd);
+				if (export[i][j] == '=')
+				{
+					ft_putchar_fd('"', shell->output_fd);
+				}
+				j++;
 			}
-			j++;
+			ft_putchar_fd('"', shell->output_fd);
+			ft_putchar_fd('\n', shell->output_fd);
 		}
-		ft_putchar_fd('"', shell->output_fd);
-		ft_putchar_fd('\n', shell->output_fd);
 		i++;
 	}
 }
@@ -48,14 +51,15 @@ char	**ft_dup_env(t_struct *env)
 
 	len_env = env->env.len;
 	i = 0;
+
 	dup_str = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (!dup_str)
 		return (NULL);
 	dup_str[len_env] = 0;
 	while (i < len_env)
 	{
-		first_join = ft_strjoin(env->env_aux.tab1[i], "=");
-		second_join = ft_strjoin(first_join, env->env_aux.tab2[i]);
+		first_join = ft_strjoin(env->env.tmp_var[i], "=");
+		second_join = ft_strjoin(first_join, env->env.tmp_con[i]);
 		dup_str[i] = ft_strdup(second_join);
 		free(first_join);
 		free(second_join);
@@ -103,9 +107,11 @@ void	ft_export(t_struct *shell)
 			while (shell->arguments[i] && check_export(shell) == 0)
 			{
 				env_aux = ft_split(shell->arguments[i], '=');
-				if (env_aux[1])
+				if (env_aux[0])
+				{
 					verify_if_env_exists(shell, env_aux);
-				else if (shell->arguments[i])
+				}
+				else if (shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] == '=')
 				{
 					env_aux[1] = ft_strdup("");
 					verify_if_env_exists(shell, env_aux);
@@ -126,12 +132,12 @@ void	ft_export(t_struct *shell)
 
 void	verify_if_env_exists(t_struct *shell, char **env_aux)
 {
-	if (find_envernement(shell, env_aux[0]))
+	if (find_env_tmp(shell, env_aux[1]))
 	{
-		free(shell->env.tab2[shell->env.position]);
-		shell->env.tab2[shell->env.position] = ft_strdup(env_aux[1]);
+		free(shell->env.tmp_con[shell->env.position]);
+		shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
 	}
-	else
+	else if (!find_env_tmp(shell, env_aux[0]))
 		ajouter_envernement(shell, env_aux[0], env_aux[1]);
 }
 
@@ -140,23 +146,21 @@ void	ajouter_envernement(t_struct *shell, char *new_elem_tab1, char *new_elem_ta
 	int	i;
 
 	shell->env.len++;
-	Malloc_env_aux(shell);
+	malloc_env_aux_tmp(shell);
 	i = 0;
 	while (i < shell->env.len - 1)
 	{
-		shell->env_aux.tab1[i] = ft_strdup(shell->env.tab1[i]);
-		shell->env_aux.tab2[i] = ft_strdup(shell->env.tab2[i]);
+		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
+		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
 		i++;
 	}
-	shell->env_aux.tab1[i] = ft_strdup(new_elem_tab1);
-	shell->env_aux.tab2[i] = ft_strdup(new_elem_tab2);
-	i++;
-	// shell->env_aux.tab1[i] = NULL;
-	// shell->env_aux.tab2[i] = NULL;
-	// free1(shell->env.tab1);
-	// free1(shell->env.tab2);
-	// shell->env.tab1 = shell->env_aux.tab1;
-	// shell->env.tab2 = shell->env_aux.tab2;
+	shell->env_aux.tmp_var[i] = ft_strdup(new_elem_tab1);
+	shell->env_aux.tmp_con[i] = ft_strdup(new_elem_tab2);
+	free1(shell->env.tmp_var);
+	free1(shell->env.tmp_con);
+	shell->env.tmp_var = shell->env_aux.tmp_var;
+	shell->env.tmp_con = shell->env_aux.tmp_con;
+	
 }
 
 int check_export(t_struct *export)
@@ -164,6 +168,8 @@ int check_export(t_struct *export)
 	int i = 0;
 	char	**splted;
 
+	if (export->arguments[1][0] == '=')
+		return(1);
 	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])
 	{
@@ -173,5 +179,20 @@ int check_export(t_struct *export)
 	}
 	i = 0;
 	free(splted);
+	return(0);
+}
+
+int ft_search(t_struct *env, char *var)
+{
+	int i = 0;
+	while (env->env_aux.tmp_var[i])
+	{
+		if (!ft_strncmp(env->env.tmp_var[i], var, ft_strlen(var)))
+		{
+
+			return(1);
+		}
+		i++;
+	}
 	return(0);
 }

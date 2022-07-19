@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 22:12:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:13:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*create_prompt(void)
 	red = ft_strdup(RED);
 	white = ft_strdup(WHITE);
 	//green = ft_strdup(GREEN);
-	prompt = ft_strjoin(red, buf);
+	prompt = ft_strjoin(white, buf);
 	free(buf);
 	prompt = ft_strjoin(prompt, white);
 	free(red);

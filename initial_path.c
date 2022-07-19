@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/06/22 11:24:26 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/19 13:56:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void envernoment(t_struct *shell)
 {
 	extern char **environ;
 	create_envernement(shell, environ);
+	create_env_tmp(shell, environ);
 	initial_path(shell);
 	shell->home = ft_strdup(find_envernement(shell, "HOME"));
 }
