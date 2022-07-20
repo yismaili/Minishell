@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 11:43:01 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:49:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,43 @@ void    replace_pwd(t_struct *env)
 
 int	ft_cd(t_struct *shell)
 {
-	char	*arg_aux;
+	char	*arg_aux = NULL;
 	bool	home;
+	char	*current_path = NULL;
+	char	*old_path = NULL;
 
 	home = there_is_home(shell);
+	if (!ft_strncmp(shell->arguments[1], "-", 1))
+	{
+		int i = 0;
+		current_path = ft_strdup(getcwd(current_path, sizeof(current_path)));
+		while (shell->env.tab1[i])
+		{
+			if (!ft_strncmp(shell->env.tab1[i], "OLDPWD", 6))
+			{
+				old_path = ft_strdup(shell->env.tab2[i]);
+				break;
+			}
+			i++;
+		}
+		if (!ft_strcmp(current_path, old_path))
+		{
+			ft_putstr_fd("Minishell: cd: OLDPWD not set\n", shell->output_fd);
+		}
+		else
+		{
+			if (ft_strcmp(old_path, getcwd(NULL, sizeof(NULL))))
+			{
+				replace_oldpwd(shell);
+				if (chdir(old_path) == -1)
+					printf("Minishell: cd: %s: %s", shell->arguments[1], "no such file or directory\n");
+				ft_putstr_fd(getcwd(NULL, sizeof(NULL)), shell->output_fd);
+				printf("\n");
+				replace_pwd(shell);
+			}
+		}
+		return(0);
+	}
 	if (shell->arguments[1])
 	{
 		arg_aux = ft_strdup(shell->arg.all_cmd);
