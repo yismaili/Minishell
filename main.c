@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/19 13:13:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/21 14:24:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(void)
 	t_struct	shell;
 
 	
-	print_welcome();
+//	print_welcome();
 	envernoment(&shell);
 	signals();
 	while (1)
@@ -77,10 +77,16 @@ void	print_welcome(void)
 void	commande_tape(t_struct	*shell)
 {
 	char	*prompt;
+	char	**splt_dble_qut;
+	char	**splt_qut;
+	char	*input;
 
 	shell->home = ft_strdup(find_envernement(shell, "HOME"));
 	prompt = create_prompt();
-	shell->commande_tape = readline(prompt);
+	input = readline(prompt);
+	splt_dble_qut = ft_split(input, '"');
+	splt_qut = ft_split(splt_dble_qut[0], '\'');
+	shell->commande_tape = ft_strdup(splt_qut[0]);
 	if (shell->commande_tape)
         add_history(shell->commande_tape);
 	if (!shell->commande_tape)

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/19 22:22:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/21 01:50:23 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,9 @@ int ft_search(t_struct *env, char *var)
 	int i = 0;
 	while (env->env_aux.tmp_var[i])
 	{
-		if (!ft_strncmp(env->env.tmp_var[i], var, ft_strlen(var)))
+			//printf("hey --> %s\n",env->env.tmp_var[i]);
+		if (!ft_strcmp(env->env.tmp_var[i], var))
 		{
-
 			return(1);
 		}
 		i++;
