@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/21 01:50:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:29:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int check_export(t_struct *export)
 	free(splted);
 	return(0);
 }
-
+// this function not used
 int ft_search(t_struct *env, char *var)
 {
 	int i = 0;

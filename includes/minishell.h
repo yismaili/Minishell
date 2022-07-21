@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/19 21:26:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:52:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_struct
 	int		cmp;
 	char	*line_commande;
 	char	*commande_tape;
+		char	*dup_cmd;
 	char	*home;
 	char	*commands[600];
 	char	**arguments;
