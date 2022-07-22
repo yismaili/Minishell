@@ -6,12 +6,12 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/21 18:05:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:38:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
- /****************************** sigals**************************************/
+
 void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
@@ -33,7 +33,7 @@ void	signals(void)
 	if (signal(SIGQUIT, sig_handler) == SIG_ERR)
 		ft_putstr_fd(RED"can't catch cntrl-\\", 2);
 }
-/*****************************************************************************/
+
 int	main(void)
 {
 	t_struct	shell;
@@ -60,7 +60,6 @@ int	main(void)
 				free(shell.commande_tape);
 			}
 		}
-			
 	}
 		
 }
@@ -74,26 +73,18 @@ void	print_welcome(void)
 	printf("%s*****************************************************\n", WHITE);
 }
 
-void	commande_tape(t_struct	*shell)
+int	commande_tape(t_struct	*shell)
 {
 	char	*prompt;
-	char	**splt_qut;
-	char	**splt_dbl_qut;
 
 	shell->home = ft_strdup(find_envernement(shell, "HOME"));
 	prompt = create_prompt();
 	shell->commande_tape = readline(prompt);
 	if (shell->commande_tape)
-	{
-		splt_dbl_qut = ft_split(shell->commande_tape, '"');
-		splt_qut = ft_split(splt_dbl_qut[0], '\'');
-		free(shell->commande_tape);
-		shell->commande_tape = ft_strdup(splt_qut[0]);
-		if (shell->commande_tape)
-			add_history(shell->commande_tape);
-	}
+		add_history(shell->commande_tape);
 	if (!shell->commande_tape)
 		exit(1);
+	return (1);
 }
 
 char	*create_prompt(void)
@@ -112,6 +103,7 @@ char	*create_prompt(void)
 	free(buf);
 	prompt = ft_strjoin(prompt, white);
 	free(red);
-	prompt = ft_strjoin(prompt, " $ ");
+	prompt = ft_strjoin(prompt, "$ ");
 	return (prompt);
 }
+ 

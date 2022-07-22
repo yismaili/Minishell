@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/21 17:52:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/22 19:54:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
+#include <dirent.h>
+
 
 # define Double_Quote '\"'
 # define QUOTE '\''
@@ -76,7 +78,7 @@ typedef struct s_struct
 	char	*commande_tape;
 		char	*dup_cmd;
 	char	*home;
-	char	*commands[600];
+	char	*commands[600000];
 	char	**arguments;
 	char	**cmd_splited;
 	char	**path;
@@ -104,7 +106,6 @@ int		initial_path(t_struct *shell);
 int		main(void);
 void	print_welcome(void);
 char *get_current_dir(void);
-void    commande_tape(t_struct *shell);
 char	*create_prompt(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
@@ -145,4 +146,5 @@ void	create_env_tmp(t_struct *shell, char **my_env);
 void	malloc_env_aux_tmp(t_struct *shell);
 void	malloc_env_tmp(t_struct *shell);
 char	*find_env_tmp(t_struct *shell, char *search);
+ int	commande_tape(t_struct	*shell);
 #endif

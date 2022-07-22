@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/16 19:47:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:20:23 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,18 @@ char *execute_cmd(t_struct *shell)
 {
 	int i = 0;
 	char	*cmd_path;
+	char	*current_pth;
 	
 	cmd_path = NULL;
 	while (shell->path[i])
 	{
-		cmd_path = ft_strjoin(shell->path[i], shell->cmd_splited[0]);
+		if (!ft_strcmp(shell->commands[0], "./minishell "))
+		{
+			current_pth = getcwd(NULL, sizeof(NULL));
+			cmd_path = ft_strjoin(current_pth, "/minishell");
+		}
+		else
+			cmd_path = ft_strjoin(shell->path[i], shell->cmd_splited[0]);
 		if  (access(cmd_path, F_OK) == 0)
 			execve(cmd_path, shell->cmd_splited, shell->env.env);
 		free(cmd_path);
@@ -94,7 +101,10 @@ void	execution(t_struct *shell)
 	{
 		pid = fork();
 		if (pid < 0)
-			printf("Error fork\n");
+		{
+			printf("Minishell: fork: Resource temporarily unavailable\n");
+			return ;
+		}
 		else if (pid == 0)
 		{
 			output_input(shell);

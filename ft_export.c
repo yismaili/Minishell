@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/21 15:29:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:28:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	verify_if_env_exists(t_struct *shell, char **env_aux)
 	if (find_env_tmp(shell, env_aux[1]))
 	{
 		free(shell->env.tmp_con[shell->env.position]);
+		printf("hey");
 		shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
 	}
 	else if (!find_env_tmp(shell, env_aux[0]))
@@ -145,7 +146,6 @@ void	ajouter_envernement(t_struct *shell, char *new_elem_tab1, char *new_elem_ta
 {
 	int	i;
 
-	shell->env.len++;
 	malloc_env_aux_tmp(shell);
 	i = 0;
 	while (i < shell->env.len - 1)

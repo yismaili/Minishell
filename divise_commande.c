@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/16 18:32:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:38:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,4 @@ void	next(int i, t_struct *shell, char *commande_read)
 		shell->divise.number_command++;
 	}
 	shell->commands[shell->divise.number_command] = NULL;
-	// printf("commands[0] = %s\n", shell->commands[0]);
-	// printf("commands[1] = %s\n", shell->commands[1]);
-	// printf("commands[2] = %s\n", shell->commands[2]);
-	// printf("commands[3] = %s\n", shell->commands[3]);
 }
