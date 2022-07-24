@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/20 13:29:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 00:23:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ void	print_echo(t_struct *shell ,char *echo_print)
 		if (!ft_strncmp(splt_quot[0], "$", 1))
 		{
 				splted = ft_split(splt_quot[0], '$');
-				while (shell->env.tab1[i])
+				if (!getenv(splted[0]))
+					return	;
+				while (shell->env.tmp_var[i])
 				{
-					if (!ft_strncmp(shell->env.tab1[i], splted[0], ft_strlen(splted[0])))
+					if (!ft_strncmp(shell->env.tmp_var[i], splted[0], ft_strlen(splted[0])))
 					{
-						ft_putstr_fd(shell->env.tab2[i], shell->output_fd);
+						ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
 						return ;
 					}
 					i++;

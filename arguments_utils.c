@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/15 11:45:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 01:04:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "includes/minishell.h"
 
 
-t_arg	*initial_arg(void)
+t_arg	*init_arg(void)
 {
 	t_arg	*arg;
 

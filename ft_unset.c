@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/19 14:28:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 02:59:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_unset(t_struct *shell)
 	i = 1;
 	while (shell->arguments[i])
 	{
-		if (find_envernement(shell, shell->arguments[i]))
+		if (find_env_tmp(shell, shell->arguments[i]))
 		{
-			rm_envernement(shell);
+			remove_env(shell);
 
 			if (!ft_strncmp(shell->arguments[i], "PATH", 4))
 			{
@@ -33,12 +33,13 @@ void	ft_unset(t_struct *shell)
 	}
 }
 
-void	rm_envernement(t_struct *shell)
+void	remove_env(t_struct *shell)
 {
 	int	i;
 	int	j;
 	shell->env.len--;
-	malloc_env_aux_tmp(shell);
+	if(!malloc_env_aux_tmp(shell))
+		ft_die_malloc("No spece lift\n");
 	i = 0;
 	j = 0;
 	while (i < shell->env.len)
@@ -59,21 +60,13 @@ void	rm_envernement(t_struct *shell)
 	shell->env.tmp_con = shell->env_aux.tmp_con;
 }
 
-void	Malloc_env_aux(t_struct *shell)
-{
-	shell->env_aux.tab1 = malloc(sizeof(char *) * (shell->env.len + 1));
-	if (!shell->env_aux.tab1)
-		exit(0);
-	shell->env_aux.tab2 = malloc(sizeof(char *) * (shell->env.len + 1));
-	if (!shell->env_aux.tab2)
-		exit(0);
-}
-void	malloc_env_aux_tmp(t_struct *shell)
+int 	 malloc_env_aux_tmp(t_struct *shell)
 {
 	shell->env_aux.tmp_var = malloc(sizeof(char *) * (shell->env.len + 1));
 	if (!shell->env_aux.tmp_var)
-		exit(0);
+		return (0);
 	shell->env_aux.tmp_con = malloc(sizeof(char *) * (shell->env.len + 1));
 	if (!shell->env_aux.tmp_con)
-		exit(0);
+		return(0);
+	return(1);
 }

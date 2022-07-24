@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/22 18:28:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 05:33:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	**ft_dup_env(t_struct *env)
 	char	*second_join;
 	int		i;
 
-	len_env = env->env.len;
+	len_env = glob_var;
+	printf("%d\n", glob_var);
 	i = 0;
-
 	dup_str = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (!dup_str)
 		return (NULL);
@@ -74,6 +74,11 @@ void		sort_env(t_struct *env)
 	int	i;
 	int	j;
 
+	if (glob_var == 0)
+	{
+		ft_die("environment not fuond\n");
+		return ;
+	}
 	dup_env = ft_dup_env(env);
 	i = 0;
 	while (dup_env[i])
@@ -135,20 +140,30 @@ void	verify_if_env_exists(t_struct *shell, char **env_aux)
 	if (find_env_tmp(shell, env_aux[1]))
 	{
 		free(shell->env.tmp_con[shell->env.position]);
-		printf("hey");
 		shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
 	}
 	else if (!find_env_tmp(shell, env_aux[0]))
-		ajouter_envernement(shell, env_aux[0], env_aux[1]);
+		export_to_env(shell, env_aux[0], env_aux[1]);
 }
 
-void	ajouter_envernement(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
+void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
 	int	i;
 
-	malloc_env_aux_tmp(shell);
+	
+	if(!malloc_env_aux_tmp(shell))
+		ft_die_malloc("No spice lift\n");
+	if(glob_var == 0)
+	{
+		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
+		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
+		shell->env.tmp_var = shell->env_aux.tmp_var;
+		shell->env.tmp_con = shell->env_aux.tmp_con;
+		//glob_var++;
+		return ;
+	}
 	i = 0;
-	while (i < shell->env.len - 1)
+	while (i < shell->env.len - 1 )
 	{
 		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
 		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
@@ -170,6 +185,8 @@ int check_export(t_struct *export)
 
 	if (export->arguments[1][0] == '=')
 		return(1);
+	if (glob_var == 0)
+		return(0);
 	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])
 	{

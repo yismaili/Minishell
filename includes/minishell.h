@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/22 19:54:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 03:24:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@
 # define GREEN "\001\033[1;32m\002"
 # define RED "\033[0;31m"
 
+int glob_var;
 typedef struct s_env
 {
 	char	**env;
 	int		len;
-	char	**tab1;
-	char	**tab2;
 	char	**tmp_var;
 	char	**tmp_con;
 	int		position;
@@ -88,63 +87,60 @@ typedef struct s_struct
 	t_arg	arg;
 }			t_struct;
 
-int	builtin_exist(t_struct *shell);
+int		builtin_exist(t_struct *shell);
 void	run_builtin(t_struct *shell);
-char	*find_envernement(t_struct *shell, char *needle);
-void	create_envernement(t_struct *shell, char **my_env);
-void	len_envernement(t_struct *shell);
-void	envernoment(t_struct *shell);
-void	init_tabs_struct_env(t_struct *shell);
+void	count_len_env(t_struct *shell);
 void	ft_exit(t_struct *shell);
 void	free_line(char *line_read);
 void	free1(char **array);
 void	free2(char **array);
 void	ft_unset(t_struct *shell);
-void	rm_envernement(t_struct *shell);
-void	Malloc_env_aux(t_struct *shell);
-int		initial_path(t_struct *shell);
-int		main(void);
+void	remove_env(t_struct *shell);
+int		get_path(t_struct *shell);
 void	print_welcome(void);
-char *get_current_dir(void);
+char	*get_current_dir(void);
 char	*create_prompt(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
 void	fun_redirection(t_struct *shell);
 void	execution(t_struct *shell);
-//void execution(t_struct *shell);
 void	divise_commande(t_struct *shell, char *in);
 void	arguments_func(t_struct *shell);
 int		argument_find_char(char *string, char needle);
 void	free_arg(t_arg *arg);
 void	finish_put_arg(t_struct *shell, t_arg *arg);
-void init_divise_struct(t_struct *shell);
-t_arg *initial_arg();
-void ft_env(t_struct *shell);
-void ft_export(t_struct *shell);
-bool there_is_home(t_struct *shell);
-int ft_cd(t_struct *shell);
-void ft_pwd();
-void ft_echo(t_struct *shell);
-int init_echo(t_struct *shell, int n);
-void print_echo(t_struct *shell,char* shell_print);
-void ft_export(t_struct *shell);
-void verify_if_env_exists(t_struct *shell, char **env_aux);
-void ajouter_envernement(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
-void pipe_next(t_struct *shell, int i, char *command);
-void inredirection(t_struct *shell);
-void outredirection(t_struct *shell);
-void next_run_commands(t_struct *shell);
-void next(int i, t_struct *shell, char*commande_read);
-char *execute_cmd(t_struct *shell);
-void output_input(t_struct *shell);
-void check_to_execute(t_struct *shell);
+void 	init_divise_struct(t_struct *shell);
+t_arg	*init_arg();
+void 	ft_env(t_struct *shell);
+void 	ft_export(t_struct *shell);
+bool 	there_is_home(t_struct *shell);
+int 	ft_cd(t_struct *shell);
+void 	ft_pwd();
+void 	ft_echo(t_struct *shell);
+int 	init_echo(t_struct *shell, int n);
+void 	print_echo(t_struct *shell,char* shell_print);
+void 	ft_export(t_struct *shell);
+void 	verify_if_env_exists(t_struct *shell, char **env_aux);
+void 	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
+void 	pipe_next(t_struct *shell, int i, char *command);
+void 	inredirection(t_struct *shell);
+void 	outredirection(t_struct *shell);
+void 	next_run_commands(t_struct *shell);
+void 	next(int i, t_struct *shell, char*commande_read);
+char 	*execute_cmd(t_struct *shell);
+void 	output_input(t_struct *shell);
+void 	check_to_execute(t_struct *shell);
 void    sig_handler(int signum);
-void cmd_not_found(char *cmd);
-int check_export(t_struct *export);
-int ft_search(t_struct *env, char *var);
-void	create_env_tmp(t_struct *shell, char **my_env);
-void	malloc_env_aux_tmp(t_struct *shell);
-void	malloc_env_tmp(t_struct *shell);
+void 	cmd_not_found(char *cmd);
+int 	check_export(t_struct *export);
+int 	ft_search(t_struct *env, char *var);
+int 	malloc_env_tmp(t_struct *shell);
 char	*find_env_tmp(t_struct *shell, char *search);
- int	commande_tape(t_struct	*shell);
+int		commande_tape(t_struct	*shell);
+int		malloc_env_aux_tmp(t_struct *shell);
+void	ft_die(char *str);
+int		create_env_tmp(t_struct *shell, char **my_env);
+int  	start_create_env(t_struct *shell);
+void	ft_die_malloc(char *str);
+void	ft_check_env(char **env);
 #endif

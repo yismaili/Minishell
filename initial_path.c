@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/19 13:56:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 04:03:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include "includes/minishell.h"
 
 
-int	initial_path(t_struct *shell)
+int	get_path(t_struct *shell)
 {
 	char	*path_next;
 	int		i;
-	path_next = ft_strdup(find_envernement(shell, "PATH"));
+
+	path_next = ft_strdup(find_env_tmp(shell, "PATH"));
 	if (!path_next)
 		return (0);
 	shell->path = ft_split(path_next, ':');
@@ -31,11 +32,15 @@ int	initial_path(t_struct *shell)
 	free(path_next);
 	return (1);
 }
-void envernoment(t_struct *shell)
+
+int  start_create_env(t_struct *shell)
 {
 	extern char **environ;
-	create_envernement(shell, environ);
-	create_env_tmp(shell, environ);
-	initial_path(shell);
-	shell->home = ft_strdup(find_envernement(shell, "HOME"));
+	ft_check_env(environ);
+	if (!create_env_tmp(shell, environ))
+		return(0) ;
+	if (!get_path(shell))
+		ft_die("PATH not found\n");
+	//shell->home = ft_strdup(find_envernement(shell, "HOME"));
+	return (1);
 }

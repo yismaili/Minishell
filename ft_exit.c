@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/19 19:59:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 00:56:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	free1(char **array)
 	int	i;
 
 	i = 0;
-while (array[i] != NULL)
-{
-	free(array[i]);
-	array[i] = NULL;
-	i++;
-}
+	while (array[i] != NULL)
+	{
+		free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
 	free(array);
 }
 

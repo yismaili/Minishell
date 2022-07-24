@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/22 21:20:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 04:09:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char *execute_cmd(t_struct *shell)
 	char	*current_pth;
 	
 	cmd_path = NULL;
+	if (glob_var == 0)
+		return (NULL);
 	while (shell->path[i])
 	{
 		if (!ft_strcmp(shell->commands[0], "./minishell "))

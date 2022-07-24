@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/22 16:38:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 05:50:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ int	main(void)
 {
 	t_struct	shell;
 
-	
 	print_welcome();
-	envernoment(&shell);
+	start_create_env(&shell);
 	signals();
 	while (1)
 	{
@@ -75,11 +74,10 @@ void	print_welcome(void)
 
 int	commande_tape(t_struct	*shell)
 {
-	char	*prompt;
-
-	shell->home = ft_strdup(find_envernement(shell, "HOME"));
-	prompt = create_prompt();
-	shell->commande_tape = readline(prompt);
+	// shell->home = ft_strdup(find_env_tmp(shell, "HOME"));
+	// if (!shell->home)
+	// 	ft_die("PATH not fuond\n");
+	shell->commande_tape = readline(create_prompt());
 	if (shell->commande_tape)
 		add_history(shell->commande_tape);
 	if (!shell->commande_tape)
@@ -107,3 +105,15 @@ char	*create_prompt(void)
 	return (prompt);
 }
  
+void ft_check_env(char **env)
+{
+	int i = 0;
+
+	if (!env)
+		glob_var = 0;
+	while (env[i])
+	{
+		i++;
+	}
+	glob_var = i;
+}

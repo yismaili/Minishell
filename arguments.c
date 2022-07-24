@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/22 21:12:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 01:04:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	arguments_func(t_struct *shell)
 	char *cmd_joined;
 	char **spl;
 
-	arg = initial_arg();
+	arg = init_arg();
 	shell->arguments = NULL;
 	if (shell->line_commande)
 	{
