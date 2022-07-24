@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 09:00:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 19:03:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,5 @@ int		create_env_tmp(t_struct *shell, char **my_env);
 int  	start_create_env(t_struct *shell);
 void	ft_die_malloc(char *str);
 void	ft_check_env(char **env);
-void	ft_free_env(char **env);
+void ft_free_env(char **env);
 #endif

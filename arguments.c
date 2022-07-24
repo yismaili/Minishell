@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 01:04:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 10:24:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ void	arguments_func(t_struct *shell)
 		shell->cmd_splited = ft_split(cmd_joined, ' ');
 		free_arg(arg);
 		free (shell->line_commande);
-
 	}
 }

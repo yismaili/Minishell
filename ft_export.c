@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 09:20:05 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:23:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
 		shell->env.tmp_var = shell->env_aux.tmp_var;
 		shell->env.tmp_con = shell->env_aux.tmp_con;
-		//glob_var++;
 		return ;
 	}
 	i = 0;

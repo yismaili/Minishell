@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 09:26:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 20:02:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ int	main(void)
 
 void	print_welcome(void)
 {
-	printf("%s*****************************************************\n", WHITE);
-	printf("%s¦                                                   *\n", WHITE);
-	printf("%s¦ Welcome to Souchen Minishell ^^^^^^^^^^^^^^^^^^^^^*\n", WHITE);
-	printf("%s¦                                                   *\n", WHITE);
-	printf("%s*****************************************************\n", WHITE);
+	printf("%s*****************************************************\n", GREEN);
+	printf("%s¦                                                   *\n", GREEN);
+	printf("%s¦ Welcome to Souchen Minishell ^^^^^^^^^^^^^^^^^^^^^*\n", GREEN);
+	printf("%s¦                                                   *\n", GREEN);
+	printf("%s*****************************************************\n", GREEN);
+	
 }
 
 int	commande_tape(t_struct	*shell)

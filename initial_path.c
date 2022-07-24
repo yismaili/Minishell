@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 04:03:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 19:16:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	get_path(t_struct *shell)
 {
 	char	*path_next;
 	int		i;
+	char  *tmp;
 
 	path_next = ft_strdup(find_env_tmp(shell, "PATH"));
 	if (!path_next)
@@ -26,7 +27,9 @@ int	get_path(t_struct *shell)
 	i = 0;
 	while (shell->path[i])
 	{
+		tmp = shell->path[i];
 		shell->path[i] = ft_strjoin(shell->path[i], "/");
+		free (tmp);
 		i++;
 	}
 	free(path_next);
