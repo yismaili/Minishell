@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 05:33:05 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 09:20:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 	free1(shell->env.tmp_con);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
 	shell->env.tmp_con = shell->env_aux.tmp_con;
-	
 }
 
 int check_export(t_struct *export)
@@ -196,20 +195,5 @@ int check_export(t_struct *export)
 	}
 	i = 0;
 	free(splted);
-	return(0);
-}
-// this function not used
-int ft_search(t_struct *env, char *var)
-{
-	int i = 0;
-	while (env->env_aux.tmp_var[i])
-	{
-			//printf("hey --> %s\n",env->env.tmp_var[i]);
-		if (!ft_strcmp(env->env.tmp_var[i], var))
-		{
-			return(1);
-		}
-		i++;
-	}
 	return(0);
 }

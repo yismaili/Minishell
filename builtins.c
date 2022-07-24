@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:06 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/07 19:34:59 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/24 06:37:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int builtin_exist(t_struct *shell)
 {
-	if(!ft_strncmp(shell->arguments[0], "exit", 4))
+	if(!ft_strcmp(shell->arguments[0], "exit"))
 		shell->builtin_exist = 1;
-	else if(!ft_strncmp(shell->arguments[0], "unset", 5))
+	else if(!ft_strcmp(shell->arguments[0], "unset"))
 		shell->builtin_exist = 1;
-	else if(!ft_strncmp(shell->arguments[0], "env", 3))
+	else if(!ft_strcmp(shell->arguments[0], "env"))
 		shell->builtin_exist = 1;
-	else if(!ft_strncmp(shell->arguments[0], "cd", 2))
+	else if(!ft_strcmp(shell->arguments[0], "cd"))
 		shell->builtin_exist = 1;
-	else if(!ft_strncmp(shell->arguments[0], "pwd", 3))
+	else if(!ft_strcmp(shell->arguments[0], "pwd"))
 		shell->builtin_exist = 1;
-	else if(!ft_strncmp(shell->arguments[0], "echo" ,4))
+	else if(!ft_strcmp(shell->arguments[0], "echo"))
 		shell->builtin_exist = 1;
-	else if(!ft_strncmp(shell->arguments[0], "export", 6))
+	else if(!ft_strcmp(shell->arguments[0], "export"))
 		shell->builtin_exist = 1;
 	else
 		shell->builtin_exist = 0;
@@ -35,19 +35,19 @@ int builtin_exist(t_struct *shell)
 }
 void	run_builtin(t_struct *shell)
 {
-	if (!ft_strncmp(shell->arguments[0], "exit", 4))
+	if (!ft_strcmp(shell->arguments[0], "exit"))
 		ft_exit(shell);
-	else if(!ft_strncmp(shell->arguments[0], "unset", 5))
+	else if(!ft_strcmp(shell->arguments[0], "unset"))
 		ft_unset(shell);
-	else if(!ft_strncmp(shell->arguments[0], "env", 3))
+	else if(!ft_strcmp(shell->arguments[0], "env"))
 		ft_env(shell);
-	else if(!ft_strncmp(shell->arguments[0], "cd", 2))
+	else if(!ft_strcmp(shell->arguments[0], "cd"))
 		ft_cd(shell);
-	else if(!ft_strncmp(shell->arguments[0] , "pwd", 3))
+	else if(!ft_strcmp(shell->arguments[0] , "pwd"))
 		ft_pwd(shell);
-	else if(!ft_strncmp(shell->arguments[0], "echo", 4))
+	else if(!ft_strcmp(shell->arguments[0], "echo"))
 		ft_echo(shell);
-	else if(!ft_strncmp(shell->arguments[0], "export", 6))
+	else if(!ft_strcmp(shell->arguments[0], "export"))
 		ft_export(shell);
 
 }
