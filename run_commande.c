@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 04:09:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:54:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	next_run_commands(t_struct *shell)
 	{
 		arguments_func(shell);
 		execution(shell);
+		ft_free_cmd(shell->arguments);
 		free(shell->arguments);
+		ft_free_cmd(shell->cmd_splited);
+		free(shell->cmd_splited);
 	}
 }
 
@@ -79,6 +82,7 @@ char *execute_cmd(t_struct *shell)
 		{
 			current_pth = getcwd(NULL, sizeof(NULL));
 			cmd_path = ft_strjoin(current_pth, "/minishell");
+			free(current_pth);
 		}
 		else
 			cmd_path = ft_strjoin(shell->path[i], shell->cmd_splited[0]);

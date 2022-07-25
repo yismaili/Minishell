@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/07/22 19:30:27 by yismaili         ###   ########.fr        #
+#    Updated: 2022/07/25 13:15:30 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ YELLOW = \033[1;33m
 BLUE = \033[1;34m
 RESET = \033[0m
 CC = gcc
-FLAGS = -Wall -Werror -Wextra 
+FLAGS = -Wall -Werror -Wextra -g
 
 RM = rm -rf
 

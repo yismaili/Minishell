@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 18:17:43 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:51:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*find_env_tmp(t_struct *shell, char *search)
 	}
 	return (NULL);
 }
-
+ //this function not used!!!!!
 char	*get_current_dir(void)
 {
 	size_t	size;

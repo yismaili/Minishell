@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 05:54:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:31:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void    replace_oldpwd(t_struct *env)
         }
         i++;
     }
+	free(buff);
 }
 
 void    replace_pwd(t_struct *env)
@@ -65,6 +66,7 @@ void    replace_pwd(t_struct *env)
         }
         i++;
     }
+	free(buff);
 }
 
 int	ft_cd(t_struct *shell)
@@ -109,6 +111,8 @@ int	ft_cd(t_struct *shell)
 				replace_pwd(shell);
 			}
 		}
+		free(current_path);
+		free(old_path);
 		return(0);
 	}
 	if (shell->arguments[1])

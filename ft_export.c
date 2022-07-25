@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 18:23:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/25 21:36:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	**ft_dup_env(t_struct *env)
 	int		i;
 
 	len_env = glob_var;
-	printf("%d\n", glob_var);
 	i = 0;
 	dup_str = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (!dup_str)
@@ -76,7 +75,7 @@ void		sort_env(t_struct *env)
 
 	if (glob_var == 0)
 	{
-		ft_die("environment not fuond\n");
+		ft_die("environment not found\n");
 		return ;
 	}
 	dup_env = ft_dup_env(env);
@@ -97,6 +96,8 @@ void		sort_env(t_struct *env)
 		i++;
 	}
 	ft_print_export(dup_env, env);
+	ft_free_cmd(dup_env);
+	free(dup_env);
 }
 
 void	ft_export(t_struct *shell)
@@ -150,9 +151,8 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
 	int	i;
 
-	
 	if(!malloc_env_aux_tmp(shell))
-		ft_die_malloc("No spice lift\n");
+		ft_die_malloc("No space left on device\n");
 	if(glob_var == 0)
 	{
 		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
