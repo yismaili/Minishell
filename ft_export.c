@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/25 21:36:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:14:36 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_dup_env(t_struct *env)
 	char	*second_join;
 	int		i;
 
-	len_env = glob_var;
+	len_env = env->env.len;
 	i = 0;
 	dup_str = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (!dup_str)
@@ -122,10 +122,8 @@ void	ft_export(t_struct *shell)
 					env_aux[1] = ft_strdup("");
 					verify_if_env_exists(shell, env_aux);
 				}
-				free(env_aux[0]);
-				free(env_aux[1]);
+				ft_free_cmd(env_aux);
 				free(env_aux);
-				env_aux = NULL;
 				i++;
 			}
 	}
@@ -168,6 +166,7 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
 		i++;
 	}
+	shell->env.len++;
 	shell->env_aux.tmp_var[i] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tmp_con[i] = ft_strdup(new_elem_tab2);
 	free1(shell->env.tmp_var);
@@ -181,11 +180,11 @@ int check_export(t_struct *export)
 	int i = 0;
 	char	**splted;
 
-	if (export->arguments[1][0] == '=')
+	if (export->cmd_splited[1][0] == '=')
 		return(1);
 	if (glob_var == 0)
 		return(0);
-	splted = ft_split(export->arguments[1], '=');
+	splted = ft_split(export->cmd_splited[1], '=');
 	while (splted[0][i])
 	{
 		if(!ft_isalpha(splted[0][i]))
@@ -193,6 +192,7 @@ int check_export(t_struct *export)
 		i++;
 	}
 	i = 0;
+	ft_free_cmd(splted);
 	free(splted);
 	return(0);
 }

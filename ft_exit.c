@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 00:56:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/25 22:35:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 void	ft_exit(t_struct *shell)
 {
 	free2(shell->commands);
-	if (shell->path)
-		free1(shell->path);
+	// if (shell->path)
+	// 	free1(shell->path);
 	free (shell->home);
 	printf("exit\n");
 	exit(0);

@@ -6,11 +6,29 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/25 20:54:46 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:51:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+char	**get_path(t_struct *ptr)
+{
+	int		i;
+	char	**path;
+
+	i = 0;
+	while (ptr->env.tmp_var[i])
+	{
+		if (ft_strcmp(ptr->env.tmp_var[i], "PATH") == 0)
+		{
+			path = ft_split(ptr->env.tmp_con[i], ':');
+			return (path);
+		}
+		i++;
+	}
+	return (NULL);
+}
 
 void	run_commands(t_struct *shell)
 {
@@ -35,6 +53,7 @@ void	run_commands(t_struct *shell)
 		i++;
 	}
 	next_run_commands(shell);
+	ft_free_cmd(shell->commands);
 }
 
 void	next_run_commands(t_struct *shell)
@@ -72,12 +91,16 @@ char *execute_cmd(t_struct *shell)
 	int i = 0;
 	char	*cmd_path;
 	char	*current_pth;
+	char	*tmp;
+	char	**path;
 	
 	cmd_path = NULL;
-	if (glob_var == 0)
-		return (NULL);
-	while (shell->path[i])
+	path = get_path(shell);
+	while (path[i])
 	{
+		tmp = path[i];
+		path[i] = ft_strjoin(path[i], "/");
+		free (tmp);
 		if (!ft_strcmp(shell->commands[0], "./minishell "))
 		{
 			current_pth = getcwd(NULL, sizeof(NULL));
@@ -85,14 +108,17 @@ char *execute_cmd(t_struct *shell)
 			free(current_pth);
 		}
 		else
-			cmd_path = ft_strjoin(shell->path[i], shell->cmd_splited[0]);
+			cmd_path = ft_strjoin(path[i], shell->cmd_splited[0]);
 		if  (access(cmd_path, F_OK) == 0)
 			execve(cmd_path, shell->cmd_splited, shell->env.env);
 		free(cmd_path);
 		i++;
 	}
+	ft_free_cmd(path);
+	free(path);
 	return(NULL);
 }
+
 void	execution(t_struct *shell)
 {
 	int		i;
@@ -114,10 +140,11 @@ void	execution(t_struct *shell)
 		else if (pid == 0)
 		{
 			output_input(shell);
-			if (shell->arguments[0] != NULL)
+			if (shell->arguments[0] != NULL && getenv("PATH"))
 			{
+
 				faded = execute_cmd(shell);
-				if (!faded)
+			 if (!faded)
 					cmd_not_found(shell->cmd_splited[0]);
 			}
 		}

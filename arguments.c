@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/25 20:56:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:54:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	arguments_func(t_struct *shell)
 		arg->position = find_char(shell->line_commande, ' ');
 		shell->arg.all_cmd = ft_strtrim(&(shell->line_commande)[arg->position], " ");
 		shell->arg.txt_toprint = ft_strtrim(&(shell->line_commande)[arg->position], " ");
-		shell->arguments = ft_split(shell->line_commande, ' ');
+	    shell->arguments = ft_split(shell->line_commande, ' ');
 		spl = ft_split(shell->line_commande, '|');
 		int i = 0;
 		while (spl[i])
@@ -50,6 +50,8 @@ void	arguments_func(t_struct *shell)
 		}
 		shell->cmd_splited = ft_split(cmd_joined, ' ');
 		free_arg(arg);
+		free(shell->arg.all_cmd);
+		free(shell->arg.txt_toprint);
 		free(cmd_joined);
 		free (shell->line_commande);
 		ft_free_cmd(spl);

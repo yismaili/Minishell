@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/25 19:51:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:28:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_env_tmp(t_struct *shell, char *search)
 	int	len_search;
 
 	i = 0;
-	shell->env.position_tmp = 0;
+	shell->env.position = 0;
 	if (glob_var == 0)
 		return (NULL);
 	len_search = ft_strlen(search);
@@ -60,7 +60,7 @@ char	*find_env_tmp(t_struct *shell, char *search)
 		length = ft_strlen(shell->env.tmp_var[i]);
 		if (!ft_strncmp(shell->env.tmp_var[i], search, len_search) && length == len_search)
 		{
-			shell->env.position_tmp = i;
+			shell->env.position = i;
 			return (shell->env.tmp_con[i]);
 		}
 		i++;

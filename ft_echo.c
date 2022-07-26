@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 08:10:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:19:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_echo(t_struct *shell ,char *echo_print)
 	i = 0;
 	q1 = 0;
 	q2 = 0;
-		splt_quot = ft_split(echo_print, '"');
+	splt_quot = ft_split(echo_print, '"');
 	if (!ft_strncmp(echo_print, "$?", 2))
 		printf("%d\n",0);
 	else 
@@ -55,17 +55,23 @@ void	print_echo(t_struct *shell ,char *echo_print)
 		if (!ft_strncmp(splt_quot[0], "$", 1))
 		{
 				splted = ft_split(splt_quot[0], '$');
+				ft_free_cmd(splt_quot);
+				free(splt_quot);
 				if (!getenv(splted[0]))
 					return	;
 				while (shell->env.tmp_var[i])
 				{
 					if (!ft_strcmp(shell->env.tmp_var[i], splted[0]))
 					{
+						ft_free_cmd(splted);
+						free(splted);
 						ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
 						return ;
 					}
 					i++;
 				}
+				ft_free_cmd(splted);
+				free(splted);
 		}
 		else
 		{
@@ -91,6 +97,9 @@ void	print_echo(t_struct *shell ,char *echo_print)
 			}
 			else
 				ft_putstr_fd(echo_print,shell->output_fd);
+			 free(test);
 		}
 	}
+	ft_free_cmd(splt_quot);
+	free(splt_quot);
 }

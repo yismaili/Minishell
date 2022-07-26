@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/24 02:59:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:38:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ void	ft_unset(t_struct *shell)
 		if (find_env_tmp(shell, shell->arguments[i]))
 		{
 			remove_env(shell);
-
-			if (!ft_strncmp(shell->arguments[i], "PATH", 4))
-			{
-				free1(shell->path);
-				shell->path = NULL;
-			}
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/25 17:06:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:13:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ typedef struct s_env
 	int		len;
 	char	**tmp_var;
 	char	**tmp_con;
-	int		position;
-	int		position_tmp;
+	int		position;;
 }			t_env;
 typedef struct s_divise
 {
@@ -75,12 +74,11 @@ typedef struct s_struct
 	int		cmp;
 	char	*line_commande;
 	char	*commande_tape;
-		char	*dup_cmd;
 	char	*home;
 	char	*commands[600000];
 	char	**arguments;
 	char	**cmd_splited;
-	char	**path;
+	///char	**path;
 	t_env	env_aux;
 	t_env	env;
 	t_divise divise;
@@ -96,7 +94,7 @@ void	free1(char **array);
 void	free2(char **array);
 void	ft_unset(t_struct *shell);
 void	remove_env(t_struct *shell);
-int		get_path(t_struct *shell);
+//int		get_path(t_struct *shell);
 void	print_welcome(void);
 char	*get_current_dir(void);
 char	*create_prompt(void);
@@ -145,4 +143,5 @@ void	ft_die_malloc(char *str);
 void	ft_check_env(char **env);
 void ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
+int	line_empty(char *input);
 #endif
