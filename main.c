@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 15:09:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:04:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	signals(void)
 int	main(void)
 {
 	t_struct	shell;
-
 	print_welcome();
 	start_create_env(&shell);
 	signals();

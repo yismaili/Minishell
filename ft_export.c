@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 17:14:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:37:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_export(t_struct *shell)
 			while (shell->arguments[i] && check_export(shell) == 0)
 			{
 				env_aux = ft_split(shell->arguments[i], '=');
-				if (env_aux[0])
+				if (env_aux[0] && shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] != '=')
 				{
 					verify_if_env_exists(shell, env_aux);
 				}

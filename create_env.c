@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 11:28:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:35:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	malloc_env_tmp(t_struct *shell)
 	return (1);
 }
 
-void	count_len_env(t_struct *shell)
+int	count_len_env(t_struct *shell)
 {
 	int	i;
 
@@ -32,6 +32,7 @@ void	count_len_env(t_struct *shell)
 	while (shell->env.env[i])
 		i++;
 	shell->env.len = i;
+	return (i);
 }
 
 void	ft_die(char *str)
@@ -104,8 +105,8 @@ int	create_env_tmp(t_struct *shell, char **my_env)
 			ft_free_env(env_divise);
 		i++;
 	}
-	shell->env.tmp_var[i] = 0;
-	shell->env.tmp_con[i] = 0;
+	// shell->env.tmp_var[i] = 0;
+	// shell->env.tmp_con[i] = 0;
 	return (1);
 }
 void ft_free_env(char **env)

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 14:51:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:02:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ void	run_commands(t_struct *shell)
 			printf("pipe error\n");
 			exit(0);
 		}
+		if (shell->input_fd > 0)
+			close(shell->input_fd);
 		shell->output_fd = fd[1];
 		next_run_commands(shell);
 		close(shell->output_fd);
-		if (shell->input_fd != 0)
-			close(shell->input_fd);
 		shell->input_fd = fd[0];
 		i++;
 	}
+///	close(shell->input_fd);
 	next_run_commands(shell);
 	ft_free_cmd(shell->commands);
 }
@@ -86,16 +87,14 @@ void	fun_redirection(t_struct *shell)
 		shell->cmp++;
 	}
 }
-char *execute_cmd(t_struct *shell)
+char *execute_cmd(t_struct *shell, char **path)
 {
 	int i = 0;
 	char	*cmd_path;
 	char	*current_pth;
 	char	*tmp;
-	char	**path;
 	
 	cmd_path = NULL;
-	path = get_path(shell);
 	while (path[i])
 	{
 		tmp = path[i];
@@ -109,13 +108,11 @@ char *execute_cmd(t_struct *shell)
 		}
 		else
 			cmd_path = ft_strjoin(path[i], shell->cmd_splited[0]);
-		if  (access(cmd_path, F_OK) == 0)
-			execve(cmd_path, shell->cmd_splited, shell->env.env);
+		if (access(cmd_path, X_OK) == 0)
+			return(cmd_path);
 		free(cmd_path);
 		i++;
 	}
-	ft_free_cmd(path);
-	free(path);
 	return(NULL);
 }
 
@@ -124,6 +121,7 @@ void	execution(t_struct *shell)
 	int		i;
 	pid_t	pid;
 	char	*faded = NULL;
+	char	**path = NULL;
 
 	i = 0;
 	builtin_exist(shell);
@@ -134,7 +132,7 @@ void	execution(t_struct *shell)
 		pid = fork();
 		if (pid < 0)
 		{
-			printf("Minishell: fork: Resource temporarily unavailable\n");
+			ft_putstr_fd("Minishell: fork: Resource temporarily unavailable\n", 2);
 			return ;
 		}
 		else if (pid == 0)
@@ -142,10 +140,12 @@ void	execution(t_struct *shell)
 			output_input(shell);
 			if (shell->arguments[0] != NULL && getenv("PATH"))
 			{
-
-				faded = execute_cmd(shell);
-			 if (!faded)
-					cmd_not_found(shell->cmd_splited[0]);
+				path = get_path(shell);
+				faded = execute_cmd(shell, path);
+			if (execve(faded, shell->cmd_splited, shell->env.env) < 0)
+				cmd_not_found(shell->cmd_splited[0]);
+			ft_free_cmd(path);
+			free(path);
 			}
 		}
 		else
@@ -157,7 +157,8 @@ void cmd_not_found(char *cmd)
 {
 	if (cmd)
 	{
-		printf("Minishell: %s:  command not found\n", cmd);
-		exit(1);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(" : command not found\n",2);
+		exit(127);
 	}
 }

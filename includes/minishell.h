@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 13:13:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:16:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_struct
 
 int		builtin_exist(t_struct *shell);
 void	run_builtin(t_struct *shell);
-void	count_len_env(t_struct *shell);
+int		count_len_env(t_struct *shell);
 void	ft_exit(t_struct *shell);
 void	free_line(char *line_read);
 void	free1(char **array);
@@ -125,7 +125,7 @@ void 	inredirection(t_struct *shell);
 void 	outredirection(t_struct *shell);
 void 	next_run_commands(t_struct *shell);
 void 	next(int i, t_struct *shell, char*commande_read);
-char 	*execute_cmd(t_struct *shell);
+char 	*execute_cmd(t_struct *shell, char **path);
 void 	output_input(t_struct *shell);
 void 	check_to_execute(t_struct *shell);
 void    sig_handler(int signum);
@@ -144,4 +144,6 @@ void	ft_check_env(char **env);
 void ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
 int	line_empty(char *input);
+
+char	*ft_split_cmd(char *cmd);
 #endif

@@ -6,22 +6,24 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/16 18:25:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:32:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
 void	outredirection(t_struct *shell)
 {
 	char	*fichier1;
 	if (shell->commands[shell->cmp][1] == '>')
 	{
 		fichier1 = ft_strtrim(&shell->commands[shell->cmp][2], " ");
-		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | 0777);
+		printf("out_fd = %d\n", shell->output_fd);
+		printf("fichier1= %s\n", fichier1);
+		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY| O_APPEND ,0777);
 		if (shell->output_fd == -1)
 		{
 			printf("Open Error\n");
-			exit(0);
 		}
 		free(fichier1);
 	}
@@ -32,7 +34,6 @@ void	outredirection(t_struct *shell)
 		if (shell->output_fd == -1)
 		{
 			printf("Open error\n");
-			exit(0);
 		}
 		free(fichier1);
 	}
@@ -52,10 +53,8 @@ void	inredirection(t_struct *shell)
 		if (fd == -1)
 		{
 			printf("Open error\n");
-			exit(0);
 		}
-		while (ft_strncmp(line, fichier2, ft_strlen(fichier2) \
-					|| ft_strlen(line) != ft_strlen(fichier2)))
+		while (ft_strcmp(line, fichier2) )
 		{
 			free(line);
 			line = readline("herDoc> ");
@@ -70,7 +69,6 @@ void	inredirection(t_struct *shell)
 		if (shell->input_fd == -1)
 		{
 			printf("Open error\n");
-			exit(0);
 		}
 	}
 }
