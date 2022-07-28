@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 17:07:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/28 21:57:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,20 @@ int	ft_cd(t_struct *shell)
 			i++;
 		}
 		if (!ft_strcmp(current_path, old_path))
-			ft_putstr_fd("Minishell: cd: OLDPWD not set\n", shell->output_fd);
+		{
+			ft_putstr_fd("Minishell: cd: OLDPWD not set\n", 2);
+			// g_status = 1;
+		}
 		else
 		{
 			if (ft_strcmp(old_path, current_path))
 			{
 				replace_oldpwd(shell);
 				if (chdir(old_path) == -1)
+				{
 					printf("Minishell: cd: %s: %s", shell->arguments[1], "no such file or directory\n");
+					// g_status = 1;
+				}
 				ft_putstr_fd(current_path, shell->output_fd);
 				printf("\n");
 				replace_pwd(shell);
@@ -135,7 +141,10 @@ int	ft_cd(t_struct *shell)
 	// }
 	replace_oldpwd(shell);
 	if (chdir(arg_aux) == -1)
+	{
 		printf("Minishell: cd: %s: %s", shell->arguments[1], "no such file or directory\n");
+		// g_status = 1;
+	}
 	replace_pwd(shell);
 	free(arg_aux);
 	return (0);

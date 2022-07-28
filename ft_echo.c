@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 16:19:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/28 22:12:36 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,20 @@ void	ft_echo(t_struct *shell)
 
 void	print_echo(t_struct *shell ,char *echo_print)
 {
-	char **test = NULL;
 	size_t i;
-	int q1;
-	int q2;
 	char **splted;
-	char **splt_quot;
 
 	i = 0;
-	q1 = 0;
-	q2 = 0;
-	splt_quot = ft_split(echo_print, '"');
 	if (!ft_strncmp(echo_print, "$?", 2))
-		printf("%d\n",0);
+	{
+		ft_putnbr_fd(g_status, shell->output_fd);
+		printf("\n");
+	}
 	else 
 	{
-		if (!ft_strncmp(splt_quot[0], "$", 1))
+		if (!ft_strncmp(echo_print, "$", 1))
 		{
-				splted = ft_split(splt_quot[0], '$');
-				ft_free_cmd(splt_quot);
-				free(splt_quot);
+				splted = ft_split(echo_print, '$');
 				if (!getenv(splted[0]))
 					return	;
 				while (shell->env.tmp_var[i])
@@ -75,31 +69,7 @@ void	print_echo(t_struct *shell ,char *echo_print)
 		}
 		else
 		{
-
-			i = 0;
-			while(i < ft_strlen(echo_print))
-			{
-				if(echo_print[i] == QUOTE)
-					q1++;
-				else if(echo_print[i] == Double_Quote)
-					q2++;
-					i++;
-			}
-			if(q1 >= 1)
-			{
-				test = ft_split(echo_print, QUOTE);
-				printf("%s\n", test[0]);
-			}
-			else if(q2 >= 1)
-			{
-				test = ft_split(echo_print, Double_Quote);
-				ft_putstr_fd(test[0], shell->output_fd);
-			}
-			else
-				ft_putstr_fd(echo_print,shell->output_fd);
-			 free(test);
+			ft_putstr_fd(echo_print,shell->output_fd);
 		}
 	}
-	ft_free_cmd(splt_quot);
-	free(splt_quot);
 }

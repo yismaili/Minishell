@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/28 14:16:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/28 21:49:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define RED "\033[0;31m"
 
 int glob_var;
+int g_status;
+
 typedef struct s_env
 {
 	char	**env;
@@ -75,6 +77,7 @@ typedef struct s_struct
 	char	*line_commande;
 	char	*commande_tape;
 	char	*home;
+		pid_t	pid;
 	char	*commands[600000];
 	char	**arguments;
 	char	**cmd_splited;

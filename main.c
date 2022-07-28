@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/27 12:04:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/28 21:56:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(void)
 	print_welcome();
 	start_create_env(&shell);
 	signals();
+		g_status = 0;
 	while (1)
 	{
 		shell.output_fd = 1;
@@ -54,7 +55,10 @@ int	main(void)
 					run_commands(&shell);
 				}
 				else
-					printf("Minishell: syntax error near unexpected token `|'\n");
+				{
+					ft_putstr_fd("Minishell: syntax error near unexpected token `|'\n", 2);
+					// g_status = 258;
+				}
 			}
 		}
 		free(shell.commande_tape);
