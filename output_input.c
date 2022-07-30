@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 21:32:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/30 16:45:20 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,22 @@ void	inredirection(t_struct *shell)
 		}
 	}
 }
-
+void	fun_redirection(t_struct *shell)
+{
+	shell->line_commande = ft_strdup(shell->commands[shell->cmp]);
+	if (shell->divise.number_command > 1)
+		shell->cmp++;
+	while (shell->commands[shell->cmp] && \
+			(shell->commands[shell->cmp][0] == '<' || \
+			 shell->commands[shell->cmp][0] == '>'))
+	{
+		if (shell->commands[shell->cmp][0] == '>')
+			outredirection(shell);
+		else if (shell->commands[shell->cmp][0] == '<')
+			inredirection(shell);
+		shell->cmp++;
+	}
+}
 void output_input(t_struct *shell)
 {
 	if(shell->output_fd != 1)
