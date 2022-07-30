@@ -9,3 +9,5 @@ int main(int ac, char **av, char **envp)
      if( execve(*arg, arg, envp) < 0)
             perror("exec");
 }
+
+//hello everyone
