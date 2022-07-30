@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/29 21:39:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/30 14:03:06 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include"includes/minishell.h"
-
+//diguodigudgui dfhgiduh
 void	ft_print_export(char **export, t_struct	*shell)
 {
 	int	i;
