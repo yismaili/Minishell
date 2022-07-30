@@ -22,24 +22,26 @@ void	initial_divise(t_struct *shell)
 	shell->i = 0;
 	shell->len = 0;
 }
-void command(t_struct *shell, char *commande_read)
+
+void	command(t_struct *shell, char *commande_read)
 {
-	if(shell->i > 1)
+	if (shell->i > 1)
 	{
-		shell->commands[shell->divise.number_command] = ft_substr(commande_read, shell->divise.initial, shell->len);
+		shell->commands[shell->divise.number_command] = \
+			ft_substr(commande_read, shell->divise.initial, shell->len);
 		shell->divise.initial = shell->i;
 		shell->len = 0;
 		shell->divise.number_command++;
 	}
 }
+
 void	divise_commande(t_struct *shell, char *commande_read)
 {
-	
 	initial_divise(shell);
 	while (shell->i < (int)ft_strlen(commande_read))
 	{
 		if (commande_read[shell->i] == '|' || \
-				commande_read[shell->i] == '<' || commande_read[shell->i] == '>')
+			commande_read[shell->i] == '<' || commande_read[shell->i] == '>')
 		{
 			if (commande_read[shell->i] == '|')
 				shell->divise.pipe++;

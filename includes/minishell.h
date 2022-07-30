@@ -152,4 +152,6 @@ int	line_empty(char *input);
 void ft_not_found(char *dir);
 char	*ft_split_cmd(char *cmd);
 int ft_serch_in_env(t_struct *env, char	*var, char *con);
+void func(t_struct *shell,int i, int status);
+void ft_free(t_struct *shell);
 #endif

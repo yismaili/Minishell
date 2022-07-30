@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 15:10:31 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/30 16:42:15 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ void	free2(char **array)
 		array[i] = NULL;
 		i++;
 	}
+}
+
+void	ft_free(t_struct *shell)
+{
+	ft_free_cmd(shell->commands);
+	ft_free_cmd(shell->cmd_splited);
+	free(shell->cmd_splited);
+	ft_free_cmd(shell->arguments);
+	free(shell->arguments);
+	free(shell->line_commande);
 }
