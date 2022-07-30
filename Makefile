@@ -23,7 +23,7 @@ RM = rm -rf
 FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
        initial_path.c  main.c  run_commande.c \
        divise_commande.c arguments.c arguments_utils.c ft_env.c ft_export.c ft_cd.c ft_pwd.c \
-       ft_echo.c output_input.c leaks.c
+       ft_echo.c output_input.c leaks.c execution.c
 
 
 OBJ_FILES= $(FILES:.c=.o)

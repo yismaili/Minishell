@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 14:52:23 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/30 19:09:14 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_arg
 	int		len;
 	int		position;
 }			t_arg;
-
+int glob_var;
 typedef struct s_struct
 {
 	int	builtin_exist;
@@ -156,4 +156,13 @@ void func(t_struct *shell,int i, int status);
 void ft_free(t_struct *shell);
 void get_exit_code(int status);
 char **get_path(t_struct *ptr);
+void next_execute_cmd(char **cmd_path);
+void process_shild_execute(char **path, t_struct *shell);
+void printf_cmd_not_f(t_struct *shell);
+void signals();
+void restore_prompt(int sig);
+void ctrl_c(int sig);
+void back_slash(int sig);
+
+
 #endif

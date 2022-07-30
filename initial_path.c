@@ -42,11 +42,12 @@ int  start_create_env(t_struct *shell)
 }
 void	cmd_not_found(char *cmd)
 {
+	glob_var = 127;
 	if (cmd)
 	{
 		ft_putstr_fd("Minishell :",2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(" : command not found\n",2);
-		exit(127);
+		exit(glob_var);
 	}
 }
