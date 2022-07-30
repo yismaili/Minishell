@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/29 20:06:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/30 14:52:23 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
-# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
+# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -81,6 +81,8 @@ typedef struct s_struct
 	char	*commands[600000];
 	char	**arguments;
 	char	**cmd_splited;
+	int i;
+	int len;
 	///char	**path;
 	t_env	env_aux;
 	t_env	env;
@@ -127,7 +129,7 @@ void 	pipe_next(t_struct *shell, int i, char *command);
 void 	inredirection(t_struct *shell);
 void 	outredirection(t_struct *shell);
 void 	next_run_commands(t_struct *shell);
-void 	next(int i, t_struct *shell, char*commande_read);
+void 	next(t_struct *shell, char*commande_read);
 char 	*execute_cmd(t_struct *shell, char **path);
 void 	output_input(t_struct *shell);
 void 	check_to_execute(t_struct *shell);
@@ -137,7 +139,7 @@ int 	check_export(t_struct *export);
 int 	ft_search(t_struct *env, char *var);
 int 	malloc_env_tmp(t_struct *shell);
 char	*find_env_tmp(t_struct *shell, char *search);
-int		commande_tape(t_struct	*shell);
+int		commande_tape(t_struct	*shell, int *size);
 int		malloc_env_aux_tmp(t_struct *shell);
 void	ft_die(char *str);
 int		create_env_tmp(t_struct *shell, char **my_env);
