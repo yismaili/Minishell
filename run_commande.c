@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/28 22:25:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/29 20:20:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	run_commands(t_struct *shell)
 	{
 		if (pipe(fd) == -1)
 		{
-			printf("pipe error\n");
+			ft_putstr_fd("pipe error\n",2);
 			exit(0);
 		}
 		shell->output_fd = fd[1];
@@ -78,6 +78,9 @@ void	run_commands(t_struct *shell)
 	ft_free_cmd(shell->commands);
 	ft_free_cmd(shell->cmd_splited);
 	free(shell->cmd_splited);
+	ft_free_cmd(shell->arguments);
+	free(shell->arguments);
+	free (shell->line_commande);
 }
 
 void	next_run_commands(t_struct *shell)
@@ -87,8 +90,6 @@ void	next_run_commands(t_struct *shell)
 	{
 		arguments_func(shell);
 		execution(shell);
-		ft_free_cmd(shell->arguments);
-		free(shell->arguments);
 	}
 }
 
@@ -147,6 +148,12 @@ void	execution(t_struct *shell)
 	builtin_exist(shell);
 	if (shell->builtin_exist == 1)
 		run_builtin(shell);
+	else if (!getenv("PATH"))
+	{
+		ft_putstr_fd("Minishell :",2);
+		ft_putstr_fd(shell->cmd_splited[0], 2);
+		ft_putstr_fd(" : command not found\n",2);
+	}
 	else
 	{
 		shell->pid = fork();
@@ -158,7 +165,7 @@ void	execution(t_struct *shell)
 		else if (shell->pid == 0)
 		{
 			output_input(shell);
-			if (shell->arguments[0] != NULL && getenv("PATH"))
+			if (shell->arguments[0] != NULL)
 			{
 				path = get_path(shell);
 				faded = execute_cmd(shell, path);

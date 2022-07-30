@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/28 20:22:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/29 18:25:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,38 +90,30 @@ void	arguments_func(t_struct *shell)
 			cmd_joined = ft_split_cmd(shell->line_commande);
 			shell->arguments = ft_split(cmd_joined, ' ');
 			spled = ft_split(cmd_joined, '|');
+			free(cmd_joined);
 		}
 		else
 		{
-			//printf("not quote %s\n", shell->line_commande);
 			shell->arguments = ft_split(shell->line_commande, ' ');
 			spl = ft_split(shell->line_commande, '|');
 			i = 0;
 			while (spl[i])
 			{
-				// cmd_joined = ft_strjoin(spl[0], " ");
-				// char *tmp = cmd_joined;
 				cmd_joined = ft_strjoin(spl[i], spl[i +1]);
-				//printf("-----> %s\n", spl[i]);
-				//free(tmp);
 				i++;
 			}
 			spled = ft_split(cmd_joined, ' ');
-			//printf(" %s\n",cmd_joined);
+			ft_free_cmd(spl);
+			free(spl);
+			free(cmd_joined);
 		}
 		i = 0;
-		shell->cmd_splited =(char **)malloc(sizeof(char *) * 1000);
+		shell->cmd_splited =(char **)malloc(sizeof(char *) * 1000000);
 		while (spled[i])
 		{
 			shell->cmd_splited[i] = ft_strdup(spled[i]);
 			i++;	
 		}
 		free_arg(arg);
-		free(shell->arg.all_cmd);
-		free(shell->arg.txt_toprint);
-		free(cmd_joined);
-		free (shell->line_commande);
-		// ft_free_cmd(spl);
-		// free(spl);
 	}
 }

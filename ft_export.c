@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 22:37:03 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/29 21:39:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ void	ft_print_export(char **export, t_struct	*shell)
 {
 	int	i;
 	int	j;
+	int k;
 
 	i = 0;
+	k = 0;
 	while (export[i])
 	{
 		j = 0;
-		if (i != 0)
+		if (ft_strlen(export[i]) != 1)
 		{
 			ft_putstr_fd("declare -x ", shell->output_fd);
 			while (export[i][j])
@@ -36,29 +38,29 @@ void	ft_print_export(char **export, t_struct	*shell)
 			}
 			ft_putchar_fd('"', shell->output_fd);
 			ft_putchar_fd('\n', shell->output_fd);
+		
+		
 		}
 		i++;
 	}
 }
-// dup and join env in one array 
-char	**ft_dup_env(t_struct *env)
+
+char	**ft_dup_env(t_struct *shell)
 {
 	char	**dup_str;
-	int		len_env;
 	char	*first_join;
 	char	*second_join;
 	int		i;
-
-	len_env = env->env.len;
+	
 	i = 0;
-	dup_str = (char **)malloc(sizeof(char *) * (len_env + 1));
+	dup_str = (char **)malloc(sizeof(char *) * (shell->env.len + 1));
 	if (!dup_str)
 		return (NULL);
-	dup_str[len_env] = 0;
-	while (i < len_env)
+	dup_str[shell->env.len] = 0;
+	while (i < shell->env.len)
 	{
-		first_join = ft_strjoin(env->env.tmp_var[i], "=");
-		second_join = ft_strjoin(first_join, env->env.tmp_con[i]);
+		first_join = ft_strjoin(shell->env.tmp_var[i], "=");
+		second_join = ft_strjoin(first_join, shell->env.tmp_con[i]);
 		dup_str[i] = ft_strdup(second_join);
 		free(first_join);
 		free(second_join);
@@ -75,7 +77,7 @@ void		sort_env(t_struct *env)
 
 	if (glob_var == 0)
 	{
-		ft_die("environment not found\n");
+		ft_die("Empty environment \n");
 		return ;
 	}
 	dup_env = ft_dup_env(env);
@@ -95,9 +97,8 @@ void		sort_env(t_struct *env)
 		}
 		i++;
 	}
+
 	ft_print_export(dup_env, env);
-	ft_free_cmd(dup_env);
-	free(dup_env);
 }
 
 void	ft_export(t_struct *shell)
@@ -108,22 +109,33 @@ void	ft_export(t_struct *shell)
 	i = 1;
 	if (!shell->arguments[1])
 		sort_env(shell);
-	if (shell->arguments[i] && check_export(shell) == 0)
+	else if (shell->arguments[i] && check_export(shell) == 0)
 	{
 			while (shell->arguments[i] && check_export(shell) == 0)
 			{
 				env_aux = ft_split(shell->arguments[i], '=');
-				if (env_aux[0] && shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] != '=')
+				if(glob_var == 0)
 				{
-					verify_if_env_exists(shell, env_aux);
+					export_to_env(shell, env_aux[0], env_aux[1]);
 				}
-				else if (shell->arguments[i][ft_strlen(shell->arguments[1]) - 1] == '=')
+				else if (env_aux[0] && !env_aux[1])
 				{
-					env_aux[1] = ft_strdup("");
-					verify_if_env_exists(shell, env_aux);
+					if (!ft_serch_in_env(shell, env_aux[0], env_aux[1]))
+					{
+						export_to_env(shell, env_aux[0], env_aux[1]);
+					}
 				}
-				ft_free_cmd(env_aux);
-				free(env_aux);
+				else if (env_aux[0] && env_aux[1])
+				{
+					if (!ft_serch_in_env(shell, env_aux[0], env_aux[1]))
+					{
+						export_to_env(shell, env_aux[0], env_aux[1]);
+					}
+				}
+				// free(env_aux[0]);
+				// free(env_aux[1]);
+				// free(env_aux);
+				// env_aux = NULL;
 				i++;
 			}
 	}
@@ -134,57 +146,77 @@ void	ft_export(t_struct *shell)
 	
 }
 
-void	verify_if_env_exists(t_struct *shell, char **env_aux)
+int ft_serch_in_env(t_struct *env, char	*var, char *con)
 {
-	if (find_env_tmp(shell, env_aux[1]))
-	{
-		free(shell->env.tmp_con[shell->env.position]);
-		shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
-	}
-	else if (!find_env_tmp(shell, env_aux[0]))
-		export_to_env(shell, env_aux[0], env_aux[1]);
-}
+	int i = 0;
 
+	while (env->env.tmp_var[i])
+	{
+		if (!ft_strcmp(env->env.tmp_var[i], var))
+		{
+			if(con)
+			{
+				free(env->env.tmp_con[i]);
+				env->env.tmp_con[i] = ft_strdup(con);
+				return (1);
+			}
+			else if (!con)
+			{
+				free(env->env.tmp_con[i]);
+				env->env.tmp_con[i] = ft_strdup(" ");
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
 void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
 	int	i;
 
 	if(!malloc_env_aux_tmp(shell))
-		ft_die_malloc("No space left on device\n");
-	if(glob_var == 0)
+		ft_die_malloc("No space left\n");
+	i = 0;
+	if (glob_var == 0)
 	{
-		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
-		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
+		shell->env.len++;
+		shell->env.tmp_var[0] = ft_strdup(new_elem_tab1);
+		if (new_elem_tab2)
+			shell->env.tmp_con[0] = ft_strdup(new_elem_tab2);
+		glob_var++;
+		
+	}
+	else
+	{
+		while (i < shell->env.len)
+		{
+			shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
+			shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
+			i++;
+		}
+		shell->env.len++;
+		shell->env_aux.tmp_var[shell->env.len -1] = ft_strdup(new_elem_tab1);
+		if (new_elem_tab2)
+			shell->env_aux.tmp_con[shell->env.len -1] = ft_strdup(new_elem_tab2);
+		free1(shell->env.tmp_var);
+		free1(shell->env.tmp_con);
 		shell->env.tmp_var = shell->env_aux.tmp_var;
 		shell->env.tmp_con = shell->env_aux.tmp_con;
-		return ;
+		shell->env.tmp_var[shell->env.len] = 0;
+		shell->env.tmp_con[shell->env.len] = 0;
 	}
-	i = 0;
-	while (i < shell->env.len - 1 )
-	{
-		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
-		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
-		i++;
-	}
-	shell->env.len++;
-	shell->env_aux.tmp_var[i] = ft_strdup(new_elem_tab1);
-	shell->env_aux.tmp_con[i] = ft_strdup(new_elem_tab2);
-	free1(shell->env.tmp_var);
-	free1(shell->env.tmp_con);
-	shell->env.tmp_var = shell->env_aux.tmp_var;
-	shell->env.tmp_con = shell->env_aux.tmp_con;
 }
 
 int check_export(t_struct *export)
 {
 	int i = 0;
 	char	**splted;
-
-	if (export->cmd_splited[1][0] == '=')
+	if (export->arguments[1][0] == '=')
 		return(1);
 	if (glob_var == 0)
 		return(0);
-	splted = ft_split(export->cmd_splited[1], '=');
+	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])
 	{
 		if(!ft_isalpha(splted[0][i]))
@@ -192,7 +224,6 @@ int check_export(t_struct *export)
 		i++;
 	}
 	i = 0;
-	ft_free_cmd(splted);
 	free(splted);
 	return(0);
 }

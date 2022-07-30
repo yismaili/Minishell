@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 21:35:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:08:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,32 @@ int	count_len_env(t_struct *shell)
 
 void	ft_die(char *str)
 { 
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd(str, 2);
 }
 
 void	ft_die_malloc(char *str)
 { 
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd(str, 2);
 	exit(1);
 }
 char	*find_env_tmp(t_struct *shell, char *search)
 {
+
 	int	i;
 	int	length;
 	int	len_search;
 
 	i = 0;
 	shell->env.position = 0;
-	if (glob_var == 0)
-		return (NULL);
+	//if (glob_var == 0)
+	//	return (NULL);
 	len_search = ft_strlen(search);
-	while (shell->env.tmp_var[i] && i < shell->env.len)
+	printf("search = %s\n", search);
+	while (shell->env.tmp_var[i] && i <= shell->env.len)
 	{
+		//printf("env_tmp[%d]=%s\n",i, shell->env.tmp_var[i]);
 		length = ft_strlen(shell->env.tmp_var[i]);
-		if (!ft_strncmp(shell->env.tmp_var[i], search, len_search) && length == len_search)
+		if (!ft_strcmp(shell->env.tmp_var[i], search))
 		{
 			shell->env.position = i;
 			return (shell->env.tmp_con[i]);

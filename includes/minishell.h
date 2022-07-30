@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/28 21:49:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/29 20:06:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	ft_check_env(char **env);
 void ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
 int	line_empty(char *input);
-
+void ft_not_found(char *dir);
 char	*ft_split_cmd(char *cmd);
+int ft_serch_in_env(t_struct *env, char	*var, char *con);
 #endif

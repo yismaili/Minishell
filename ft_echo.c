@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/28 22:12:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:27:14 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_echo(t_struct *shell ,char *echo_print)
 	char **splted;
 
 	i = 0;
-	if (!ft_strncmp(echo_print, "$?", 2))
+	if (!ft_strcmp(echo_print, "$?"))
 	{
 		ft_putnbr_fd(g_status, shell->output_fd);
 		printf("\n");
@@ -60,6 +60,7 @@ void	print_echo(t_struct *shell ,char *echo_print)
 						ft_free_cmd(splted);
 						free(splted);
 						ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
+						//g_status = 0;
 						return ;
 					}
 					i++;
@@ -70,6 +71,7 @@ void	print_echo(t_struct *shell ,char *echo_print)
 		else
 		{
 			ft_putstr_fd(echo_print,shell->output_fd);
+		//	g_status = 0;
 		}
 	}
 }
