@@ -154,4 +154,6 @@ char	*ft_split_cmd(char *cmd);
 int ft_serch_in_env(t_struct *env, char	*var, char *con);
 void func(t_struct *shell,int i, int status);
 void ft_free(t_struct *shell);
+void get_exit_code(int status);
+char **get_path(t_struct *ptr);
 #endif
