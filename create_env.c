@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 14:50:39 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/31 19:50:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,6 @@ char	*find_env_tmp(t_struct *shell, char *search)
 		i++;
 	}
 	return (NULL);
-}
-
-char	*get_current_dir(void)
-{
-	size_t	size;
-	char	*buf;
-
-	size = 2000;
-	buf = NULL;
-	buf = getcwd(buf, size);
-	return (buf);
 }
 
 int	create_env_tmp(t_struct *shell, char **my_env)

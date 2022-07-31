@@ -6,155 +6,127 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/29 21:23:47 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/31 19:01:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "includes/minishell.h"
 
-bool	there_is_home(t_struct *shell)
+void	replace_oldpwd(t_struct *env)
 {
-	if (find_env_tmp(shell, "HOME"))
-		return (true);
-	else
-		return (false);
-}
+	char	*buff;
+	int		i;
 
-void    replace_oldpwd(t_struct *env)
-{
-    char    *buff = NULL;
-	int		i = 0;
-   
-    buff = getcwd(buff, sizeof(buff));
+	buff = NULL;
+	buff = getcwd(buff, sizeof(buff));
 	if (glob_var == 0)
 	{
-		 env->env.tmp_con[0] = ft_strdup(buff);
-		 return ;
+		env->env.tmp_con[0] = ft_strdup(buff);
+		return ;
 	}
-    while (env->env.tmp_var[i])
-    {
-        if (!ft_strcmp(env->env.tmp_var[i], "OLDPWD"))
-        {
-                free(env->env.tmp_con[i]);
-                env->env.tmp_con[i] = ft_strdup(buff);
-				free(buff);
-            return ;
-        }
-        i++;
-    }
+	i = 0;
+	while (env->env.tmp_var[i])
+	{
+		if (!ft_strcmp(env->env.tmp_var[i], "OLDPWD"))
+		{
+			free(env->env.tmp_con[i]);
+			env->env.tmp_con[i] = ft_strdup(buff);
+			free(buff);
+			return ;
+		}
+		i++;
+	}
 	free(buff);
 }
 
-void    replace_pwd(t_struct *env)
+void	replace_pwd(t_struct *env)
 {
-    char    *buff = NULL;
-	int		i = 0;
-   
-    buff = getcwd(buff, sizeof(buff));
+	char	*buff;
+	int		i;
+
+	buff = NULL;
+	buff = getcwd(buff, sizeof(buff));
 	if (glob_var == 0)
 	{
-		 env->env.tmp_con[0] = ft_strdup(buff);
-		 return ;
+		env->env.tmp_con[0] = ft_strdup(buff);
+		return ;
 	}
-    while (env->env.tmp_var[i])
-    {
-        if (!ft_strcmp(env->env.tmp_var[i], "PWD"))
-        {
-                free(env->env.tmp_con[i]);
-                env->env.tmp_con[i] = ft_strdup(buff);
-				free(buff);
-            return ;
-        }
-        i++;
-    }
+	i = 0;
+	while (env->env.tmp_var[i])
+	{
+		if (!ft_strcmp(env->env.tmp_var[i], "PWD"))
+		{
+			free(env->env.tmp_con[i]);
+			env->env.tmp_con[i] = ft_strdup(buff);
+			free(buff);
+			return ;
+		}
+		i++;
+	}
 	free(buff);
 }
 
 int	ft_cd(t_struct *shell)
 {
-	char	*arg_aux = NULL;
-	//bool	home;
-	char	*current_path = NULL;
-	char	*old_path = NULL;
+	char	*arg_aux;
 
+	arg_aux = NULL;
+	if (!ft_check_cd(shell))
+		return (0);
+	if (shell->arguments[1])
+		arg_aux = ft_strdup(shell->arg.all_cmd);
+	else if (!shell->arguments[1])
+	{
+		arg_aux = getenv("HOME");
+		if (!arg_aux)
+		{
+			ft_putstr_fd("Error/ home not set\n", 2);
+			return (1);
+		}
+	}
+	ft_change_dir(shell, arg_aux);
+	return (0);
+}
+
+int	ft_check_cd(t_struct *shell)
+{
 	if (glob_var == 0)
 	{
 		ft_die("PWD not fuond\n");
 		return (0);
 	}
-	//home = there_is_home(shell);
-	if (!ft_strcmp(shell->arguments[1], "-"))
+	if (shell->arguments[1] && !ft_strcmp(shell->arguments[1], "-"))
 	{
-		int i = 0;
-		current_path = getcwd(current_path, sizeof(current_path));
-		while (shell->env.tmp_var[i]) 
-		{
-			if (!ft_strcmp(shell->env.tmp_var[i], "OLDPWD"))
-			{
-				old_path = ft_strdup(shell->env.tmp_con[i]);
-				break;
-			}
-			i++;
-		}
-		if (!ft_strcmp(current_path, old_path))
-		{
-			ft_putstr_fd("Minishell: cd: OLDPWD not set\n", 2);
-			//g_status = 1;
-		}
-		else
-		{
-			if (ft_strcmp(old_path, current_path))
-			{
-				replace_oldpwd(shell);
-				if (chdir(old_path) == -1)
-				{
-					ft_not_found(shell->arguments[1]);
-					//g_status = 1;
-				}
-				ft_putstr_fd(current_path, shell->output_fd);
-				printf("\n");
-				replace_pwd(shell);
-			}
-		}
-		free(old_path);
-		old_path = NULL;
-		free(current_path);
-		old_path = NULL;
-		return(0);
+		ft_cd_tool(shell);
+		return (0);
 	}
-	if (shell->arguments[1])
-	{
-		arg_aux = ft_strdup(shell->arg.all_cmd);
-	}
-	// else
-	// {
-	// 	if (home == true)
-	// 	{
-	// 		arg_aux = ft_strdup(shell->home);
-	// 	}
-	// 	else
-	// 	{
-	// 		printf("Error/ home not set\n");
-	// 		return (1);
-	// 	}
-	// }
-	replace_oldpwd(shell);
-	if (chdir(arg_aux) == -1)
-	{
-		ft_not_found(shell->arguments[1]);
-		// g_status = 1;
-	}
-	replace_pwd(shell);
-	free(arg_aux);
-	return (0);
+	return (1);
 }
-void ft_not_found(char *dir)
+
+int	ft_cd_tool(t_struct *shell)
 {
-	if (dir)
+	char	*current_path;
+	char	*old_path;
+
+	current_path = NULL;
+	current_path = getcwd(current_path, sizeof(current_path));
+	old_path = ft_strdup(ft_oldpath(shell));
+	if (!ft_strcmp(current_path, old_path))
+		ft_putstr_fd("Minishell: cd: OLDPWD not set\n", 2);
+	else
 	{
-		ft_putstr_fd("Minishell: cd: ", 2);
-		ft_putstr_fd(dir, 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
+		if (ft_strcmp(old_path, current_path))
+		{
+			ft_change_dir(shell, old_path);
+			ft_putstr_fd(getcwd(NULL, sizeof(NULL)), shell->output_fd);
+			printf("\n");
+		}
 	}
+	if (old_path)
+		free(old_path);
+	old_path = NULL;
+	if (current_path)
+		free(current_path);
+	old_path = NULL;
+	return (0);
 }

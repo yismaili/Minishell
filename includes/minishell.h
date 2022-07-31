@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 19:09:14 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/31 19:34:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/readline.h>
-# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/history.h>
+# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -163,6 +163,11 @@ void signals();
 void restore_prompt(int sig);
 void ctrl_c(int sig);
 void back_slash(int sig);
-
-
+int	ft_cd_tool(t_struct *shell);
+char	*ft_oldpath(t_struct *shell);
+void	ft_change_dir(t_struct *shell, char *chpath);
+int	ft_check_cd(t_struct *shell);
+void	replace_oldpwd(t_struct *env);
+void	replace_pwd(t_struct *env);
+void	ft_echo_tool(t_struct *shell, char *echo_print);
 #endif

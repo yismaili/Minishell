@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 19:10:58 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/31 15:04:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	commande_tape(t_struct	*shell, int *size)
 	*size = ft_strlen(shell->commande_tape);
 	if (shell->commande_tape && line_empty(shell->commande_tape) != 1)
 		add_history(shell->commande_tape);
-	//if (!shell->commande_tape)
-	//	exit(1);
+	if (!shell->commande_tape)
+		exit(1);
 	return (1);
 }
