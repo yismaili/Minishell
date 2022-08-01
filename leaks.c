@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leaks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 16:42:15 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/01 22:03:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_free_cmd(char **cmd)
 		i++;
 	}
 }
+
 void	free_commande(char *line_read)
 {
 	if (line_read)

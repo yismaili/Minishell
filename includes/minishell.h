@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 21:41:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/01 22:21:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,34 +144,36 @@ int		create_env_tmp(t_struct *shell, char **my_env);
 int  	start_create_env(t_struct *shell);
 void	ft_die_malloc(char *str);
 void	ft_check_env(char **env);
-void ft_free_env(char **env);
+void	ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
-int	line_empty(char *input);
-void ft_not_found(char *dir);
+int		line_empty(char *input);
+void	ft_not_found(char *dir);
 char	*ft_split_cmd(char *cmd);
-int ft_serch_in_env(t_struct *env, char	*var, char *con);
-void func(t_struct *shell,int i, int status);
-void ft_free(t_struct *shell);
-void get_exit_code(int status);
-char **get_path(t_struct *ptr);
-void next_execute_cmd(char **cmd_path);
-void process_shild_execute(char **path, t_struct *shell);
-void printf_cmd_not_f(t_struct *shell);
-void signals();
-void restore_prompt(int sig);
-void ctrl_c(int sig);
-void back_slash(int sig);
-int	ft_cd_tool(t_struct *shell);
+int		ft_serch_in_env(t_struct *env, char	*var, char *con);
+void	func(t_struct *shell,int i, int status);
+void	ft_free(t_struct *shell);
+void	get_exit_code(int status);
+char	**get_path(t_struct *ptr);
+void	next_execute_cmd(char **cmd_path);
+void	process_shild_execute(char **path, t_struct *shell);
+void	printf_cmd_not_f(t_struct *shell);
+void	signals();
+void	restore_prompt(int sig);
+void	ctrl_c(int sig);
+void	back_slash(int sig);
+int		ft_cd_tool(t_struct *shell);
 char	*ft_oldpath(t_struct *shell);
 void	ft_change_dir(t_struct *shell, char *chpath);
-int	ft_check_cd(t_struct *shell);
+int		ft_check_cd(t_struct *shell);
 void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
 void	ft_echo_tool(t_struct *shell, char *echo_print);
 char	**ft_swap_env(char	**dup_env);
-void ft_error_eprt(char *cmd);
+void	ft_error_eprt(char *cmd);
 void	ft_export_tool(t_struct *shell);
 void	ft_print_export(char **export, t_struct	*shell);
 char	**ft_dup_env(t_struct *shell);
 void	sort_env(t_struct *env);
+void	ft_error_fork(void);
+
 #endif

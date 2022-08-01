@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/01 21:41:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/01 22:19:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_not_found(char *dir)
 		ft_putstr_fd(": no such file or directory\n", 2);
 	}
 }
+
 char	**ft_swap_env(char	**dup_env)
 {
 	char	*tmp;
@@ -68,4 +69,11 @@ char	**ft_swap_env(char	**dup_env)
 		i++;
 	}
 	return (dup_env);
+}
+
+void	ft_error_fork(void)
+{
+	ft_putstr_fd("Minishell: fork: ", 2);
+	ft_putstr_fd("Resource temporarily unavailable\n", 2);
+	return ;
 }

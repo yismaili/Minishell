@@ -1,33 +1,33 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                     :+:      :+:    :+:      */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 18:23:52 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/01 22:19:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-
-void print_cmd_not_f(t_struct *shell)
+void	print_cmd_not_f(t_struct *shell)
 {
-	ft_putstr_fd("Minishell :",2);
+	ft_putstr_fd("Minishell :", 2);
 	ft_putstr_fd(shell->cmd_splited[0], 2);
 	ft_putstr_fd(" : command not found\n", 2);
-} 
-void process_shild_execute(char **path, t_struct *shell)
+}
+
+void	process_shild_execute(char **path, t_struct *shell)
 {
-	char *faded;
+	char	*faded;
+
 	faded = NULL;
 	path = NULL;
 	path = get_path(shell);
 	faded = execute_cmd(shell, path);
-	if(execve(faded, shell->cmd_splited, shell->env.env) < 0)
+	if (execve(faded, shell->cmd_splited, shell->env.env) < 0)
 		cmd_not_found(shell->cmd_splited[0]);
 	ft_free_cmd(path);
 	free(path);
@@ -59,7 +59,7 @@ char	*execute_cmd(t_struct *shell, char **path)
 			next_execute_cmd(&cmd_path);
 		else
 			cmd_path = ft_strjoin(path[i], shell->cmd_splited[0]);
-		if (access(cmd_path, X_OK) == 0)
+		if (access(cmd_path, F_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
 		i++;
@@ -84,12 +84,11 @@ void	execution(t_struct *shell)
 		shell->pid = fork();
 		if (shell->pid < 0)
 		{
-			ft_putstr_fd("Minishell: fork: Resource temporarily unavailable\n", 2);
+			ft_error_fork();
 			return ;
 		}
 		else if (shell->pid == 0)
 		{
-			//signals(2);
 			output_input(shell);
 			if (shell->arguments[0] != NULL)
 				process_shild_execute(path, shell);
