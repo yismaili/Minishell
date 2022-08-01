@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/31 19:34:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/01 21:41:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	free1(char **array);
 void	free2(char **array);
 void	ft_unset(t_struct *shell);
 void	remove_env(t_struct *shell);
-//int		get_path(t_struct *shell);
 void	print_welcome(void);
 char	*get_current_dir(void);
 char	*create_prompt(void);
@@ -122,7 +121,6 @@ void 	ft_pwd();
 void 	ft_echo(t_struct *shell);
 int 	init_echo(t_struct *shell, int n);
 void 	print_echo(t_struct *shell,char* shell_print);
-void 	ft_export(t_struct *shell);
 void 	verify_if_env_exists(t_struct *shell, char **env_aux);
 void 	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 void 	pipe_next(t_struct *shell, int i, char *command);
@@ -170,4 +168,10 @@ int	ft_check_cd(t_struct *shell);
 void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
 void	ft_echo_tool(t_struct *shell, char *echo_print);
+char	**ft_swap_env(char	**dup_env);
+void ft_error_eprt(char *cmd);
+void	ft_export_tool(t_struct *shell);
+void	ft_print_export(char **export, t_struct	*shell);
+char	**ft_dup_env(t_struct *shell);
+void	sort_env(t_struct *env);
 #endif
