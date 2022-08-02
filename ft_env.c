@@ -16,7 +16,7 @@ void	ft_env(t_struct *shell)
 {
 	int	n;
 
-	if (glob_var == 0)
+	if (g_var == 0)
 	{
 		ft_die("environment not found\n");
 		return ;
@@ -41,10 +41,10 @@ void	ft_check_env(char	**env)
 
 	i = 0;
 	if (!env)
-		glob_var = 0;
+		g_var = 0;
 	while (env[i])
 		i++;
-	glob_var = i;
+	g_var = i;
 }
 
 int	line_empty(char	*input)

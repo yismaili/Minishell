@@ -19,7 +19,7 @@ void	replace_oldpwd(t_struct *env)
 
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	if (glob_var == 0)
+	if (g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		return ;
@@ -46,7 +46,7 @@ void	replace_pwd(t_struct *env)
 
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	if (glob_var == 0)
+	if (g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		return ;
@@ -90,7 +90,7 @@ int	ft_cd(t_struct *shell)
 
 int	ft_check_cd(t_struct *shell)
 {
-	if (glob_var == 0)
+	if (g_var == 0)
 	{
 		ft_die("PWD not fuond\n");
 		return (0);

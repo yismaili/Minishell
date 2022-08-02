@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_tool.c                                      :+:      :+:    :+:   */
+/*   export_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 19:58:39 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/01 21:30:02 by yismaili         ###   ########.fr       */
+/*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
+/*   Updated: 2022/08/02 13:03:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	check_export(t_struct *export)
 	i = 0;
 	if (export->arguments[1][0] == '=')
 		return (1);
-	if (glob_var == 0)
+	if (g_var == 0)
 		return (0);
 	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])
