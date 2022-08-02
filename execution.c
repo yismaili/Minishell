@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                     :+:      :+:    :+:      */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 18:23:52 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/02 19:04:37 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	process_shild_execute(char **path, t_struct *shell)
 	path = NULL;
 	path = get_path(shell);
 	faded = execute_cmd(shell, path);
+	//printf("faded = %s\n", faded);
+	//printf("cmd_spl[0] here=%s\n", shell->cmd_splited[0]);
 	if (execve(faded, shell->cmd_splited, shell->env.env) < 0)
 	{
 		printf("here\n");
@@ -64,9 +66,20 @@ char	*execute_cmd(t_struct *shell, char **path)
 	int		i;
 	char	*cmd_path;
 	char	*tmp;
+	int size;
 
 	i = 0;
 	cmd_path = NULL;
+	size = (int)ft_strlen(shell->cmd_splited[0]);
+	//printf("cmd_spl[0]=%s\n", shell->cmd_splited[0]);
+	if(shell->cmd_splited[0][size - 1] == ' ')
+	{
+		char *apt;
+		apt = NULL;
+		apt = ft_remove_quot(shell->cmd_splited[0], ' ');
+		shell->cmd_splited[0] = ft_strdup(apt);
+	}
+	
 	while (path[i])
 	{
 		tmp = path[i];
@@ -76,7 +89,7 @@ char	*execute_cmd(t_struct *shell, char **path)
 			next_execute_cmd(&cmd_path);
 		else
 			cmd_path = ft_strjoin(path[i], shell->cmd_splited[0]);
-		if (access(cmd_path, X_OK) == 0)
+		if (access(cmd_path, F_OK) == 0)
 		{
 			return (cmd_path);
 		}
@@ -86,6 +99,7 @@ char	*execute_cmd(t_struct *shell, char **path)
 	return (NULL);
 }
 
+
 void	cmd_not_found(char *cmd)
 {
 	g_status = 127;
@@ -93,7 +107,7 @@ void	cmd_not_found(char *cmd)
 	{
 		ft_putstr_fd("Minishell :", 2);
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(" : command nooooot found\n", 2);
+		ft_putstr_fd(" : command not found\n", 2);
 		exit(g_status);
 	}
 }

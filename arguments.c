@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 02:05:27 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/02 19:06:44 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char	**arg_func(t_struct *shell, char *cmd_joined, t_arg *arg)
 			[arg->position], " ");
 	shell->arg.txt_toprint = ft_strtrim(&(shell->line_commande) \
 			[arg->position], " ");
-	if (((shell->line_commande[0] == '\"') && \
-				(shell->line_commande[size - 1] == '\"')) \
-			|| ((shell->line_commande[0] == '\'') && \
-				(shell->line_commande[size - 1] == '\'')))
+	if ((shell->line_commande[0] == '\"') || (shell->line_commande[0] == '\'') || (shell->line_commande[size -1 ] == '\"') || (shell->line_commande[size -1 ] == '\''))
+	{
+		printf("here\n");
 		spled = arg_with_quote(cmd_joined, shell);
+	}
 	else
 		spled = split_arg(spl, cmd_joined, shell);
 	free_arg(arg);
@@ -61,6 +61,8 @@ char	**arg_with_quote(char *cmd_joined, t_struct *shell)
 	spled = NULL;
 	cmd_joined = ft_split_cmd(shell->line_commande);
 	shell->arguments = ft_split(cmd_joined, ' ');
+	printf("arg[0]=%s\n", shell->arguments[0]);
+	printf("arg[1] = %s\n", shell->arguments[1]);
 	spled = ft_split(cmd_joined, '|');
 	free(cmd_joined);
 	return (spled);

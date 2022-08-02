@@ -54,7 +54,7 @@ int	main(void)
 			{
 				divise_commande(&shell, shell.commande_tape);
 				if (shell.commands[0][0] != '|' && \
-						shell.commande_tape[size - 1] != '|')
+						shell.commande_tape[size - 1] != '|' && shell.dup_pipe == 0)
 					run_commands(&shell);
 				else
 					ft_putstr_fd(PIPE_ERROR, 2);

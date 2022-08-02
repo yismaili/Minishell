@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 15:08:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:06:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_echo(t_struct *shell, char *echo_print)
 	}
 	else
 	{
-		if (!ft_strcmp(splt_quot[0], "$"))
+		if (!ft_strncmp(splt_quot[0], "$", 1))
 			echo_with_dollar(shell, splt_quot);
 		else
 			echo_with_quote(echo_print, test, shell);

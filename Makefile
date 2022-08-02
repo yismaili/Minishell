@@ -37,7 +37,7 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME) : $(OBJ_FILES) $(LIBFT)
-	$(CC) $(OBJ_FILES) -lreadline  -L /Users/yismaili/goinfre/.brew/opt/readline/lib  -I /Users/yismaili/goinfre/.brew/opt/readline/include/readline/ $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ_FILES) -lreadline  -L /Users/souchen/goinfre/.brew/opt/readline/lib  -I /Users/souchen/goinfre/.brew/opt/readline/include/readline/ $(LIBFT) $(FLAGS) -o $(NAME)
 
 %.o : %.c $(HEADER)
 	@echo $(HOME)

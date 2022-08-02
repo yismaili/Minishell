@@ -36,7 +36,7 @@ static int	ft_lenwrd(const char *s, char c)
 
 static void	*ft_free(char **dest, int j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < j)

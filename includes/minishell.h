@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 13:00:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/01 03:28:47 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
-# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
+# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -89,6 +89,7 @@ typedef struct s_struct
 	t_arg		arg;
 	int			q1;
 	int			q2;
+	int			dup_pipe;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -123,7 +124,7 @@ int		init_echo(t_struct *shell, int n);
 void	print_echo(t_struct *shell, char *shell_print);
 void	ft_export(t_struct *shell);
 void	verify_if_env_exists(t_struct *shell, char **env_aux);
-void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
+void	export_to_env(t_struct *shell, char *tab1, char *tab2);
 void	pipe_next(t_struct *shell, int i, char *command);
 void	inredirection(t_struct *shell);
 void	outredirection(t_struct *shell);
@@ -150,7 +151,7 @@ void	ft_free_cmd(char **cmd);
 int		line_empty(char *input);
 void	ft_not_found(char *dir);
 char	*ft_split_cmd(char *cmd);
-int		ft_serch_in_env(t_struct *env, char	*var, char *con);
+int		ft_search_in_env(t_struct *env, char	*var, char *con);
 void	func(t_struct *shell, int i, int status);
 void	ft_free(t_struct *shell);
 void	get_exit_code(int status);
@@ -180,10 +181,10 @@ char	*ft_remove_quot(char *s1, char c);
 void	next_inredirection(t_struct *shell);
 t_arg	*init_arg(void);
 void	echo_with_quote(char *echo_print, char **test, t_struct *shell);
-void echo_with_dollar(t_struct *shell, char **splt_quot);
-void	ft_export_tool(t_struct *shell);
-void	ft_error_eprt(char *cmd);
-int	check_export(t_struct *export);
-char	**ft_swap_env(char	**dup_env);
-void	ft_error_fork(void);
+void	echo_with_dollar(t_struct *shell, char **splt_quot);
+void	swap_env(char **dup_env);
+void	export_with_arg(t_struct *shell);
+void	sort_env(t_struct *shell);
+void	ft_print_export(char **exp, t_struct *shell);
+void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 #endif
