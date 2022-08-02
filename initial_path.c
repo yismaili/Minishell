@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 22:09:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/31 21:39:12 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,9 @@ int	start_create_env(t_struct *shell)
 	return (1);
 }
 
-void	cmd_not_found(char *cmd)
+void	print_cmd_not_f(t_struct *shell)
 {
-	glob_var = 127;
-	if (cmd)
-	{
-		ft_putstr_fd("Minishell :", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(" : command not found\n", 2);
-		exit(glob_var);
-	}
+	ft_putstr_fd("Minishell :", 2);
+	ft_putstr_fd(shell->cmd_splited[0], 2);
+	ft_putstr_fd(" : command not found\n", 2);
 }
