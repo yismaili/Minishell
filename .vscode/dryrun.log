@@ -1,0 +1,67 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/yismaili/Desktop/shelltow'
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m builtins.c"
+gcc  -Wall -Werror -Wextra -g  -c builtins.c -o builtins.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m create_env.c"
+gcc  -Wall -Werror -Wextra -g  -c create_env.c -o create_env.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_exit.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_exit.c -o ft_exit.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_unset.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_unset.c -o ft_unset.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m initial_path.c"
+gcc  -Wall -Werror -Wextra -g  -c initial_path.c -o initial_path.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m main.c"
+gcc  -Wall -Werror -Wextra -g  -c main.c -o main.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m run_commande.c"
+gcc  -Wall -Werror -Wextra -g  -c run_commande.c -o run_commande.o
+ 
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m divise_commande.c"
+gcc  -Wall -Werror -Wextra -g  -c divise_commande.c -o divise_commande.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m arguments.c"
+gcc  -Wall -Werror -Wextra -g  -c arguments.c -o arguments.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m arguments_utils.c"
+gcc  -Wall -Werror -Wextra -g  -c arguments_utils.c -o arguments_utils.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_env.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_env.c -o ft_env.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_export.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_export.c -o ft_export.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_cd.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_cd.c -o ft_cd.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_pwd.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_pwd.c -o ft_pwd.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m ft_echo.c"
+gcc  -Wall -Werror -Wextra -g  -c ft_echo.c -o ft_echo.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m output_input.c"
+gcc  -Wall -Werror -Wextra -g  -c output_input.c -o output_input.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m leaks.c"
+gcc  -Wall -Werror -Wextra -g  -c leaks.c -o leaks.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m execution.c"
+gcc  -Wall -Werror -Wextra -g  -c execution.c -o execution.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m tools.c"
+gcc  -Wall -Werror -Wextra -g  -c tools.c -o tools.o
+echo /Users/yismaili
+echo "\033[1;31mCOMPILING\033[0m export_tool.c"
+gcc  -Wall -Werror -Wextra -g  -c export_tool.c -o export_tool.o
+make -C libft
+gcc builtins.o create_env.o ft_exit.o ft_unset.o initial_path.o main.o run_commande.o divise_commande.o arguments.o arguments_utils.o ft_env.o ft_export.o ft_cd.o ft_pwd.o ft_echo.o output_input.o leaks.o execution.o tools.o export_tool.o -lreadline  -L /Users/yismaili/goinfre/.brew/opt/readline/lib  -I /Users/yismaili/goinfre/.brew/opt/readline/include/readline/ libft/libft.a -Wall -Werror -Wextra -g -o minishell
+make: Leaving directory `/Users/yismaili/Desktop/shelltow'
+ 
