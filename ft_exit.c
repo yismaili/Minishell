@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 16:44:54 by souchen          ###   ########.fr       */
+/*   Updated: 2022/07/31 19:49:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "includes/minishell.h"
 
 void	ft_exit(t_struct *shell)
 {
-	free2(shell->commands);
-	free (shell->home);
-	printf("exit\n");
+	free2(shell->env.tmp_var);
+	free2(shell->env.tmp_con);
+	ft_putstr_fd("exit\n", shell->output_fd);
 	exit(0);
 }
 

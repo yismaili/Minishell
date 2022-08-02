@@ -79,7 +79,7 @@ void		sort_env(t_struct *env)
 	int	i;
 	int	j;
 
-	if (glob_var == 0)
+	if (g_var == 0)
 	{
 		ft_die("environment not found\n");
 		return ;
@@ -176,7 +176,7 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 
 	if(!malloc_env_aux_tmp(shell))
 		ft_die_malloc("No space left\n");
-	if(glob_var == 0)
+	if(g_var == 0)
 	{
 		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
 		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
@@ -227,7 +227,7 @@ int check_export(t_struct *export)
 	//printf("arguments= %s\n",export->arguments[1]);
 	if (export->arguments[1][0] == '=')
 		return(1);
-	if (glob_var == 0)
+	if (g_var == 0)
 		return(0);
 	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])

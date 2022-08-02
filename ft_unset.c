@@ -6,16 +6,16 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 14:38:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/07/31 19:54:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "includes/minishell.h"
 
 void	ft_unset(t_struct *shell)
 {
-	int i;
+	int	i;
+
 	i = 1;
 	while (shell->arguments[i])
 	{
@@ -31,8 +31,9 @@ void	remove_env(t_struct *shell)
 {
 	int	i;
 	int	j;
+
 	shell->env.len--;
-	if(!malloc_env_aux_tmp(shell))
+	if (!malloc_env_aux_tmp(shell))
 		ft_die_malloc("No spece lift\n");
 	i = 0;
 	j = 0;
@@ -54,13 +55,13 @@ void	remove_env(t_struct *shell)
 	shell->env.tmp_con = shell->env_aux.tmp_con;
 }
 
-int 	 malloc_env_aux_tmp(t_struct *shell)
+int	malloc_env_aux_tmp(t_struct *shell)
 {
 	shell->env_aux.tmp_var = malloc(sizeof(char *) * (shell->env.len + 1));
 	if (!shell->env_aux.tmp_var)
 		return (0);
 	shell->env_aux.tmp_con = malloc(sizeof(char *) * (shell->env.len + 1));
 	if (!shell->env_aux.tmp_con)
-		return(0);
-	return(1);
+		return (0);
+	return (1);
 }

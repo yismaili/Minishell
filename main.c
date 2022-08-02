@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 19:10:58 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/01 03:27:53 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@ void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_status = 1;
 		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		glob_var = 130;
 	}
 	else if (sig == SIGQUIT)
 	{
-		glob_var = 131;
-		ft_putstr_fd("Quit\n", 1);
+		ft_putstr_fd("\n", 1);
 	}
 }
 
@@ -55,11 +54,10 @@ int	main(void)
 			{
 				divise_commande(&shell, shell.commande_tape);
 				if (shell.commands[0][0] != '|' && \
-						shell.commande_tape[size] != '|')
+						shell.commande_tape[size - 1] != '|')
 					run_commands(&shell);
 				else
-					ft_putstr_fd("Minishell: syntax error near \
-							unexpected token `|'\n", 2);
+					ft_putstr_fd(PIPE_ERROR, 2);
 			}
 		}
 	}
@@ -84,7 +82,7 @@ int	commande_tape(t_struct	*shell, int *size)
 	*size = ft_strlen(shell->commande_tape);
 	if (shell->commande_tape && line_empty(shell->commande_tape) != 1)
 		add_history(shell->commande_tape);
-	//if (!shell->commande_tape)
-	//	exit(1);
+	if (!shell->commande_tape)
+		exit(1);
 	return (1);
 }

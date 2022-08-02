@@ -6,7 +6,7 @@
 #    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/07/30 14:08:41 by souchen          ###   ########.fr        #
+#    Updated: 2022/07/31 21:14:42 by souchen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ RM = rm -rf
 FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
        initial_path.c  main.c  run_commande.c \
        divise_commande.c arguments.c arguments_utils.c ft_env.c ft_export.c ft_cd.c ft_pwd.c \
-       ft_echo.c output_input.c leaks.c execution.c
-
+       ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c
+ 
 
 OBJ_FILES= $(FILES:.c=.o)
 

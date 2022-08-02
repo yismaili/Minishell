@@ -24,6 +24,7 @@ void	ft_free_cmd(char **cmd)
 		i++;
 	}
 }
+
 void	free_commande(char *line_read)
 {
 	if (line_read)
