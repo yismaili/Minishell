@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 15:01:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:08:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_echo(t_struct *shell)
 	shell->i = 0;
 	while (shell->arguments[i])
 	{
-		if (!ft_strcmp(shell->arguments[1], "-n"))
+		if (!ft_strncmp(shell->arguments[1], "-n", 2) && i == 1)
 			i++;
 		if (shell->arguments[i])
 		{
@@ -31,7 +31,7 @@ void	ft_echo(t_struct *shell)
 		}
 		i++;
 	}
-	if (ft_strcmp(shell->arguments[1], "-n"))
+	if (ft_strncmp(shell->arguments[1], "-n", 2))
 		ft_putstr_fd("\n", shell->output_fd);
 }
 
