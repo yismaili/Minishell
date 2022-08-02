@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 03:28:47 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/02 13:00:29 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/readline.h>
-# include </Users/souchen/goinfre/.brew/opt/readline/include/readline/history.h>
+# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -181,4 +181,9 @@ void	next_inredirection(t_struct *shell);
 t_arg	*init_arg(void);
 void	echo_with_quote(char *echo_print, char **test, t_struct *shell);
 void echo_with_dollar(t_struct *shell, char **splt_quot);
+void	ft_export_tool(t_struct *shell);
+void	ft_error_eprt(char *cmd);
+int	check_export(t_struct *export);
+char	**ft_swap_env(char	**dup_env);
+void	ft_error_fork(void);
 #endif
