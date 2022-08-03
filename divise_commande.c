@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 21:53:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/03 15:34:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	initial_divise(t_struct *shell)
 	shell->cmp = 0;
 	shell->i = 0;
 	shell->len = 0;
+	shell->dup_pipe = 0;
 }
 
 void	command(t_struct *shell, char *commande_read)
@@ -45,6 +46,9 @@ void	divise_commande(t_struct *shell, char *commande_read)
 		{
 			if (commande_read[shell->i] == '|')
 				shell->divise.pipe++;
+			if (commande_read[shell->i] == '|'
+				&& commande_read[shell->i +1] == '|')
+				shell->dup_pipe = 1;
 			command(shell, commande_read);
 			if (commande_read[shell->i + 1] == commande_read[shell->i])
 			{

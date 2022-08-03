@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 03:27:53 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/03 16:20:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,18 @@ int	main(void)
 	signals();
 	while (1)
 	{
+		shell.quote = 0;
+		shell.double_quote = 0;
+		shell.indice = 0;
+		shell.right = 0;
 		commande_tape(&shell, &size);
 		if (shell.commande_tape && !line_empty(shell.commande_tape))
 		{
 			if (shell.commande_tape[0])
 			{
 				divise_commande(&shell, shell.commande_tape);
-				if (shell.commands[0][0] != '|' && \
-						shell.commande_tape[size - 1] != '|')
+				if (shell.commands[0][0] != '|' && shell.commande_tape
+					[size - 1] != '|' && shell.dup_pipe == 0)
 					run_commands(&shell);
 				else
 					ft_putstr_fd(PIPE_ERROR, 2);

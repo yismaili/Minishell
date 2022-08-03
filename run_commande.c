@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commande.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 18:51:49 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/03 16:21:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ void	run_commands(t_struct *shell)
 		i++;
 	}
 	next_run_commands(shell);
-	func(shell, i, status);
-	ft_free(shell);
+	ft_wait_pid(shell, i, status);
 }
 
-void	func(t_struct *shell, int i, int status)
+void	ft_wait_pid(t_struct *shell, int i, int status)
 {
 	int	j;
 
