@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/31 21:39:12 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/03 21:21:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**get_path(t_struct *ptr)
 	char	**path;
 
 	i = 0;
+	if (g_var == 0)
+		return (NULL);
 	while (ptr->env.tmp_var[i])
 	{
 		if (ft_strcmp(ptr->env.tmp_var[i], "PATH") == 0)
@@ -44,6 +46,6 @@ int	start_create_env(t_struct *shell)
 void	print_cmd_not_f(t_struct *shell)
 {
 	ft_putstr_fd("Minishell :", 2);
-	ft_putstr_fd(shell->cmd_splited[0], 2);
+	ft_putstr_fd(shell->arguments[0], 2);
 	ft_putstr_fd(" : command not found\n", 2);
 }

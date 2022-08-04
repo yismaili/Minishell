@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 15:24:39 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/03 21:49:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,26 @@ void	verify_if_env_exists(t_struct *shell, char **env_aux)
 
 void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
+	int	i;
+
 	if (!malloc_env_aux_tmp(shell))
 		ft_die_malloc("No space left\n");
+	i = 0;
+	if (g_var == 0)
+	{
+		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
+		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
+		shell->env.tmp_var = shell->env_aux.tmp_var;
+		shell->env.tmp_con = shell->env_aux.tmp_con;
+		shell->env.len++;
+		g_var++;
+		return ;
+	}
+	while (i < shell->env.len)
+	{
+		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
+		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
+		i++;
+	}
 	next_export (shell, new_elem_tab1, new_elem_tab2);
-	shell->env.len++;
-	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
-	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
-	free1(shell->env.tmp_var);
-	free1(shell->env.tmp_con);
-	shell->env.tmp_var = shell->env_aux.tmp_var;
-	shell->env.tmp_con = shell->env_aux.tmp_con;
-	shell->env.tmp_var[shell->env.len] = 0;
-	shell->env.tmp_con[shell->env.len] = 0;
 }

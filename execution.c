@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/03 16:36:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/04 02:46:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execution(t_struct *shell)
 	char	**path;
 
 	i = 0;
-	path = get_path(shell);
+	path = NULL;
 	builtin_exist(shell);
 	if (shell->builtin_exist == 1)
 		run_builtin(shell);
@@ -49,6 +49,7 @@ char	*execute_cmd(t_struct *shell, char **path)
 	char	*tmp;
 
 	i = 0;
+	path = get_path(shell);
 	cmd_path = NULL;
 	g_var = execve(shell->arguments[0], &shell->arguments[0], shell->env.env);
 	while (path[i])
@@ -56,8 +57,6 @@ char	*execute_cmd(t_struct *shell, char **path)
 		tmp = path[i];
 		path[i] = ft_strjoin(path[i], "/");
 		free (tmp);
-		if (!ft_strcmp(shell->commands[0], "./minishell "))
-			next_execute_cmd(&cmd_path);
 		if (shell->quote % 2 != 0 || shell->double_quote % 2 != 0
 			|| (shell->right == 1))
 		{
@@ -118,17 +117,16 @@ void	cmd_not_found(t_struct *shell)
 {
 	g_status = 127;
 	if (shell->arguments[0][0] != '|')
-		printf("minishell: %s: command not found\n", shell->arguments[0]);
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 	else if (shell->arguments[1])
-		printf("minishell: %s: command not found\n", shell->arguments[1]);
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[1], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 	exit(g_status);
-}
-
-void	next_execute_cmd(char	**cmd_path)
-{
-	char	*current_pth;
-
-	current_pth = getcwd(NULL, sizeof(NULL));
-	*cmd_path = ft_strjoin(current_pth, "/minishell");
-	free(current_pth);
 }

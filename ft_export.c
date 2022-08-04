@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 15:28:24 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/04 02:48:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ void	export_with_arg(t_struct *shell)
 	while (shell->arguments[i] && check_export(shell) == 0)
 	{
 		env_aux = ft_split(shell->arguments[i], '=');
+		if (g_var == 0)
+		{
+			verify_if_env_exists(shell, env_aux);
+			return ;
+		}
 		if (env_aux[0] && shell->arguments[i] \
 				[ft_strlen(shell->arguments[1]) - 1] != '=' && \
 				env_aux[1] != NULL)
@@ -81,23 +86,15 @@ void	export_with_arg(t_struct *shell)
 
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
-	int	i;
-
-	i = 0;
-	if (g_var == 0)
-	{
-		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
-		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
-		shell->env.tmp_var = shell->env_aux.tmp_var;
-		shell->env.tmp_con = shell->env_aux.tmp_con;
-		return ;
-	}
-	while (i < shell->env.len)
-	{
-		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
-		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
-		i++;
-	}
+	shell->env.len++;
+	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
+	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
+	free1(shell->env.tmp_var);
+	free1(shell->env.tmp_con);
+	shell->env.tmp_var = shell->env_aux.tmp_var;
+	shell->env.tmp_con = shell->env_aux.tmp_con;
+	shell->env.tmp_var[shell->env.len] = 0;
+	shell->env.tmp_con[shell->env.len] = 0;
 }
 
 int	check_export(t_struct *export)

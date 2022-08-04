@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/31 19:01:07 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/03 22:05:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,6 @@ int	ft_cd(t_struct *shell)
 
 int	ft_check_cd(t_struct *shell)
 {
-	if (g_var == 0)
-	{
-		ft_die("PWD not fuond\n");
-		return (0);
-	}
 	if (shell->arguments[1] && !ft_strcmp(shell->arguments[1], "-"))
 	{
 		ft_cd_tool(shell);

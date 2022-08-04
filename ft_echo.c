@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 13:06:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/04 02:55:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_echo(t_struct *shell)
 	shell->i = 0;
 	while (shell->arguments[i])
 	{
-		if (!ft_strncmp(shell->arguments[1], "-n", 2) && i == 1)
+		if (!ft_strcmp(shell->arguments[1], "-n") && i == 1)
 			i++;
 		if (shell->arguments[i])
 		{
@@ -31,7 +31,7 @@ void	ft_echo(t_struct *shell)
 		}
 		i++;
 	}
-	if (ft_strncmp(shell->arguments[1], "-n", 2))
+	if (ft_strcmp(shell->arguments[1], "-n"))
 		ft_putstr_fd("\n", shell->output_fd);
 }
 
@@ -44,7 +44,7 @@ void	print_echo(t_struct *shell, char *echo_print)
 	test = NULL;
 	i = 0;
 	splt_quot = ft_split(echo_print, '"');
-	if (!ft_strncmp(echo_print, "$?", 2))
+	if (!ft_strcmp(echo_print, "$?"))
 	{
 		ft_putnbr_fd(g_status, shell->output_fd);
 		printf("\n");
@@ -65,7 +65,7 @@ void	echo_with_dollar(t_struct *shell, char **splt_quot)
 
 	i = 0;
 	splted = ft_split(splt_quot[0], '$');
-	if (!getenv(splted[0]))
+	if (!get_path(shell))
 		return ;
 	while (shell->env.tmp_var[i])
 	{
