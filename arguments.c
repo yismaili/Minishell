@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 13:09:26 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/05 22:51:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,33 @@
 
 void	arguments_func(t_struct	*shell)
 {
-	char	*cmd_joined;
 	t_arg	*arg;
-
 	arg = init_arg();
-	cmd_joined = NULL;
 	shell->arguments = NULL;
 	if (shell->line_commande)
 	{
 		arg->position = find_char(shell->line_commande, ' ');
-		arg_func(shell, cmd_joined, arg);
-	}	
+		arg_func(shell);
+	}
+	free(shell->line_commande);
+	free(arg);
 }
 
-void	arg_func(t_struct *shell, char *cmd_joined, t_arg *arg)
+void	arg_func(t_struct *shell)
 {
 	int	size;
 	int	i;
 	int	j;
 	int pos;
+	char	*cmd_joined;
 
 	i = 0;
 	j = 0;
 	pos = 0;
 	shell->space = 0;
 	shell->indice = 0;
+	cmd_joined = NULL;
 	size = ft_strlen(shell->line_commande);
-	shell->arg.all_cmd = ft_strtrim(&(shell->line_commande) \
-			[arg->position], " ");
-	shell->arg.txt_toprint = ft_strtrim(&(shell->line_commande) \
-			[arg->position], " ");
 	while (i < (int)ft_strlen(shell->line_commande))
 	{
 		if (shell->line_commande[i] == QUOTE)
@@ -85,10 +82,9 @@ void	arg_func(t_struct *shell, char *cmd_joined, t_arg *arg)
 	if (((&shell->line_commande[pos])[0] == '\"') || ((&shell->line_commande[pos])[0] == '\'') || \
 			((&shell->line_commande[pos])[size - 1] == '\"') || ((&shell->line_commande[pos])[size - 1] == '\''))
 	{
-		printf("yea\n");
 		cmd_joined = ft_split_cmd(shell->line_commande);
-		printf("cmd_command=%s\n", cmd_joined);
 		shell->arguments = ft_split(cmd_joined, ' ');
+		//free(cmd_joined);
 	}
 	else
 		shell->arguments = ft_split(shell->line_commande, ' ');

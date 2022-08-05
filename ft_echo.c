@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/04 02:55:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:31:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	print_echo(t_struct *shell, char *echo_print)
 		else
 			echo_with_quote(echo_print, test, shell);
 	}
+	ft_free_cmd(splt_quot);
 }
 
 void	echo_with_dollar(t_struct *shell, char **splt_quot)
@@ -64,22 +65,20 @@ void	echo_with_dollar(t_struct *shell, char **splt_quot)
 	int		i;
 
 	i = 0;
+	if (!shell->path)
 	splted = ft_split(splt_quot[0], '$');
-	if (!get_path(shell))
 		return ;
 	while (shell->env.tmp_var[i])
 	{
 		if (!ft_strcmp(shell->env.tmp_var[i], splted[0]))
 		{
 			ft_free_cmd(splted);
-			free(splted);
 			ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
 			return ;
 		}
 		i++;
 	}
 	ft_free_cmd(splted);
-	free(splted);
 }
 
 void	echo_with_quote(char *echo_print, char **test, t_struct *shell)
@@ -96,11 +95,13 @@ void	echo_with_quote(char *echo_print, char **test, t_struct *shell)
 	{
 		test = ft_split(echo_print, QUOTE);
 		printf("%s\n", test[0]);
+		ft_free_cmd(test);
 	}
 	else if (shell->q2 >= 1)
 	{
 		test = ft_split(echo_print, DOUBLE_QUOTE);
 		ft_putstr_fd(test[0], shell->output_fd);
+		ft_free_cmd(test);
 	}
 	else
 		ft_putstr_fd(echo_print, shell->output_fd);

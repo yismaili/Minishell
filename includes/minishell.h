@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 16:49:18 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/05 22:36:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,6 @@ typedef struct s_divise
 
 typedef struct s_arg
 {
-	char	*all_cmd;
-	char	*to_exec;
-	char	*txt_toprint;
-	char	quote;
-	char	*seconde;
-	char	*first;
-	int		i;
-	int		init;
-	int		len;
 	int		position;
 }			t_arg;
 
@@ -82,7 +73,6 @@ typedef struct s_struct
 	pid_t		pid;
 	char		*commands[600000];
 	char		**arguments;
-	char		**cmd_splited;
 	int			i;
 	int			len;
 	t_env		env_aux;
@@ -97,6 +87,7 @@ typedef struct s_struct
 	int			space;
 	int			right;
 	int			indice;
+	char		**path;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -104,8 +95,6 @@ void	run_builtin(t_struct *shell);
 int		count_len_env(t_struct *shell);
 void	ft_exit(t_struct *shell);
 void	free_line(char *line_read);
-void	free1(char **array);
-void	free2(char **array);
 void	ft_unset(t_struct *shell);
 void	remove_env(t_struct *shell);
 void	print_welcome(void);
@@ -137,7 +126,7 @@ void	inredirection(t_struct *shell);
 void	outredirection(t_struct *shell);
 void	next_run_commands(t_struct *shell);
 void	next(t_struct *shell, char*commande_read);
-char	*execute_cmd(t_struct *shell, char **path);
+char	*execute_cmd(t_struct *shell);
 void	output_input(t_struct *shell);
 void	check_to_execute(t_struct *shell);
 void	sig_handler(int signum);
@@ -155,11 +144,11 @@ void	ft_die_malloc(char *str);
 void	ft_check_env(char **env);
 void	ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
-int		line_empty(char *input);
+int		is_empty(char *input);
 void	ft_not_found(char *dir);
 char	*ft_split_cmd(char *cmd);
 int		ft_search_in_env(t_struct *env, char	*var, char *con);
-void	ft_wait_pid(t_struct *shell, int i, int status);
+void	ft_wait_pid(t_struct *shell);
 void	ft_free(t_struct *shell);
 void	get_exit_code(int status);
 char	**get_path(t_struct *ptr);
@@ -178,7 +167,7 @@ void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
 void	ft_echo_tool(t_struct *shell, char *echo_print);
 char	*remplir(char *s1, char c, int len);
-void	arg_func(t_struct *shell, char *cmd_joined, t_arg *arg);
+void	arg_func(t_struct *shell);
 int		find_char(char *string, char c);
 char	*ft_split_cmd(char *cmd);
 char	*ft_remove_quot(char *s1, char c);
@@ -192,4 +181,5 @@ void	sort_env(t_struct *shell);
 void	ft_print_export(char **exp, t_struct *shell);
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 void	next_execute_commands(t_struct *shell, int i, char *command);
+void	ft_cmd(char **env);
 #endif

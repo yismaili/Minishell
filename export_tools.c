@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/02 19:10:23 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/05 18:44:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	sort_env(t_struct *env)
 	dup_env = ft_dup_env(env);
 	swap_env(dup_env);
 	ft_print_export(dup_env, env);
+	ft_free_env(dup_env);
 }
 
 void	swap_env(char **dup_env)

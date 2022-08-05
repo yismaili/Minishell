@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 16:49:05 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/05 22:54:08 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	sig_handler(int sig)
 void	signals(void)
 {
 	if (signal(SIGINT, sig_handler) == SIG_ERR)
-		ft_putstr_fd(RED"can't catch cnrtl-C", 2);
+		ft_putstr_fd(RED"Error cnrtl-C", 2);
 	if (signal(SIGQUIT, sig_handler) == SIG_ERR)
-		ft_putstr_fd(RED"can't catch cntrl-\\", 2);
+		ft_putstr_fd(RED"Error cntrl-\\", 2);
 }
 
 int	main(void)
@@ -52,7 +52,7 @@ int	main(void)
 		shell.indice = 0;
 		shell.right = 0;
 		commande_tape(&shell, &size);
-		if (shell.commande_tape && !line_empty(shell.commande_tape))
+		if (shell.commande_tape && !is_empty(shell.commande_tape))
 		{
 			if (shell.commande_tape[0])
 			{
@@ -64,8 +64,8 @@ int	main(void)
 					ft_putstr_fd(PIPE_ERROR, 2);
 			}
 		}
+		free(shell.commande_tape);
 	}
-	free(shell.commande_tape);
 }	
 
 void	print_welcome(void)
@@ -84,7 +84,7 @@ int	commande_tape(t_struct	*shell, int *size)
 	rl_catch_signals = 0;
 	shell->commande_tape = readline(GREEN"Minishell-1.0$ "WHITE);
 	*size = ft_strlen(shell->commande_tape);
-	if (shell->commande_tape && line_empty(shell->commande_tape) != 1)
+	if (shell->commande_tape && is_empty(shell->commande_tape) != 1)
 		add_history(shell->commande_tape);
 	if (!shell->commande_tape)
 		exit(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 13:23:19 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/05 21:17:43 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_cd(t_struct *shell)
 	if (!ft_check_cd(shell))
 		return (0);
 	if (shell->arguments[1])
-		arg_aux = ft_strdup(shell->arg.all_cmd);
+		arg_aux = ft_strdup(shell->arguments[1]);
 	else if (!shell->arguments[1])
 	{
 		arg_aux = find_env_tmp(shell, "HOME");

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/03 21:49:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:04:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_check_env(char	**env)
 	g_var = i;
 }
 
-int	line_empty(char	*input)
+int	is_empty(char	*input)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/04 02:48:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:00:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 	shell->env.len++;
 	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
-	free1(shell->env.tmp_var);
-	free1(shell->env.tmp_con);
+	ft_free_env(shell->env.tmp_var);
+	ft_free_env(shell->env.tmp_con);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
 	shell->env.tmp_con = shell->env_aux.tmp_con;
 	shell->env.tmp_var[shell->env.len] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 16:48:31 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/05 23:05:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 void	execution(t_struct *shell)
 {
 	int		i;
-	char	**path;
 
 	i = 0;
-	path = NULL;
 	builtin_exist(shell);
 	if (shell->builtin_exist == 1)
 		run_builtin(shell);
-	else if (!get_path(shell))
+	else if (!shell->path)
 		print_cmd_not_f(shell);
 	else
 	{
@@ -37,49 +35,46 @@ void	execution(t_struct *shell)
 		{
 			output_input(shell);
 			if (shell->arguments[0] != NULL)
-				execute_cmd(shell, path);
+				execute_cmd(shell);
 		}
+		ft_free_cmd(shell->arguments);
 	}
 }
 
-char	*execute_cmd(t_struct *shell, char **path)
+char	*execute_cmd(t_struct *shell)
 {
 	int		i;
 	char	*cmd_path;
-	char	*tmp;
 
 	i = 0;
-	path = get_path(shell);
 	cmd_path = NULL;
-	g_var = execve(shell->arguments[0], &shell->arguments[0], shell->env.env);
-	while (path[i])
+	execve(shell->arguments[0], &shell->arguments[0], shell->env.env);
+	while (shell->path[i])
 	{
-		tmp = path[i];
-		path[i] = ft_strjoin(path[i], "/");
-		free (tmp);
+		cmd_path = ft_strjoin(shell->path[i], "/");
 		if (shell->quote % 2 != 0 || shell->double_quote % 2 != 0
 			|| (shell->right == 1))
 		{
 			cmd_not_found(shell);
-			exit(0);
+			exit(127);
 		}
 		if (shell->arguments[0][0] == '|' && shell->arguments[1])
 		{
 			if (!shell->arguments[0][1])
-				next_execute_commands(shell, 2, path[i]);
+				next_execute_commands(shell, 2, cmd_path);
 			else
 			{
 				shell->arguments[0] = &shell->arguments[0][1];
-				next_execute_commands(shell, 1, path[i]);
+				next_execute_commands(shell, 1, cmd_path);
 			}
 		}
 		else if (shell->arguments[0][0] == '|' && shell->arguments[1] == NULL)
 		{
 			shell->arguments[0] = &shell->arguments[0][1];
-			next_execute_commands(shell, 1, path[i]);
+			next_execute_commands(shell, 1, cmd_path);
 		}
 		else
-			next_execute_commands(shell, 1, path[i]);
+			next_execute_commands(shell, 1, cmd_path);
 		i++;
 	}
 	cmd_not_found(shell);
@@ -109,8 +104,7 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 		shell->arguments[1] = test[0];
 	}
 	command = ft_strjoin(command, shell->arguments[i - 1]);
-	g_var = execve(command, &shell->arguments[i - 1], shell->env.env);
-	free(command);
+	execve(command, &shell->arguments[i - 1], shell->env.env);
 }
 
 void	cmd_not_found(t_struct *shell)

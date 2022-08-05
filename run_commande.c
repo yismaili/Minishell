@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/03 19:45:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/05 23:06:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void	run_commands(t_struct *shell)
 
 	i = 0;
 	status = 0;
+	shell->path = get_path(shell);
 	while (i < shell->divise.pipe)
 	{
 		if (pipe(fd) == -1)
+		{
 			ft_putstr_fd("pipe error\n", 2);
+			exit(1);
+		}
 		shell->output_fd = fd[1];
 		next_run_commands(shell);
 		close(shell->output_fd);
@@ -33,19 +37,16 @@ void	run_commands(t_struct *shell)
 		i++;
 	}
 	next_run_commands(shell);
-	ft_wait_pid(shell, i, status);
+	ft_free_cmd(shell->path);
+	ft_cmd(shell->commands);
+	ft_wait_pid(shell);
 }
 
-void	ft_wait_pid(t_struct *shell, int i, int status)
+void	ft_wait_pid(t_struct *shell)
 {
 	int	j;
 
 	j = 0;
-	if (i == shell->divise.pipe)
-	{
-		waitpid(shell->pid, &status, 0);
-		get_exit_code(status);
-	}
 	while (j < shell->divise.pipe + 1)
 	{
 		wait(NULL);

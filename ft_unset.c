@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/31 19:54:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:01:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	remove_env(t_struct *shell)
 	}
 	shell->env_aux.tmp_var[j] = NULL;
 	shell->env_aux.tmp_con[j] = NULL;
-	free1(shell->env.tmp_var);
-	free1(shell->env.tmp_con);
+	ft_free_env(shell->env.tmp_var);
+	ft_free_env(shell->env.tmp_con);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
 	shell->env.tmp_con = shell->env_aux.tmp_con;
 }
