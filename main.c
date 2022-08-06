@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 22:54:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:52:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,6 @@ int	main(void)
 	signals();
 	while (1)
 	{
-		shell.quote = 0;
-		shell.double_quote = 0;
-		shell.indice = 0;
-		shell.right = 0;
 		commande_tape(&shell, &size);
 		if (shell.commande_tape && !is_empty(shell.commande_tape))
 		{
@@ -79,6 +75,10 @@ void	print_welcome(void)
 
 int	commande_tape(t_struct	*shell, int *size)
 {
+	shell->quote = 0;
+	shell->double_quote = 0;
+	shell->indice = 0;
+	shell->right = 0;
 	shell->output_fd = 1;
 	shell->input_fd = 0;
 	rl_catch_signals = 0;

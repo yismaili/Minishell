@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 22:36:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 13:11:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ char	*ft_split_cmd(char *cmd);
 char	*ft_remove_quot(char *s1, char c);
 void	next_inredirection(t_struct *shell);
 t_arg	*init_arg(void);
-void	echo_with_quote(char *echo_print, char **test, t_struct *shell);
+void	echo_with_quote(char *echo_print, t_struct *shell);
 void	echo_with_dollar(t_struct *shell, char **splt_quot);
 void	swap_env(char **dup_env);
 void	export_with_arg(t_struct *shell);

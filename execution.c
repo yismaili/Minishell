@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 23:05:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:46:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,27 @@ void	execution(t_struct *shell)
 	}
 }
 
+void	ft_check_arg(t_struct *shell, char *cmd_path)
+{
+	if (shell->arguments[0][0] == '|' && shell->arguments[1])
+	{
+		if (!shell->arguments[0][1])
+			next_execute_commands(shell, 2, cmd_path);
+		else
+		{
+			shell->arguments[0] = &shell->arguments[0][1];
+			next_execute_commands(shell, 1, cmd_path);
+		}
+	}
+	else if (shell->arguments[0][0] == '|' && shell->arguments[1] == NULL)
+	{
+		shell->arguments[0] = &shell->arguments[0][1];
+		next_execute_commands(shell, 1, cmd_path);
+	}
+	else
+		next_execute_commands(shell, 1, cmd_path);
+}
+
 char	*execute_cmd(t_struct *shell)
 {
 	int		i;
@@ -56,25 +77,8 @@ char	*execute_cmd(t_struct *shell)
 			|| (shell->right == 1))
 		{
 			cmd_not_found(shell);
-			exit(127);
 		}
-		if (shell->arguments[0][0] == '|' && shell->arguments[1])
-		{
-			if (!shell->arguments[0][1])
-				next_execute_commands(shell, 2, cmd_path);
-			else
-			{
-				shell->arguments[0] = &shell->arguments[0][1];
-				next_execute_commands(shell, 1, cmd_path);
-			}
-		}
-		else if (shell->arguments[0][0] == '|' && shell->arguments[1] == NULL)
-		{
-			shell->arguments[0] = &shell->arguments[0][1];
-			next_execute_commands(shell, 1, cmd_path);
-		}
-		else
-			next_execute_commands(shell, 1, cmd_path);
+		ft_check_arg(shell, cmd_path);
 		i++;
 	}
 	cmd_not_found(shell);

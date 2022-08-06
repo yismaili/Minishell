@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 22:33:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:48:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_free_cmd(char **env)
 	}
 	free(env);
 }
+
 void	ft_cmd(char **env)
 {
 	int	i;

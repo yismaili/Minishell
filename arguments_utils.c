@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 22:50:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:22:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_arg	*init_arg(void)
 {
-	t_arg	*arg = NULL;
+	t_arg	*arg;
 
 	arg = (t_arg *)malloc(sizeof(t_arg));
 	arg->position = 0;

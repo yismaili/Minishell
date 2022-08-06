@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 23:31:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 13:10:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ void	ft_echo(t_struct *shell)
 
 void	print_echo(t_struct *shell, char *echo_print)
 {
-	char	**test;
 	size_t	i;
 	char	**splt_quot;
 
-	test = NULL;
 	i = 0;
 	splt_quot = ft_split(echo_print, '"');
 	if (!ft_strcmp(echo_print, "$?"))
@@ -54,7 +52,7 @@ void	print_echo(t_struct *shell, char *echo_print)
 		if (!ft_strncmp(splt_quot[0], "$", 1))
 			echo_with_dollar(shell, splt_quot);
 		else
-			echo_with_quote(echo_print, test, shell);
+			echo_with_quote(echo_print, shell);
 	}
 	ft_free_cmd(splt_quot);
 }
@@ -66,8 +64,8 @@ void	echo_with_dollar(t_struct *shell, char **splt_quot)
 
 	i = 0;
 	if (!shell->path)
-	splted = ft_split(splt_quot[0], '$');
 		return ;
+	splted = ft_split(splt_quot[0], '$');
 	while (shell->env.tmp_var[i])
 	{
 		if (!ft_strcmp(shell->env.tmp_var[i], splted[0]))
@@ -81,8 +79,11 @@ void	echo_with_dollar(t_struct *shell, char **splt_quot)
 	ft_free_cmd(splted);
 }
 
-void	echo_with_quote(char *echo_print, char **test, t_struct *shell)
+void	echo_with_quote(char *echo_print, t_struct *shell)
 {
+	char	**splt;
+
+	splt = NULL;
 	while (shell->i < (int)ft_strlen(echo_print))
 	{
 		if (echo_print[shell->i] == QUOTE)
@@ -93,15 +94,15 @@ void	echo_with_quote(char *echo_print, char **test, t_struct *shell)
 	}
 	if (shell->q1 >= 1)
 	{
-		test = ft_split(echo_print, QUOTE);
-		printf("%s\n", test[0]);
-		ft_free_cmd(test);
+		splt = ft_split(echo_print, QUOTE);
+		printf("%s\n", splt[0]);
+		ft_free_cmd(splt);
 	}
 	else if (shell->q2 >= 1)
 	{
-		test = ft_split(echo_print, DOUBLE_QUOTE);
-		ft_putstr_fd(test[0], shell->output_fd);
-		ft_free_cmd(test);
+		splt = ft_split(echo_print, DOUBLE_QUOTE);
+		ft_putstr_fd(splt[0], shell->output_fd);
+		ft_free_cmd(splt);
 	}
 	else
 		ft_putstr_fd(echo_print, shell->output_fd);

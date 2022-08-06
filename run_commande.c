@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 23:06:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:50:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	run_commands(t_struct *shell)
 	while (i < shell->divise.pipe)
 	{
 		if (pipe(fd) == -1)
-		{
-			ft_putstr_fd("pipe error\n", 2);
-			exit(1);
-		}
+			ft_die("pipe error\n");
 		shell->output_fd = fd[1];
 		next_run_commands(shell);
 		close(shell->output_fd);

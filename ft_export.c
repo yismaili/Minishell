@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 18:00:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:35:45 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_export(t_struct *shell)
 		export_with_arg(shell);
 	else if (shell->arguments[i] && check_export(shell) == 1)
 		printf("export: %s: not a valid identifier\n", shell->arguments[1]);
+	ft_free_cmd(shell->arguments);
 }
 
 void	export_with_arg(t_struct *shell)
@@ -76,10 +77,7 @@ void	export_with_arg(t_struct *shell)
 			env_aux[1] = ft_strdup("");
 			verify_if_env_exists(shell, env_aux);
 		}
-		free(env_aux[0]);
-		free(env_aux[1]);
-		free(env_aux);
-		env_aux = NULL;
+		ft_free_cmd(env_aux);
 		i++;
 	}
 }
@@ -114,6 +112,6 @@ int	check_export(t_struct *export)
 			return (1);
 		i++;
 	}
-	free(splted);
+	ft_free_cmd(splted);
 	return (0);
 }
