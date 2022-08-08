@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 20:23:59 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 21:48:26 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_gl
 	int	g_status;
 }	t_gl;
 
-t_gl gl_var;
+t_gl	gl_var;
 
 typedef struct s_env
 {
@@ -112,7 +112,6 @@ void	free_line(char *line_read);
 void	ft_unset(t_struct *shell);
 void	remove_env(t_struct *shell);
 void	print_welcome(void);
-char	*create_prompt(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
 void	fun_redirection(t_struct *shell);
@@ -196,4 +195,6 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 void	next_execute_commands(t_struct *shell, int i, char *command);
 void	ft_cmd(char **env);
 void	cmd_not_found2(t_struct *shell);
+void	create_process(t_struct *shell);
+
 #endif
