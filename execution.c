@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/06 18:46:21 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:22:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ void	execution(t_struct *shell)
 	i = 0;
 	builtin_exist(shell);
 	if (shell->builtin_exist == 1)
+	{
+		if (shell->quote % 2 != 0 || shell->double_quote % 2 != 0
+			|| (shell->right == 1))
+		{
+			cmd_not_found2(shell);
+			return ;
+		}
 		run_builtin(shell);
+	}
 	else if (!shell->path)
 		print_cmd_not_f(shell);
 	else
@@ -113,7 +121,7 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 
 void	cmd_not_found(t_struct *shell)
 {
-	g_status = 127;
+	gl_var.g_status = 127;
 	if (shell->arguments[0][0] != '|')
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -126,5 +134,22 @@ void	cmd_not_found(t_struct *shell)
 		ft_putstr_fd(shell->arguments[1], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
-	exit(g_status);
+	exit(gl_var.g_status);
+}
+
+void	cmd_not_found2(t_struct *shell)
+{
+	gl_var.g_status = 127;
+	if (shell->arguments[0][0] != '|')
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
+	else if (shell->arguments[1])
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[1], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 17:59:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:25:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_exit(t_struct *shell)
 void	get_exit_code(int status)
 {
 	if (WIFEXITED(status))
-		g_status = WEXITSTATUS(status);
+		gl_var.g_status = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
-		g_status = WTERMSIG(status) + 128;
+		gl_var.g_status = WTERMSIG(status) + 128;
 }

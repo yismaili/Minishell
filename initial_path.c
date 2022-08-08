@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/05 16:49:27 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/08 19:17:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**get_path(t_struct *ptr)
 	char	**path;
 
 	i = 0;
-	if (g_var == 0)
+	if (gl_var.g_var == 0)
 		return (NULL);
 	while (ptr->env.tmp_var[i])
 	{

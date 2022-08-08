@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/06 18:52:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:26:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_status = 1;
+		gl_var.g_status = 1;
 		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -41,7 +41,7 @@ int	main(void)
 	t_struct	shell;
 	int			size;
 
-	g_status = 0;
+	gl_var.g_status = 0;
 	print_welcome();
 	start_create_env(&shell);
 	signals();

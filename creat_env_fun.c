@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/03 19:29:59 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:19:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*find_env_tmp(t_struct *shell, char *search)
 	i = 0;
 	shell->env.position = 0;
 	len_search = ft_strlen(search);
-	if (g_var == 0)
+	if (gl_var.g_var == 0)
 		return (NULL);
 	while (shell->env.tmp_var[i] && i <= shell->env.len)
 	{

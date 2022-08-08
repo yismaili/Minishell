@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/06 16:35:45 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:21:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_export(t_struct *shell)
 		export_with_arg(shell);
 	else if (shell->arguments[i] && check_export(shell) == 1)
 		printf("export: %s: not a valid identifier\n", shell->arguments[1]);
-	ft_free_cmd(shell->arguments);
 }
 
 void	export_with_arg(t_struct *shell)
@@ -63,7 +62,7 @@ void	export_with_arg(t_struct *shell)
 	while (shell->arguments[i] && check_export(shell) == 0)
 	{
 		env_aux = ft_split(shell->arguments[i], '=');
-		if (g_var == 0)
+		if (gl_var.g_var == 0)
 		{
 			verify_if_env_exists(shell, env_aux);
 			return ;
@@ -77,7 +76,10 @@ void	export_with_arg(t_struct *shell)
 			env_aux[1] = ft_strdup("");
 			verify_if_env_exists(shell, env_aux);
 		}
-		ft_free_cmd(env_aux);
+		free(env_aux[0]);
+		free(env_aux[1]);
+		free(env_aux);
+		env_aux = NULL;
 		i++;
 	}
 }
@@ -87,8 +89,8 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 	shell->env.len++;
 	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
-	ft_free_env(shell->env.tmp_var);
-	ft_free_env(shell->env.tmp_con);
+	// free1(shell->env.tmp_var);
+	// free1(shell->env.tmp_con);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
 	shell->env.tmp_con = shell->env_aux.tmp_con;
 	shell->env.tmp_var[shell->env.len] = 0;
@@ -103,7 +105,7 @@ int	check_export(t_struct *export)
 	i = 0;
 	if (export->arguments[1][0] == '=')
 		return (1);
-	if (g_var == 0)
+	if (gl_var.g_var == 0)
 		return (0);
 	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])
@@ -112,6 +114,6 @@ int	check_export(t_struct *export)
 			return (1);
 		i++;
 	}
-	ft_free_cmd(splted);
+	free(splted);
 	return (0);
 }

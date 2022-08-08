@@ -6,9 +6,11 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/06 18:59:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:27:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "includes/minishell.h"
 
 #include "includes/minishell.h"
 

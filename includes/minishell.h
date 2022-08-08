@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/06 13:11:02 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:23:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@
 # define RED "\033[0;31m"
 # define PIPE_ERROR "Minishell: syntax error near unexpected token `|'\n"
 
-int	g_var;
-int	g_status;
+typedef struct s_gl
+{
+	int	g_var;
+	int	g_status;
+}	t_gl;
+
+t_gl gl_var;
 
 typedef struct s_env
 {
@@ -57,6 +62,15 @@ typedef struct s_divise
 
 typedef struct s_arg
 {
+	char	*all_cmd;
+	char	*to_exec;
+	char	*txt_toprint;
+	char	quote;
+	char	*seconde;
+	char	*first;
+	int		i;
+	int		init;
+	int		len;
 	int		position;
 }			t_arg;
 
@@ -98,7 +112,6 @@ void	free_line(char *line_read);
 void	ft_unset(t_struct *shell);
 void	remove_env(t_struct *shell);
 void	print_welcome(void);
-char	*get_current_dir(void);
 char	*create_prompt(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
@@ -141,7 +154,7 @@ void	ft_die(char *str);
 int		create_env_tmp(t_struct *shell, char **my_env);
 int		start_create_env(t_struct *shell);
 void	ft_die_malloc(char *str);
-void	ft_check_env(char **env);
+void	ft_check_env(char	**env);
 void	ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
 int		is_empty(char *input);
@@ -182,4 +195,5 @@ void	ft_print_export(char **exp, t_struct *shell);
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 void	next_execute_commands(t_struct *shell, int i, char *command);
 void	ft_cmd(char **env);
+void	cmd_not_found2(t_struct *shell);
 #endif

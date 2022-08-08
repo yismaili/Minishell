@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/06 19:05:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:15:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	replace_oldpwd(t_struct *env)
 
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	if (g_var == 0)
+	if (gl_var.g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		return ;
@@ -46,7 +46,7 @@ void	replace_pwd(t_struct *env)
 
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	if (g_var == 0)
+	if (gl_var.g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		return ;
@@ -74,7 +74,7 @@ int	ft_cd(t_struct *shell)
 	if (!ft_check_cd(shell))
 		return (0);
 	if (shell->arguments[1])
-		arg_aux = ft_strdup(shell->arguments[1]);
+		arg_aux = ft_strdup(shell->arg.all_cmd);
 	else if (!shell->arguments[1])
 	{
 		arg_aux = find_env_tmp(shell, "HOME");

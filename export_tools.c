@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/05 18:44:01 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:19:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_env(t_struct *env)
 {
 	char	**dup_env;
 
-	if (g_var == 0)
+	if (gl_var.g_var == 0)
 	{
 		ft_die("environment not found\n");
 		return ;
@@ -48,7 +48,6 @@ void	sort_env(t_struct *env)
 	dup_env = ft_dup_env(env);
 	swap_env(dup_env);
 	ft_print_export(dup_env, env);
-	ft_free_env(dup_env);
 }
 
 void	swap_env(char **dup_env)
