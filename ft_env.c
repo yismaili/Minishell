@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:30:45 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/09 23:38:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,26 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
 	int	i;
 
-	if (!malloc_env_aux_tmp(shell))
-		ft_die_malloc("No space left\n");
+	shell->env.len++;
 	i = 0;
 	if (gl_var.g_var == 0)
 	{
-		shell->env_aux.tmp_var[0] = ft_strdup(new_elem_tab1);
-		shell->env_aux.tmp_con[0] = ft_strdup(new_elem_tab2);
-		shell->env.tmp_var = shell->env_aux.tmp_var;
-		shell->env.tmp_con = shell->env_aux.tmp_con;
-		shell->env.len++;
+		if (!malloc_env_tmp(shell))
+			ft_die_malloc("No space left\n");
+		shell->env.tmp_var[0] = ft_strdup(new_elem_tab1);
+		shell->env.tmp_con[0] = ft_strdup(new_elem_tab2);
 		gl_var.g_var++;
 		return ;
 	}
+	if (!malloc_env_aux_tmp(shell))
+		ft_die_malloc("No space left\n");
 	while (i < shell->env.len)
 	{
 		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
 		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);
 		i++;
 	}
+	ft_free_cmd(shell->env.tmp_var);
+	ft_free_cmd(shell->env.tmp_con);
 	next_export (shell, new_elem_tab1, new_elem_tab2);
 }

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 20:30:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/09 22:45:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ int	create_env_tmp(t_struct *shell, char **my_env)
 			ft_free_env(env_divise);
 		i++;
 	}
+	shell->env.tmp_var[i] = 0;
+	shell->env.tmp_con[i] = 0;
 	return (1);
 }

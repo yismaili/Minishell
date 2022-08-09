@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:30:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/09 23:42:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_cd_tool(t_struct *shell)
 
 	current_path = NULL;
 	current_path = getcwd(current_path, sizeof(current_path));
-	old_path = ft_strdup(ft_oldpath(shell));
+	old_path = ft_oldpath(shell);
 	if (!ft_strcmp(current_path, old_path))
 		ft_putstr_fd("Minishell: cd: OLDPWD not set\n", 2);
 	else
@@ -117,11 +117,5 @@ int	ft_cd_tool(t_struct *shell)
 			printf("\n");
 		}
 	}
-	if (old_path)
-		free(old_path);
-	old_path = NULL;
-	if (current_path)
-		free(current_path);
-	old_path = NULL;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:31:03 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/09 23:42:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	export_with_arg(t_struct *shell)
 		if (gl_var.g_var == 0)
 		{
 			verify_if_env_exists(shell, env_aux);
+			ft_free_cmd(env_aux);
 			return ;
 		}
 		if (env_aux[0] && shell->arguments[i] \
@@ -73,16 +74,16 @@ void	export_with_arg(t_struct *shell)
 			verify_if_env_exists(shell, env_aux);
 		else if (env_aux[0] && env_aux[1] == NULL)
 		{
-			env_aux[1] = ft_strdup("");
+			env_aux[1] = NULL;
 			verify_if_env_exists(shell, env_aux);
 		}
+		ft_free_cmd(env_aux);
 		i++;
 	}
 }
 
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
-	shell->env.len++;
 	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
@@ -108,6 +109,6 @@ int	check_export(t_struct *export)
 			return (1);
 		i++;
 	}
-	free(splted);
+	ft_free_cmd(splted);
 	return (0);
 }

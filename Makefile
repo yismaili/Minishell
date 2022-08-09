@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
+#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/08/05 09:10:38 by souchen          ###   ########.fr        #
+#    Updated: 2022/08/09 23:14:16 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ YELLOW = \033[1;33m
 BLUE = \033[1;34m
 RESET = \033[0m
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g
-
+FLAGS = -Wall -Werror -Wextra -g 
+#-fsanitize=address
 RM = rm -rf
 
 FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \

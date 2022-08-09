@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:49:56 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/09 21:18:34 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_check_quotes(t_struct *shell)
 		return (1);
 	}
 	run_builtin(shell);
+	ft_free_cmd(shell->arguments);
 	return (0);
 }
 

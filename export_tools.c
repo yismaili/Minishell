@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/08 21:30:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:34:29 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	sort_env(t_struct *env)
 	dup_env = ft_dup_env(env);
 	swap_env(dup_env);
 	ft_print_export(dup_env, env);
+	ft_free_env(dup_env);
 }
 
 void	swap_env(char **dup_env)
