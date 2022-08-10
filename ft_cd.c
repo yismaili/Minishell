@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/09 23:42:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:49:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	replace_oldpwd(t_struct *env)
 	if (gl_var.g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
+		free(buff);
 		return ;
 	}
 	i = 0;
@@ -29,7 +30,6 @@ void	replace_oldpwd(t_struct *env)
 	{
 		if (!ft_strcmp(env->env.tmp_var[i], "OLDPWD"))
 		{
-			free(env->env.tmp_con[i]);
 			env->env.tmp_con[i] = ft_strdup(buff);
 			free(buff);
 			return ;
@@ -74,17 +74,18 @@ int	ft_cd(t_struct *shell)
 	if (!ft_check_cd(shell))
 		return (0);
 	if (shell->arguments[1])
-		arg_aux = ft_strdup(shell->arg.all_cmd);
+		arg_aux = ft_strdup(shell->arguments[1]);
 	else if (!shell->arguments[1])
 	{
-		arg_aux = find_env_tmp(shell, "HOME");
+		arg_aux = find_env(shell, "HOME");
 		if (!arg_aux)
 		{
-			ft_putstr_fd("Error/ home not set\n", 2);
+			ft_putstr_fd("Minishell: cd: HOME not set\n", 2);
 			return (1);
 		}
 	}
 	ft_change_dir(shell, arg_aux);
+	free(arg_aux);
 	return (0);
 }
 
@@ -102,9 +103,10 @@ int	ft_cd_tool(t_struct *shell)
 {
 	char	*current_path;
 	char	*old_path;
+	char	*tmp;
 
-	current_path = NULL;
-	current_path = getcwd(current_path, sizeof(current_path));
+	tmp = NULL;
+	current_path = getcwd(NULL, sizeof(NULL));
 	old_path = ft_oldpath(shell);
 	if (!ft_strcmp(current_path, old_path))
 		ft_putstr_fd("Minishell: cd: OLDPWD not set\n", 2);
@@ -113,9 +115,12 @@ int	ft_cd_tool(t_struct *shell)
 		if (ft_strcmp(old_path, current_path))
 		{
 			ft_change_dir(shell, old_path);
-			ft_putstr_fd(getcwd(NULL, sizeof(NULL)), shell->output_fd);
+			tmp = getcwd(NULL, sizeof(NULL));
+			ft_putstr_fd(tmp, shell->output_fd);
 			printf("\n");
+			free(tmp);
 		}
 	}
+	free(current_path);
 	return (0);
 }

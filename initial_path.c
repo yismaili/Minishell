@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:31:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:43:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**get_path(t_struct *ptr)
 		return (NULL);
 	while (ptr->env.tmp_var[i])
 	{
-		if (ft_strcmp(ptr->env.tmp_var[i], "PATH") == 0)
+		if (!ft_strcmp(ptr->env.tmp_var[i], "PATH"))
 		{
 			path = ft_split(ptr->env.tmp_con[i], ':');
 			return (path);

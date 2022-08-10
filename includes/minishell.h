@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:48:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:26:48 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,5 +196,5 @@ void	next_execute_commands(t_struct *shell, int i, char *command);
 void	ft_cmd(char **env);
 void	cmd_not_found2(t_struct *shell);
 void	create_process(t_struct *shell);
-
+char	*find_env(t_struct *shell, char *search);
 #endif

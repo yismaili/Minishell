@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/09 23:42:13 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:41:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void	ft_export(t_struct *shell)
 	if (shell->arguments[i] && check_export(shell) == 0)
 		export_with_arg(shell);
 	else if (shell->arguments[i] && check_export(shell) == 1)
-		printf("export: %s: not a valid identifier\n", shell->arguments[1]);
+	{
+		ft_putstr_fd("Export: ", 2);
+		ft_putstr_fd(shell->arguments[1], 2);
+		ft_putstr_fd(": not a valid identifier\n", 2);
+	}
 }
 
 void	export_with_arg(t_struct *shell)
@@ -84,6 +88,8 @@ void	export_with_arg(t_struct *shell)
 
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
+	ft_free_cmd(shell->env.tmp_var);
+	ft_free_cmd(shell->env.tmp_con);
 	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
@@ -106,7 +112,10 @@ int	check_export(t_struct *export)
 	while (splted[0][i])
 	{
 		if (!ft_isalpha(splted[0][i]))
+		{
+			ft_free_cmd(splted);
 			return (1);
+		}
 		i++;
 	}
 	ft_free_cmd(splted);

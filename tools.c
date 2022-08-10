@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/09 20:54:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:40:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_change_dir(t_struct *shell, char *chpath)
 {
 	replace_oldpwd(shell);
-	if (chdir(chpath) < -1)
+	if (chdir(chpath) < 0)
 		ft_not_found(shell->arguments[1]);
 	replace_pwd(shell);
 }
@@ -35,7 +35,7 @@ char	*ft_oldpath(t_struct *shell)
 		}
 		i++;
 	}
-	return (NULL);
+	return (getcwd(NULL, sizeof(NULL)));
 }
 
 void	ft_not_found(char *dir)

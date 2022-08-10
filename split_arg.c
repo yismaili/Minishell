@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 21:49:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:38:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,24 @@ void	cmd_not_found(t_struct *shell)
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	exit(gl_var.g_status);
+}
+
+char	*find_env(t_struct *shell, char *search)
+{
+	int	i;
+
+	i = 0;
+	shell->env.position = 0;
+	if (gl_var.g_var == 0)
+		return (NULL);
+	while (shell->env.tmp_var[i] && i <= shell->env.len)
+	{
+		if (!ft_strcmp(shell->env.tmp_var[i], search))
+		{
+			shell->env.position = i;
+			return (shell->env.tmp_con[i]);
+		}
+		i++;
+	}
+	return (NULL);
 }

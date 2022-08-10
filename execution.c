@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/09 21:18:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:07:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	create_process(t_struct *shell)
 	shell->pid = fork();
 	if (shell->pid < 0)
 	{
-		ft_putstr_fd("Minishell: fork: Resource \
-				temporarily unavailable\n", 2);
-		return ;
+		ft_putstr_fd("Minishell: fork: Resource", 2);
+		ft_putstr_fd(" temporarily unavailable\n", 2);
+		exit (1);
 	}
 	else if (shell->pid == 0)
 	{
