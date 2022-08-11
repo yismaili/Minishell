@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
+#    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/08/02 13:01:01 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/11 11:28:24 by souchen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ YELLOW = \033[1;33m
 BLUE = \033[1;34m
 RESET = \033[0m
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g
-
+FLAGS = -Wall -Werror -Wextra 
+#-fsanitize=address
 RM = rm -rf
 
 FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
@@ -37,7 +37,7 @@ NAME = minishell
 all : $(NAME)
 
 $(NAME) : $(OBJ_FILES) $(LIBFT)
-	$(CC) $(OBJ_FILES) -lreadline  -L /Users/yismaili/goinfre/.brew/opt/readline/lib  -I /Users/yismaili/goinfre/.brew/opt/readline/include/readline/ $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ_FILES) -lreadline  -L /Users/souchen/goinfre/.brew/opt/readline/lib  -I /Users/souchen/goinfre/.brew/opt/readline/include/readline/ $(LIBFT) $(FLAGS) -o $(NAME)
 
 %.o : %.c $(HEADER)
 	@echo $(HOME)

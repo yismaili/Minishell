@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_env_fun.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 02:40:01 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:38:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,17 @@ void	ft_die_malloc(char *str)
 char	*find_env_tmp(t_struct *shell, char *search)
 {
 	int	i;
-	int	length;
-	int	len_search;
 
 	i = 0;
 	shell->env.position = 0;
-	len_search = ft_strlen(search);
+	if (gl_var.g_var == 0)
+		return (NULL);
 	while (shell->env.tmp_var[i] && i <= shell->env.len)
 	{
-		length = ft_strlen(shell->env.tmp_var[i]);
-		if (!ft_strncmp(shell->env.tmp_var[i], search, len_search) \
-				&& length == len_search)
+		if (!ft_strcmp(shell->env.tmp_var[i], search))
 		{
 			shell->env.position = i;
-			return (shell->env.tmp_con[i]);
+			return (shell->env.tmp_var[i]);
 		}
 		i++;
 	}

@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:35:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/06/22 11:51:55 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:42:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-int ft_strcmp(char *s1, char *s2)
+
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
 	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] == s2[i])
+			i++;
+		if (s1[i] < s2[i] || s1[i] > s2[i])
+			return (s1[i] - s2[i]);
+	}
+	return (0);
 }

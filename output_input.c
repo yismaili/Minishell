@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 16:45:20 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/09 23:41:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	outredirection(t_struct *shell)
 	else
 	{
 		fichier1 = ft_strtrim(&shell->commands[shell->cmp][1], " ");
-		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY, 0777);
+		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (shell->output_fd == -1)
 			printf("Open error\n");
 		free(fichier1);

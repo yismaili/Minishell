@@ -3,26 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   leaks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/30 16:42:15 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/08 20:51:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	ft_free_cmd(char **cmd)
+void	ft_free_cmd(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (cmd[i])
+	while (env[i])
 	{
-		free(cmd[i]);
-		cmd[i] = NULL;
+		free(env[i]);
+		env[i] = NULL;
 		i++;
 	}
+	free(env);
+}
+
+void	ft_cmd(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		env[i] = NULL;
+		i++;
+	}
+}
+
+void	ft_free_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		free(env[i]);
+		env[i] = NULL;
+		i++;
+	}
+	free(env);
 }
 
 void	free_commande(char *line_read)
@@ -32,41 +60,4 @@ void	free_commande(char *line_read)
 		free(line_read);
 		line_read = (char *) NULL;
 	}
-}
-
-void	free1(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
-	free(array);
-}
-
-void	free2(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
-}
-
-void	ft_free(t_struct *shell)
-{
-	ft_free_cmd(shell->commands);
-	ft_free_cmd(shell->cmd_splited);
-	free(shell->cmd_splited);
-	ft_free_cmd(shell->arguments);
-	free(shell->arguments);
-	free(shell->line_commande);
 }

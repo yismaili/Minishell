@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static int	carcts(char *str, char c)
 {
 	int			i;
@@ -46,11 +47,9 @@ void	ft_after_equal(char *str, char **s, int i)
 char	**my_split(char *str)
 {
 	int		i;
-//	int		j;
 	char	**s;
 
 	i = 0;
-//	j = 0;
 	s = (char **)malloc(sizeof(char **) * 2);
 	s[0] = (char *)malloc(sizeof(char) * (carcts(str, '=') + 1));
 	s[1] = (char *)malloc(sizeof(char)

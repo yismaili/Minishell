@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/02 13:00:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:28:02 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
-# include </Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
+# include \
+	</Users/souchen/goinfre/.brew/opt/readline/include/readline/readline.h>
+# include \
+	</Users/souchen/goinfre/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -32,8 +34,13 @@
 # define RED "\033[0;31m"
 # define PIPE_ERROR "Minishell: syntax error near unexpected token `|'\n"
 
-int	g_var;
-int	g_status;
+typedef struct s_gl
+{
+	int	g_var;
+	int	g_status;
+}	t_gl;
+
+t_gl	gl_var;
 
 typedef struct s_env
 {
@@ -80,7 +87,6 @@ typedef struct s_struct
 	pid_t		pid;
 	char		*commands[600000];
 	char		**arguments;
-	char		**cmd_splited;
 	int			i;
 	int			len;
 	t_env		env_aux;
@@ -89,6 +95,13 @@ typedef struct s_struct
 	t_arg		arg;
 	int			q1;
 	int			q2;
+	int			dup_pipe;
+	int			quote;
+	int			double_quote;
+	int			space;
+	int			right;
+	int			indice;
+	char		**path;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -96,13 +109,9 @@ void	run_builtin(t_struct *shell);
 int		count_len_env(t_struct *shell);
 void	ft_exit(t_struct *shell);
 void	free_line(char *line_read);
-void	free1(char **array);
-void	free2(char **array);
 void	ft_unset(t_struct *shell);
 void	remove_env(t_struct *shell);
 void	print_welcome(void);
-char	*get_current_dir(void);
-char	*create_prompt(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
 void	fun_redirection(t_struct *shell);
@@ -123,17 +132,17 @@ int		init_echo(t_struct *shell, int n);
 void	print_echo(t_struct *shell, char *shell_print);
 void	ft_export(t_struct *shell);
 void	verify_if_env_exists(t_struct *shell, char **env_aux);
-void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
+void	export_to_env(t_struct *shell, char *tab1, char *tab2);
 void	pipe_next(t_struct *shell, int i, char *command);
 void	inredirection(t_struct *shell);
 void	outredirection(t_struct *shell);
 void	next_run_commands(t_struct *shell);
 void	next(t_struct *shell, char*commande_read);
-char	*execute_cmd(t_struct *shell, char **path);
+char	*execute_cmd(t_struct *shell);
 void	output_input(t_struct *shell);
 void	check_to_execute(t_struct *shell);
 void	sig_handler(int signum);
-void	cmd_not_found(char *cmd);
+void	cmd_not_found(t_struct *shell);
 int		check_export(t_struct *export);
 int		ft_search(t_struct *env, char *var);
 int		malloc_env_tmp(t_struct *shell);
@@ -144,14 +153,14 @@ void	ft_die(char *str);
 int		create_env_tmp(t_struct *shell, char **my_env);
 int		start_create_env(t_struct *shell);
 void	ft_die_malloc(char *str);
-void	ft_check_env(char **env);
+void	ft_check_env(char	**env);
 void	ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
-int		line_empty(char *input);
+int		is_empty(char *input);
 void	ft_not_found(char *dir);
 char	*ft_split_cmd(char *cmd);
-int		ft_serch_in_env(t_struct *env, char	*var, char *con);
-void	func(t_struct *shell, int i, int status);
+int		ft_search_in_env(t_struct *env, char	*var, char *con);
+void	ft_wait_pid(t_struct *shell);
 void	ft_free(t_struct *shell);
 void	get_exit_code(int status);
 char	**get_path(t_struct *ptr);
@@ -170,20 +179,22 @@ void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
 void	ft_echo_tool(t_struct *shell, char *echo_print);
 char	*remplir(char *s1, char c, int len);
-char	**split_arg(char **spl, char *cmd_joided, t_struct *shell);
-void	cmd_splited(char **spled, t_struct *shell);
-char	**arg_with_quote(char *cmd_joined, t_struct *shell);
-char	**arg_func(t_struct *shell, char *cmd_joined, t_arg *arg);
+void	arg_func(t_struct *shell);
 int		find_char(char *string, char c);
 char	*ft_split_cmd(char *cmd);
 char	*ft_remove_quot(char *s1, char c);
 void	next_inredirection(t_struct *shell);
 t_arg	*init_arg(void);
-void	echo_with_quote(char *echo_print, char **test, t_struct *shell);
-void echo_with_dollar(t_struct *shell, char **splt_quot);
-void	ft_export_tool(t_struct *shell);
-void	ft_error_eprt(char *cmd);
-int	check_export(t_struct *export);
-char	**ft_swap_env(char	**dup_env);
-void	ft_error_fork(void);
+void	echo_with_quote(char *echo_print, t_struct *shell);
+void	echo_with_dollar(t_struct *shell, char **splt_quot);
+void	swap_env(char **dup_env);
+void	export_with_arg(t_struct *shell);
+void	sort_env(t_struct *shell);
+void	ft_print_export(char **exp, t_struct *shell);
+void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
+void	next_execute_commands(t_struct *shell, int i, char *command);
+void	ft_cmd(char **env);
+void	cmd_not_found2(t_struct *shell);
+void	create_process(t_struct *shell);
+char	*find_env(t_struct *shell, char *search);
 #endif

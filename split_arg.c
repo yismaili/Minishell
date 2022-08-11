@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/01 02:05:30 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:38:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,83 @@ char	*ft_split_cmd(char	*cmd)
 	return (join);
 }
 
-char	**split_arg(char **spl, char *cmd_joined, t_struct *shell)
+void	cmd_not_found2(t_struct *shell)
 {
-	int		i;
-	char	**spled;
-
-	i = 0;
-	spl = NULL;
-	spled = NULL;
-	cmd_joined = NULL;
-	shell->arguments = ft_split(shell->line_commande, ' ');
-	spl = ft_split(shell->line_commande, '|');
-	while (spl[i])
+	gl_var.g_status = 127;
+	if (shell->arguments[0][0] != '|')
 	{
-		cmd_joined = ft_strjoin(spl[i], spl[i + 1]);
-		i++;
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
 	}
-	spled = ft_split(cmd_joined, ' ');
-	ft_free_cmd(spl);
-	free(spl);
-	free(cmd_joined);
-	return (spled);
+	else if (shell->arguments[1])
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[1], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 }
 
-void	cmd_splited(char **spled, t_struct *shell)
+void	next_execute_commands(t_struct *shell, int i, char *command)
+{
+	char	*aux;
+	char	**test;
+	int		k;
+
+	k = 0;
+	aux = NULL;
+	if (shell->arguments[1] && (shell->arguments[1][0] == QUOTE || \
+		shell->arguments[1][0] == DOUBLE_QUOTE))
+	{
+		while (k < (int)ft_strlen(shell->arguments[1]))
+		{
+			if (shell->arguments[1][k] == '"' \
+				|| shell->arguments[1][k] == QUOTE)
+				shell->arguments[1][k] = '<';
+			aux = ft_strtrim(shell->arguments[1], "<");
+			k++;
+		}
+		test = ft_split(aux, '<');
+		shell->arguments[1] = test[0];
+	}
+	command = ft_strjoin(command, shell->arguments[i - 1]);
+	execve(command, &shell->arguments[i - 1], shell->env.env);
+}
+
+void	cmd_not_found(t_struct *shell)
+{
+	gl_var.g_status = 127;
+	if (shell->arguments[0][0] != '|')
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
+	else if (shell->arguments[1])
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(shell->arguments[1], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
+	exit(gl_var.g_status);
+}
+
+char	*find_env(t_struct *shell, char *search)
 {
 	int	i;
 
 	i = 0;
-	shell->cmd_splited = (char **)malloc(sizeof(char *) * 1000000);
-	while (spled[i])
+	shell->env.position = 0;
+	if (gl_var.g_var == 0)
+		return (NULL);
+	while (shell->env.tmp_var[i] && i <= shell->env.len)
 	{
-		shell->cmd_splited[i] = ft_strdup(spled[i]);
+		if (!ft_strcmp(shell->env.tmp_var[i], search))
+		{
+			shell->env.position = i;
+			return (shell->env.tmp_con[i]);
+		}
 		i++;
 	}
+	return (NULL);
 }
