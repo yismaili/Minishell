@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/08/11 19:18:41 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/11 23:16:26 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ RM = rm -rf
 FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
        initial_path.c  main.c  run_commande.c \
        divise_commande.c arguments.c arguments_utils.c ft_env.c ft_export.c ft_cd.c ft_pwd.c \
-       ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c  export_tools.c 
+       ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c  export_tools.c  herDoc_tools.c 
  
 
 OBJ_FILES= $(FILES:.c=.o)

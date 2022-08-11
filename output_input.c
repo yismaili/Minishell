@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 19:56:45 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 23:22:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,19 @@ int	outredirection(t_struct *shell)
 
 	if (shell->commands[shell->cmp][1] == '>')
 	{
-		fichier1 = ft_strtrim(&shell->commands[shell->cmp][2], " ");
-		if (((fichier1[0] == '\"' || fichier1[0] == '\'') || \
-			(fichier1[ft_strlen(fichier1) - 1] == '\"' || \
-			fichier1[ft_strlen(fichier1) - 1] == '\'')) && \
-			((ft_strlen(fichier1) == 2) || ft_strlen(fichier1) == 0))
-		{
-			g_var.g_status = 258;
-			ft_putstr_fd("bash: : No such file or directory\n", 2);
+		fichier1 = ft_check_quotes_frst(shell);
+		if (!fichier1)
 			return (0);
-		}
-		else if (((fichier1[0] == '\"' || fichier1[0] == '\'') || \
-			(fichier1[ft_strlen(fichier1) - 1] == '\"' || \
-			fichier1[ft_strlen(fichier1) - 1] == '\'')) && \
-			(ft_strlen(fichier1) > 2))
-		{
-			fichier1 = ft_split_cmd(fichier1);
-		}
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_APPEND, 0777);
 		if (shell->output_fd == -1)
-			printf("Open Error\n");
+			ft_putstr_fd("Open Error\n", 2);
 		free(fichier1);
 	}
 	else
 	{
-		fichier1 = ft_strtrim(&shell->commands[shell->cmp][1], " ");
-		if (((fichier1[0] == '\"' || fichier1[0] == '\'') || \
-		(fichier1[ft_strlen(fichier1) - 1] == '\"' || \
-		fichier1[ft_strlen(fichier1) - 1] == '\'')) && \
-		((ft_strlen(fichier1) == 2) || ft_strlen(fichier1) == 0))
-		{
-			g_var.g_status = 258;
-			ft_putstr_fd("bash: : No such file or directory\n", 2);
+		fichier1 = ft_check_quotes_scnd(shell);
+		if (!fichier1)
 			return (0);
-		}
-		else if (((fichier1[0] == '\"' || fichier1[0] == '\'') || \
-			(fichier1[ft_strlen(fichier1) - 1] == '\"' || \
-			fichier1[ft_strlen(fichier1) - 1] == '\'')) && \
-			(ft_strlen(fichier1) > 2))
-		{
-			fichier1 = ft_split_cmd(fichier1);
-		}
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (shell->output_fd == -1)
 			printf("Open error\n");
@@ -74,45 +46,11 @@ int	inredirection(t_struct	*shell)
 
 	if (shell->commands[shell->cmp][1] == '<')
 	{
-		fichier2 = ft_strtrim(&shell->commands[shell->cmp][2], " ");
-		if (((fichier2[0] == '\"' || fichier2[0] == '\'') || \
-		(fichier2[ft_strlen(fichier2) - 1] == '\"' || \
-		fichier2[ft_strlen(fichier2) - 1] == '\'')) && \
-		((ft_strlen(fichier2) == 2) || ft_strlen(fichier2) == 0))
-		{
-			g_var.g_status = 258;
-			ft_putstr_fd("bash: : No such file or directory\n", 2);
+		fichier2 = ft_check_quotes_frst(shell);
+		if (!fichier2)
 			return (0);
-		}
-		else if (((fichier2[0] == '\"' || fichier2[0] == '\'') || \
-		(fichier2[ft_strlen(fichier2) - 1] == '\"' || \
-		fichier2[ft_strlen(fichier2) - 1] == '\'')) && \
-		(ft_strlen(fichier2) > 2))
-		{
-			fichier2 = ft_split_cmd(fichier2);
-		}
 		line = ft_strdup("");
-		if (ft_strncmp(fichier2, "$", 1) == 0)
-		{
-			if (find_env_tmp(shell, (&fichier2[1])) != NULL)
-			{
-				while (ft_strcmp(line, shell->env.tmp_con[shell->env.position]))
-				{
-					free(line);
-					line = readline("herDoc> ");
-				}
-				free(line);
-			}
-		}
-		else
-		{
-			while (ft_strcmp(line, fichier2))
-			{
-				free(line);
-				line = readline("herDoc> ");
-			}
-			free(line);
-		}
+		ft_play_herDoc(shell, fichier2, line);
 	}
 	else
 	{
