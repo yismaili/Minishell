@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/09 17:34:29 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:58:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_env(t_struct *env)
 {
 	char	**dup_env;
 
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 	{
 		ft_die("environment not found\n");
 		return ;

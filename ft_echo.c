@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 18:45:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:56:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_echo(t_struct *shell, char *echo_print)
 	}
 	if (!ft_strcmp(echo_print, "$?"))
 	{
-		ft_putnbr_fd(gl_var.g_status, shell->output_fd);
+		ft_putnbr_fd(g_var.g_status, shell->output_fd);
 		printf("\n");
 	}
 	else if (!ft_strncmp(splt_quot[0], "$", 1))

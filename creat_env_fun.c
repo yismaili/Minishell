@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_env_fun.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 14:50:55 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/11 19:57:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_env_tmp(t_struct *shell, char *search)
 
 	i = 0;
 	shell->env.position = 0;
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 		return (NULL);
 	while (shell->env.tmp_var[i] && i <= shell->env.len)
 	{

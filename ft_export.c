@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 19:17:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:55:45 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	export_with_arg(t_struct *shell)
 	while (shell->arguments[i] && check_export(shell) == 0)
 	{
 		env_aux = ft_split(shell->arguments[i], '=');
-		if (gl_var.g_var == 0)
+		if (g_var.g_var == 0)
 		{
 			verify_if_env_exists(shell, env_aux);
 			ft_free_cmd(env_aux);
@@ -106,7 +106,7 @@ int	check_export(t_struct *export)
 	i = 0;
 	if (export->arguments[1][0] == '=')
 		return (1);
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 		return (0);
 	splted = ft_split(export->arguments[1], '=');
 	while (splted[0][i])

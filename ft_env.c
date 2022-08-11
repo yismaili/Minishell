@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 17:41:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:55:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_env(t_struct *shell)
 {
 	int	n;
 
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 	{
 		ft_die("environment not found\n");
 		return ;
@@ -41,10 +41,10 @@ void	ft_check_env(char	**env)
 
 	i = 0;
 	if (!env)
-		gl_var.g_var = 0;
+		g_var.g_var = 0;
 	while (env[i])
 		i++;
-	gl_var.g_var = i;
+	g_var.g_var = i;
 }
 
 int	is_empty(char	*input)
@@ -76,7 +76,7 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 
 	shell->env.len++;
 	i = 0;
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 	{
 		if (!malloc_env_tmp(shell))
 			ft_die_malloc("No space left\n");
@@ -84,7 +84,7 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 		shell->env.tmp_con[0] = ft_strdup(new_elem_tab2);
 		shell->env.tmp_var[1] = 0;
 		shell->env.tmp_con[1] = 0;
-		gl_var.g_var++;
+		g_var.g_var++;
 		return ;
 	}
 	if (!malloc_env_aux_tmp(shell))

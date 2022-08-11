@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 17:49:50 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:56:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	replace_oldpwd(t_struct *env)
 
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		free(buff);
@@ -46,7 +46,7 @@ void	replace_pwd(t_struct *env)
 
 	buff = NULL;
 	buff = getcwd(buff, sizeof(buff));
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		return ;

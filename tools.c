@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/10 15:40:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:56:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_oldpath(t_struct *shell)
 	int	i;
 
 	i = 0;
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 		return (getcwd(NULL, sizeof(NULL)));
 	while (shell->env.tmp_var[i])
 	{

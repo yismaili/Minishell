@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 17:38:52 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:57:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_split_cmd(char	*cmd)
 
 void	cmd_not_found2(t_struct *shell)
 {
-	gl_var.g_status = 127;
+	g_var.g_status = 127;
 	if (shell->arguments[0][0] != '|')
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -69,7 +69,7 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 
 void	cmd_not_found(t_struct *shell)
 {
-	gl_var.g_status = 127;
+	g_var.g_status = 127;
 	if (shell->arguments[0][0] != '|')
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -82,7 +82,7 @@ void	cmd_not_found(t_struct *shell)
 		ft_putstr_fd(shell->arguments[1], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
-	exit(gl_var.g_status);
+	exit(g_var.g_status);
 }
 
 char	*find_env(t_struct *shell, char *search)
@@ -91,7 +91,7 @@ char	*find_env(t_struct *shell, char *search)
 
 	i = 0;
 	shell->env.position = 0;
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 		return (NULL);
 	while (shell->env.tmp_var[i] && i <= shell->env.len)
 	{

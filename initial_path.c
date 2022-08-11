@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 17:43:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:54:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**get_path(t_struct *ptr)
 	char	**path;
 
 	i = 0;
-	if (gl_var.g_var == 0)
+	if (g_var.g_var == 0)
 		return (NULL);
 	while (ptr->env.tmp_var[i])
 	{

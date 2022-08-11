@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 19:17:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:53:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_gl
 	int	g_status;
 }	t_gl;
 
-t_gl	gl_var;
+t_gl	g_var;
 
 typedef struct s_env
 {
