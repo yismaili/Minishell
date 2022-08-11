@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 11:28:02 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/11 15:36:26 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	remove_env(t_struct *shell);
 void	print_welcome(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
-void	fun_redirection(t_struct *shell);
+int		fun_redirection(t_struct *shell);
 void	execution(t_struct *shell);
 void	divise_commande(t_struct *shell, char *in);
 void	arguments_func(t_struct *shell);
@@ -134,8 +134,8 @@ void	ft_export(t_struct *shell);
 void	verify_if_env_exists(t_struct *shell, char **env_aux);
 void	export_to_env(t_struct *shell, char *tab1, char *tab2);
 void	pipe_next(t_struct *shell, int i, char *command);
-void	inredirection(t_struct *shell);
-void	outredirection(t_struct *shell);
+int		inredirection(t_struct *shell);
+int		outredirection(t_struct *shell);
 void	next_run_commands(t_struct *shell);
 void	next(t_struct *shell, char*commande_read);
 char	*execute_cmd(t_struct *shell);
@@ -183,7 +183,7 @@ void	arg_func(t_struct *shell);
 int		find_char(char *string, char c);
 char	*ft_split_cmd(char *cmd);
 char	*ft_remove_quot(char *s1, char c);
-void	next_inredirection(t_struct *shell);
+int		next_inredirection(t_struct *shell);
 t_arg	*init_arg(void);
 void	echo_with_quote(char *echo_print, t_struct *shell);
 void	echo_with_dollar(t_struct *shell, char **splt_quot);

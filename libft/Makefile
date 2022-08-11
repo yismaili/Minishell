@@ -6,7 +6,7 @@
 #    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:35:52 by souchen           #+#    #+#              #
-#    Updated: 2022/06/22 20:31:28 by souchen          ###   ########.fr        #
+#    Updated: 2022/08/11 15:46:23 by souchen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = ft_atoi.c ft_strlcpy.c\
 		ft_putnbr_fd.c ft_split.c ft_strdup.c ft_strjoin.c \
 		ft_strlen.c ft_strncmp.c \
 		ft_strtrim.c ft_substr.c ft_strchr.c\
-		ft_putstr_fd.c ft_strcmp.c my_split.c ft_isalpha.c ft_strrchr.c
+		ft_putstr_fd.c ft_strcmp.c ft_isalpha.c ft_strrchr.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:35:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 12:38:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:46:34 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char				*ft_strrchr(const char *s, int r);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 int					ft_strcmp(char *s1, char *s2);
-char				**my_split(char *str);
 int					ft_isalpha(int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strchr(const char *s, int c);

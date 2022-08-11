@@ -3,88 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:35:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/28 15:11:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:45:54 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_lenwrd(const char *s, char c)
+static int	step1(const char *str, int Del)
 {
 	int	len;
+	int	i;
 
 	len = 0;
-	while (*s != '\0')
+	i = 0;
+	while (str[i] && str[i] != Del)
 	{
-		if (*s != c)
-		{
-			len++;
-			while (*s != '\0' && *s != c)
-			{
-				s++;
-			}
-			if (*s == '\0')
-				return (len);
-		}
-		s++;
+		len++;
+		i++;
 	}
 	return (len);
 }
 
-static void	*ft_free(char **dest, int j)
+static int	step2(const char *str, int Del)
 {
+	int	len;
 	int	i;
 
+	len = 0;
 	i = 0;
-	while (i < j)
+	while (str[i])
 	{
-		free(dest[j]);
+		if (str[i] != Del && (str[i + 1] == Del || !str[i + 1]))
+			len++;
 		i++;
 	}
-	free (dest);
-	return (NULL);
+	return (len);
 }
 
-static char	**ft_checkalocc(char **dest, const char *s, char c)
+void	free_table(char **tab, int i)
 {
-	size_t	i;
-	int		j;
-	size_t	index;
+	int	j;
 
-	i = 0;
 	j = 0;
-	while (i <= ft_strlen(s))
+	while (tab[i] == NULL)
 	{
-		while (s[i] != '\0' && s[i] == c)
-			i++;
-		index = i;
-		while (s[i] != '\0' && s[i] != c)
-			i++;
-		if (index != i)
+		while (j <= i)
 		{
-			dest[j] = ft_substr(s, index, i - index);
-			if (!dest[j])
-				return (ft_free(dest, j));
+			free(tab[j]);
 			j++;
 		}
-		i++;
+		free(tab);
 	}
-	dest[j] = 0;
-	return (dest);
 }
 
-char	**ft_split(char const *s, char c)
+static void	*step3(char const *str, char **tab, int stepx, int Del)
 {
-	char	**dest;
+	int	stepy;
+	int	x;
+	int	y;
 
-	if (!s)
+	y = 0;
+	while (y < stepx)
+	{
+		while (*str == Del)
+			str++;
+		stepy = step1(str, Del);
+		x = 0;
+		tab[y] = (char *)malloc(sizeof(char) * (stepy + 1));
+		if (!tab[y])
+			free_table(tab, y);
+		while (x < stepy)
+		{
+			tab[y][x++] = *str;
+			str++;
+		}
+		tab[y][x] = '\0';
+		y++;
+	}
+	return ((void *) 1);
+}
+
+char	**ft_split(char const *str, char Del)
+{
+	int		size;
+	char	**tab;
+	void	*resu;
+
+	if (!str)
+	{
 		return (NULL);
-	dest = (char **)malloc((ft_lenwrd(s, c) + 1) * sizeof(char *));
-	if (!dest)
+	}
+	size = step2(str, Del);
+	tab = (char **)malloc (sizeof(char *) * (size + 1));
+	if (tab == NULL)
+	{
 		return (NULL);
-	dest = ft_checkalocc(dest, s, c);
-	return (dest);
+	}
+	tab[size] = 0;
+	resu = step3(str, tab, size, Del);
+	return (tab);
 }

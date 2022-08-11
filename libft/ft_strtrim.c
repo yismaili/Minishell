@@ -3,52 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:35:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/07/26 15:50:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:45:01 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_check(char str, char *set)
+static char	*ft_strtrimstep1(char const *s1, char const *set)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 0;
-	while (set[i])
+	while (set[j] != '\0' && s1[i] != '\0')
 	{
-		if (str == set[i])
-			return (1);
-		i ++;
+		if (set[j] == s1[i])
+		{
+			i++;
+			j = 0;
+		}
+		else
+			j++;
 	}
-	return (0);
+	return ((char *)&s1[i]);
+}
+
+static int	ft_strtrimstep2(char const *s1, char const *set)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	i = ft_strlen(s1) - 1;
+	while (i > 0 && set[j] != '\0')
+	{
+		if (set[j] == s1[i])
+		{
+			i--;
+			j = 0;
+		}
+		else
+		{
+			j++;
+		}
+	}
+	return (i);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*dst;
-	char	*str;
-	char	*start;
-	int		len;
-	int		i;
+	char	*tab;
+	int		cmp;
 
-	i = 0;
-	str = (char *)s1;
-	start = (char *)set;
-	if (!s1 || !set)
+	cmp = 0;
+	if (!s1)
+	{
 		return (NULL);
-	len = ft_strlen(s1);
-	while (s1[i] && ft_check(str[i], start))
-			i++;
-	if (len == i)
-		return (ft_strdup(""));
-	while (s1[i] && ft_check(str[len - 1], start))
-		len--;
-	dst = (char *)malloc(((len - i) + 1) * sizeof(char));
-	if (!dst)
+	}
+	s1 = ft_strtrimstep1(s1, set);
+	if (s1[0] == '\0')
+	{
+		tab = (char *)malloc(1);
+		tab[0] = '\0';
+		return (tab);
+	}
+	tab = (char *)malloc(sizeof(char) * ft_strtrimstep2(s1, set) + 2);
+	if (tab == NULL)
 		return (NULL);
-	ft_strlcpy(dst, &str[i], (len - i) + 1);
-	return (dst);
+	while (cmp <= ft_strtrimstep2(s1, set))
+	{
+		tab[cmp] = s1[cmp];
+		cmp++;
+	}
+	tab[cmp] = '\0';
+	return (tab);
 }
