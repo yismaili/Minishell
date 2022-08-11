@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 17:48:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:45:18 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	ft_echo(t_struct *shell)
 		ft_putstr_fd("\n", shell->output_fd);
 		return ;
 	}
+	if (!ft_strncmp(shell->arguments[1], "-n", 2))
+			i++;
 	while (shell->arguments[i])
 	{
-		if (!ft_strcmp(shell->arguments[1], "-n") && i == 1)
-			i++;
 		if (shell->arguments[i])
 		{
 			print_echo(shell, shell->arguments[i]);
@@ -36,7 +36,7 @@ void	ft_echo(t_struct *shell)
 		}
 		i++;
 	}
-	if (ft_strcmp(shell->arguments[1], "-n"))
+	if (ft_strncmp(shell->arguments[1], "-n", 2))
 		ft_putstr_fd("\n", shell->output_fd);
 }
 
@@ -58,9 +58,13 @@ void	print_echo(t_struct *shell, char *echo_print)
 		printf("\n");
 	}
 	else if (!ft_strncmp(splt_quot[0], "$", 1))
+	{
 		echo_with_dollar(shell, splt_quot);
-	if (splt_quot[0] != NULL)
+	}
+	if (splt_quot[0] != NULL && ft_strncmp(splt_quot[0], "$", 1))
+	{
 		ft_putstr_fd(splt_quot[0], shell->output_fd);
+	}
 	ft_free_cmd(splt_quot);
 }
 
@@ -84,4 +88,5 @@ void	echo_with_dollar(t_struct *shell, char **splt_quot)
 		i++;
 	}
 	ft_free_cmd(splted);
+	return ;
 }

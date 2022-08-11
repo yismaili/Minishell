@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/08 19:06:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:44:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char	*remplir(char *s1, char c, int len)
 		}
 		i++;
 	}
+	dst[j] = 0;
 	return (dst);
 }
 

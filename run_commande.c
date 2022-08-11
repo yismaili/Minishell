@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 16:44:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:29:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	ft_wait_pid(t_struct *shell)
 
 void	next_run_commands(t_struct	*shell)
 {
-	fun_redirection(shell);
+	if(fun_redirection(shell) == 0)
+	{
+		return ;
+	}
 	if (shell->commands[0][0] != '>')
 	{
 		arguments_func(shell);
