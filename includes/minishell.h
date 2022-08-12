@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 23:14:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/12 11:45:42 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	output_input(t_struct *shell);
 void	check_to_execute(t_struct *shell);
 void	sig_handler(int signum);
 void	cmd_not_found(t_struct *shell);
-int		check_export(t_struct *export);
+int		check_export(t_struct *export, int *i);
 int		ft_search(t_struct *env, char *var);
 int		malloc_env_tmp(t_struct *shell);
 char	*find_env_tmp(t_struct *shell, char *search);
@@ -199,5 +199,5 @@ void	create_process(t_struct *shell);
 char	*find_env(t_struct *shell, char *search);
 char	*ft_check_quotes_frst(t_struct *shell);
 char	*ft_check_quotes_scnd(t_struct *shell);
-int		ft_play_herDoc(t_struct *shell, char *fichier2, char *line);
+int		ft_play_herdoc(t_struct *shell, char *fichier2, char *line);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 23:22:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:36:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	outredirection(t_struct *shell)
 			return (0);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_APPEND, 0777);
 		if (shell->output_fd == -1)
-			ft_putstr_fd("Open Error\n", 2);
+			return (ft_putstr_fd("Open Error\n", 2), 0);
 		free(fichier1);
 	}
 	else
@@ -33,7 +33,7 @@ int	outredirection(t_struct *shell)
 			return (0);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (shell->output_fd == -1)
-			printf("Open error\n");
+			return (ft_putstr_fd("Open Error\n", 2), 0);
 		free(fichier1);
 	}
 	return (1);
@@ -50,7 +50,7 @@ int	inredirection(t_struct	*shell)
 		if (!fichier2)
 			return (0);
 		line = ft_strdup("");
-		ft_play_herDoc(shell, fichier2, line);
+		ft_play_herdoc(shell, fichier2, line);
 	}
 	else
 	{
@@ -65,10 +65,11 @@ int	next_inredirection(t_struct *shell)
 	char	*fichier2;
 
 	fichier2 = ft_strtrim(&shell->commands[shell->cmp][2], " ");
-	if (((fichier2[0] == '\"' || fichier2[0] == '\'') || \
+	if ((((fichier2[0] == '\"' || fichier2[0] == '\'') || \
 		(fichier2[ft_strlen(fichier2) - 1] == '\"' || \
 		fichier2[ft_strlen(fichier2) - 1] == '\'')) && \
-		((ft_strlen(fichier2) == 2) || ft_strlen(fichier2) == 0))
+		((ft_strlen(fichier2) == 2) || (ft_strlen(fichier2) == 0))) || \
+		(ft_strlen(fichier2) == 0))
 	{
 		g_var.g_status = 258;
 		ft_putstr_fd("Minishell: : No such file or directory\n", 2);
@@ -82,7 +83,7 @@ int	next_inredirection(t_struct *shell)
 	}
 	shell->input_fd = open(fichier2, O_RDONLY, 0777);
 	if (shell->input_fd == -1)
-		printf("Open error\n");
+		return (ft_putstr_fd("Open Error\n", 2), 0);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 23:21:59 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/12 11:58:26 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	ft_export(t_struct *shell)
 	i = 1;
 	if (!shell->arguments[1])
 		sort_env(shell);
-	if (shell->arguments[i] && check_export(shell) == 0)
+	if (shell->arguments[i] && check_export(shell, &i) == 0)
 		export_with_arg(shell);
-	else if (shell->arguments[i] && check_export(shell) == 1)
+	else if (shell->arguments[i] && check_export(shell, &i) == 1)
 	{
 		ft_putstr_fd("Export: ", 2);
 		ft_putstr_fd(shell->arguments[1], 2);
@@ -63,7 +63,7 @@ void	export_with_arg(t_struct *shell)
 	int		i;
 
 	i = 1;
-	while (shell->arguments[i] && check_export(shell) == 0)
+	while (shell->arguments[i] && check_export(shell, &i) == 0)
 	{
 		env_aux = ft_split(shell->arguments[i], '=');
 		if (g_var.g_var == 0)
@@ -98,25 +98,28 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 	shell->env.tmp_con[shell->env.len] = 0;
 }
 
-int	check_export(t_struct *export)
+int	check_export(t_struct *export, int *i)
 {
-	int		i;
+	int		j;
 	char	**splted;
 
-	i = 0;
-	if (export->arguments[1][0] == '=')
+	j = 0;
+	if (export->arguments[*i][0] == '=')
+	{
+		ft_putstr_fd("not a valid identifier\n", 2);
 		return (1);
+	}
 	if (g_var.g_var == 0)
 		return (0);
 	splted = ft_split(export->arguments[1], '=');
-	while (splted[0][i])
+	while (splted[0][j])
 	{
-		if (!ft_isalpha(splted[0][i]))
+		if (!ft_isalpha(splted[0][j]))
 		{
 			ft_free_cmd(splted);
 			return (1);
 		}
-		i++;
+		j++;
 	}
 	ft_free_cmd(splted);
 	return (0);
