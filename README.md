@@ -319,4 +319,7 @@ Du coup, dans ce cas, le fildes2 est fermer par close(). Inutile me direz vous ?
 
 Ce qui fait que avec ça, on va pouvoir rediriger ce qu'écrit un programme vers une variable a nous, ou bien rediriger ce qu'écrit un programme vers l'entrée d'un autre. C'est ce qui permet de faire.
 
+![184433468-a5a9cad6-c298-4c17-aa6e-14f94a8de056](https://user-images.githubusercontent.com/69278312/184434112-75e8de20-6205-42df-ba23-bccf8e64c6cb.png)
+
+
 Finally, I finished Minishell.
