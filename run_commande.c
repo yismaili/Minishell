@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/12 13:34:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:53:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	run_commands(t_struct *shell)
 {
 	int	i;
-	int	fd[2];
+	int	end[2];
 	int	status;
 
 	i = 0;
@@ -23,14 +23,14 @@ void	run_commands(t_struct *shell)
 	shell->path = get_path(shell);
 	while (i < shell->divise.pipe)
 	{
-		if (pipe(fd) == -1)
+		if (pipe(end) == -1)
 			ft_die("pipe error\n");
-		shell->output_fd = fd[1];
+		shell->output_fd = end[1];
 		next_run_commands(shell);
 		close(shell->output_fd);
 		if (shell->input_fd != 0)
 			close(shell->input_fd);
-		shell->input_fd = fd[0];
+		shell->input_fd = end[0];
 		i++;
 	}
 	next_run_commands(shell);

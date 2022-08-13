@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 19:54:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:05:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	commande_tape(t_struct	*shell, int *size)
 	shell->right = 0;
 	shell->output_fd = 1;
 	shell->input_fd = 0;
+	shell->check = 0;
 	rl_catch_signals = 0;
 	shell->commande_tape = readline(GREEN"Minishell-1.0$ "WHITE);
 	*size = ft_strlen(shell->commande_tape);

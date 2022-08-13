@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 18:42:22 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/13 14:21:02 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	ft_check_quote_pos(t_struct *shell, int pos, int size, char	*cmd_joined)
 		((&shell->line_commande[pos])[size - 1] == '\"') || \
 		((&shell->line_commande[pos])[size - 1] == '\''))
 	{
+		if (ft_strchr(shell->line_commande, '\''))
+			shell->check = 1;
 		cmd_joined = ft_split_cmd(shell->line_commande);
 		shell->arguments = ft_split(cmd_joined, ' ');
 		free(cmd_joined);
