@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/13 21:03:51 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/14 19:52:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	inredirection(t_struct	*shell)
 			return (0);
 		line = ft_strdup("");
 		ft_play_herdoc(shell, fichier2, line);
+		free(fichier2);
 	}
 	else
 	{
@@ -91,7 +92,6 @@ int	next_inredirection(t_struct *shell)
 int	fun_redirection(t_struct *shell)
 {
 	shell->line_commande = ft_strdup(shell->commands[shell->cmp]);
-	shell->id=shell->cmp;
 	if (shell->divise.number_command > 1)
 		shell->cmp++;
 	while (shell->commands[shell->cmp] && \
@@ -116,14 +116,17 @@ int	fun_redirection(t_struct *shell)
 void	output_input(t_struct	*shell)
 {
 	if (shell->last_in != -1)
+	{
 		close(shell->last_in);
+	}
 	if (shell->output_fd != 1)
 	{
 		dup2(shell->output_fd, STDOUT_FILENO);
 		close(shell->output_fd);
+		close(shell->last_in);
 	}
 	if (shell->input_fd != 0)
-    {
+	{
 		dup2(shell->input_fd, STDIN_FILENO);
 		close(shell->input_fd);
 	}

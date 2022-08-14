@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/14 13:23:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 19:04:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_struct
 	int			input_fd;
 	int			cmp;
 	int			id;
+	int			fd_out;
 	int			last_in;
 	char		*line_commande;
 	char		*commande_tape;
@@ -203,4 +204,5 @@ char	*find_env(t_struct *shell, char *search);
 char	*ft_check_quotes_frst(t_struct *shell);
 char	*ft_check_quotes_scnd(t_struct *shell);
 int		ft_play_herdoc(t_struct *shell, char *fichier2, char *line);
+void	run_commands_next(t_struct *shell);
 #endif

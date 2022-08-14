@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/14 13:27:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 19:49:47 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	execution(t_struct *shell)
 {
 	int		i;
+
 	i = 0;
 	builtin_exist(shell);
 	if (shell->builtin_exist == 1)
@@ -32,9 +33,8 @@ int	execution(t_struct *shell)
 
 int	create_process(t_struct *shell)
 {
-	shell->id++;
 	shell->pid = fork();
-	if (shell->pid == -1)
+	if (shell->pid < 0)
 	{
 		ft_putstr_fd("Minishell: fork: Resource", 2);
 		ft_putstr_fd(" temporarily unavailable\n", 2);
