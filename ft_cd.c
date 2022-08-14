@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/14 22:07:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 22:37:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_cd(t_struct *shell)
 		arg_aux = ft_strdup(shell->arguments[1]);
 	else if (!shell->arguments[1])
 	{
-		arg_aux = find_env(shell, "HOME");
+		arg_aux = ft_strdup(find_env(shell, "HOME"));
 		if (!arg_aux)
 		{
 			ft_putstr_fd("Minishell: cd: HOME not set\n", 2);
@@ -86,6 +86,8 @@ int	ft_cd(t_struct *shell)
 		}
 	}
 	ft_change_dir(shell, arg_aux);
+	if (arg_aux != NULL)
+		free(arg_aux);
 	return (0);
 }
 
