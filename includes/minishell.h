@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/13 14:04:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 13:23:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_struct
 	int			output_fd;
 	int			input_fd;
 	int			cmp;
+	int			id;
+	int			last_in;
 	char		*line_commande;
 	char		*commande_tape;
 	char		*home;
@@ -116,7 +118,7 @@ void	print_welcome(void);
 void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
 int		fun_redirection(t_struct *shell);
-void	execution(t_struct *shell);
+int		execution(t_struct *shell);
 void	divise_commande(t_struct *shell, char *in);
 void	arguments_func(t_struct *shell);
 int		argument_find_char(char *string, char needle);
@@ -137,7 +139,7 @@ void	export_to_env(t_struct *shell, char *tab1, char *tab2);
 void	pipe_next(t_struct *shell, int i, char *command);
 int		inredirection(t_struct *shell);
 int		outredirection(t_struct *shell);
-void	next_run_commands(t_struct *shell);
+int		next_run_commands(t_struct *shell);
 void	next(t_struct *shell, char*commande_read);
 char	*execute_cmd(t_struct *shell);
 void	output_input(t_struct *shell);
@@ -196,7 +198,7 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 void	next_execute_commands(t_struct *shell, int i, char *command);
 void	ft_cmd(char **env);
 void	cmd_not_found2(t_struct *shell);
-void	create_process(t_struct *shell);
+int		create_process(t_struct *shell);
 char	*find_env(t_struct *shell, char *search);
 char	*ft_check_quotes_frst(t_struct *shell);
 char	*ft_check_quotes_scnd(t_struct *shell);

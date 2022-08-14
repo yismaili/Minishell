@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/13 14:53:10 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 13:22:09 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	run_commands(t_struct *shell)
 	int	i;
 	int	end[2];
 	int	status;
-
+	shell->id=0;
 	i = 0;
 	status = 0;
 	shell->path = get_path(shell);
@@ -26,18 +26,24 @@ void	run_commands(t_struct *shell)
 		if (pipe(end) == -1)
 			ft_die("pipe error\n");
 		shell->output_fd = end[1];
-		next_run_commands(shell);
+		shell->last_in = end[0];
+		if (next_run_commands(shell) == 1)
+			return ;
 		close(shell->output_fd);
 		if (shell->input_fd != 0)
 			close(shell->input_fd);
 		shell->input_fd = end[0];
 		i++;
 	}
-	next_run_commands(shell);
+	shell->last_in = -1;
+	if (next_run_commands(shell) == 1)
+			return ;
+	if (shell->input_fd != 0)
+		close(shell->input_fd);
 	ft_wait_pid(shell);
-	ft_cmd(shell->commands);
 	if (shell->path)
 		ft_free_cmd(shell->path);
+	ft_cmd(shell->commands);
 }
 
 void	ft_wait_pid(t_struct *shell)
@@ -52,15 +58,17 @@ void	ft_wait_pid(t_struct *shell)
 	}
 }
 
-void	next_run_commands(t_struct	*shell)
+int	next_run_commands(t_struct	*shell)
 {
 	if (fun_redirection(shell) == 0)
 	{
-		return ;
+		return (1);
 	}
 	if (shell->commands[0][0] != '>')
 	{
 		arguments_func(shell);
-		execution(shell);
+		if (execution(shell) == 1)
+			return (1);		
 	}
+	return (0);
 }

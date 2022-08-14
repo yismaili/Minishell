@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/13 14:51:33 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 11:20:22 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	replace_oldpwd(t_struct *env)
 	{
 		if (!ft_strcmp(env->env.tmp_var[i], "OLDPWD"))
 		{
+			free(env->env.tmp_con[i]);
 			env->env.tmp_con[i] = ft_strdup(buff);
 			free(buff);
 			return ;

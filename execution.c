@@ -6,50 +6,39 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/10 15:07:56 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/14 13:27:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int	ft_check_quotes(t_struct *shell)
-{
-	if (shell->quote % 2 != 0 || shell->double_quote % 2 != 0
-		|| (shell->right == 1))
-	{
-		cmd_not_found2(shell);
-		return (1);
-	}
-	run_builtin(shell);
-	ft_free_cmd(shell->arguments);
-	return (0);
-}
-
-void	execution(t_struct *shell)
+int	execution(t_struct *shell)
 {
 	int		i;
-
 	i = 0;
 	builtin_exist(shell);
 	if (shell->builtin_exist == 1)
 	{
-		if (ft_check_quotes(shell) == 1)
-			return ;
+		run_builtin(shell);
 	}
 	else if (!shell->path)
 		print_cmd_not_f(shell);
 	else
-		create_process(shell);
+		if (create_process(shell) == 1)
+			return (1);
+	ft_free_cmd(shell->arguments);
+	return (0);
 }
 
-void	create_process(t_struct *shell)
+int	create_process(t_struct *shell)
 {
+	shell->id++;
 	shell->pid = fork();
-	if (shell->pid < 0)
+	if (shell->pid == -1)
 	{
 		ft_putstr_fd("Minishell: fork: Resource", 2);
 		ft_putstr_fd(" temporarily unavailable\n", 2);
-		exit (1);
+		return (1);
 	}
 	else if (shell->pid == 0)
 	{
@@ -57,7 +46,7 @@ void	create_process(t_struct *shell)
 		if (shell->arguments[0] != NULL)
 			execute_cmd(shell);
 	}
-	ft_free_cmd(shell->arguments);
+	return (0);
 }
 
 void	ft_check_arg(t_struct *shell, char *cmd_path)
