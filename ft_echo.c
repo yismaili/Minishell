@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/13 14:51:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/15 23:41:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	print_echo(t_struct *shell, char *echo_print)
 	if (!ft_strcmp(echo_print, "$?"))
 	{
 		ft_putnbr_fd(g_var.g_status, shell->output_fd);
-		printf("\n");
 	}
 	else if (!ft_strncmp(echo_print, "$", 1) && shell->check == 0)
 	{

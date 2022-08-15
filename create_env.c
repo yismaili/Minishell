@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/09 22:45:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/15 23:45:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ int	create_env_tmp(t_struct *shell, char **my_env)
 	shell->env.tmp_var[i] = 0;
 	shell->env.tmp_con[i] = 0;
 	return (1);
+}
+
+void	ft_remplir_env(t_struct *env)
+{
+	char	*buff;
+
+	buff = getcwd(NULL, sizeof(NULL));
+	env->env.len = 4;
+	if (!malloc_env_tmp(env))
+		ft_die_malloc("No spece lift\n");
+	env->env.tmp_var[0] = ft_strdup("OLDPWD");
+	env->env.tmp_con[0] = ft_strdup(buff);
+	env->env.tmp_var[1] = ft_strdup("PWD");
+	env->env.tmp_con[1] = ft_strdup(buff);
+	env->env.tmp_var[2] = ft_strdup("PATH");
+	env->env.tmp_con[2] = \
+	ft_strdup("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
+	env->env.tmp_var[3] = 0;
+	env->env.tmp_con[3] = 0;
+	free(buff);
+	buff = NULL;
+	g_var.g_var = 3;
 }

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/15 16:37:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/15 23:45:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	run_commands(t_struct *shell)
 	int	end[2];
 
 	i = 0;
+	if (g_var.g_var == 0)
+		ft_remplir_env(shell);
 	shell->path = get_path(shell);
 	while (i < shell->divise.pipe)
 	{
