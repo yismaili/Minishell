@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/13 17:07:33 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/15 15:59:52 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sig_handler(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("", 1);
 	}
 }
 
@@ -42,7 +42,7 @@ int	main(void)
 	int			size;
 
 	g_var.g_status = 0;
-	print_welcome();
+	//print_welcome();
 	start_create_env(&shell);
 	signals();
 	while (1)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
+#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:35:52 by souchen           #+#    #+#              #
-#    Updated: 2022/08/11 15:46:23 by souchen          ###   ########.fr        #
+#    Updated: 2022/08/15 14:50:35 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME) : $(OBJ)
 	 @ranlib $(NAME)
 
 %.o : %.c $(HEADER)
-	@echo "$(RED)COMPILING$(RESET) $<"
+	@echo "$(GREEN)COMPILING$(RESET) $<"
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean: 

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 18:44:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:46:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,6 @@ t_arg	*init_arg(void)
 	arg->len = 1;
 	arg->position = 0;
 	return (arg);
-}
-
-void	free_arg(t_arg *arg)
-{
-	if (arg->first != NULL)
-	{
-		free(arg->first);
-		arg->first = NULL;
-	}
-	if (arg-> all_cmd != NULL)
-	{
-		free(arg->all_cmd);
-		arg->all_cmd = NULL;
-	}
-	if (arg-> txt_toprint != NULL)
-	{
-		free(arg->txt_toprint);
-		arg->txt_toprint = NULL;
-	}
-	free(arg);
 }
 
 char	*ft_remove_quot(char *s1, char c)

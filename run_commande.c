@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/14 22:11:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:37:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	run_commands_next(t_struct *shell)
 		close(shell->input_fd);
 	if (shell->path)
 		ft_free_cmd(shell->path);
-	ft_wait_pid(shell);
 	ft_cmd(shell->commands);
+	ft_wait_pid(shell);
 }
 
 void	ft_wait_pid(t_struct *shell)
@@ -65,9 +65,7 @@ void	ft_wait_pid(t_struct *shell)
 int	next_run_commands(t_struct	*shell)
 {
 	if (fun_redirection(shell) == 0)
-	{
 		return (1);
-	}
 	if (shell->commands[0][0] != '>')
 	{
 		arguments_func(shell);
