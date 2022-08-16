@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/11 19:54:09 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 22:55:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ int	start_create_env(t_struct *shell)
 
 	shell->cmp = 0;
 	ft_check_env(environ);
-	if (!create_env_tmp(shell, environ))
-		return (0);
+	if (g_var.g_var != 0)
+		if (!create_env_tmp(shell, environ))
+			return (0);
 	return (1);
 }
 
