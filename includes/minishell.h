@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 15:42:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:59:35 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,4 +206,5 @@ char	*ft_check_quotes_scnd(t_struct *shell);
 int		ft_play_herdoc(t_struct *shell, char *fichier2, char *line);
 void	run_commands_next(t_struct *shell);
 void	ft_remplir_env(t_struct *env);
+int		check_export_tow(t_struct *export);
 #endif

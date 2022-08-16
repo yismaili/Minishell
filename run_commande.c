@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 15:44:06 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 22:39:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	get_exit_status(t_struct *shell)
 {
-	int status;
+	int	status;
 
 	waitpid(shell->pid, &status, 0);
 	if (WIFSIGNALED(status))

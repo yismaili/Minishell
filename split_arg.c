@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 16:26:22 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 22:39:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,12 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 {
 	char	*aux;
 	char	**test;
+	char	*strrm;
 	int		k;
 
 	k = 0;
 	aux = NULL;
+	strrm = NULL;
 	if (shell->arguments[1] && (shell->arguments[1][0] == QUOTE || \
 		shell->arguments[1][0] == DOUBLE_QUOTE))
 	{
@@ -63,7 +65,8 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 		shell->arguments[1] = test[0];
 	}
 	if (ft_strchr(shell->arguments[i - 1], '$'))
-	{	char	*strrm = ft_strtrim(shell->arguments[i - 1], "$");
+	{
+		strrm = ft_strtrim(shell->arguments[i - 1], "$");
 		shell->arguments[i - 1] = find_env(shell, strrm);
 	}
 	command = ft_strjoin(command, shell->arguments[i - 1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/12 12:07:11 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/16 22:38:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,18 @@ int	is_empty(char	*input)
 
 void	verify_if_env_exists(t_struct *shell, char **env_aux)
 {
+	char	*ptr;
+
+	ptr = NULL;
 	if (find_env_tmp(shell, env_aux[0]))
 	{
-		free(shell->env.tmp_con[shell->env.position]);
-		shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
+		ptr = shell->env.tmp_con[shell->env.position];
+		if (check_export_tow(shell) == 2)
+			shell->env.tmp_con[shell->env.position] = \
+			ft_strjoin(shell->env.tmp_con[shell->env.position], env_aux[1]);
+		else
+			shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
+		free(ptr);
 	}
 	else if (!find_env_tmp(shell, env_aux[0]))
 		export_to_env(shell, env_aux[0], env_aux[1]);
