@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/15 23:41:01 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:51:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,12 @@ void	print_echo(t_struct *shell, char *echo_print)
 	if (!ft_strcmp(echo_print, "$?"))
 	{
 		ft_putnbr_fd(g_var.g_status, shell->output_fd);
+		g_var.g_status = 0;
 	}
 	else if (!ft_strncmp(echo_print, "$", 1) && shell->check == 0)
-	{
 		echo_with_dollar(shell, echo_print);
-	}
 	else if (echo_print != NULL)
-	{
 		ft_putstr_fd(echo_print, shell->output_fd);
-	}
 }
 
 void	echo_with_dollar(t_struct *shell, char *echo_print)

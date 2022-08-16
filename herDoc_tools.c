@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:14:54 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/12 13:33:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:48:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_check_quotes_frst(t_struct *shell)
 		((ft_strlen(fichier1) == 2) || ft_strlen(fichier1) == 0)) || \
 		(ft_strlen(fichier1) == 0))
 	{
-		g_var.g_status = 258;
+		// g_var.g_status = 258;
 		ft_putstr_fd("Minishell: : No such file or directory\n", 2);
 		return (NULL);
 	}
@@ -48,7 +48,7 @@ char	*ft_check_quotes_scnd(t_struct *shell)
 		((ft_strlen(fichier1) == 2) || ft_strlen(fichier1) == 0)) || \
 		(ft_strlen(fichier1) == 0))
 	{
-		g_var.g_status = 258;
+		// g_var.g_status = 258;
 		ft_putstr_fd("Minishell: : No such file or directory\n", 2);
 		return (0);
 	}

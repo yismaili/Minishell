@@ -6,11 +6,23 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/15 23:45:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:44:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+void	get_exit_status(t_struct *shell)
+{
+	int status;
+
+	waitpid(shell->pid, &status, 0);
+	if (WIFSIGNALED(status))
+		g_var.g_status = WTERMSIG(status);
+	else if (WIFEXITED(status))
+		g_var.g_status = WEXITSTATUS(status);
+	ft_wait_pid(shell);
+}
 
 void	run_commands(t_struct *shell)
 {
@@ -37,6 +49,7 @@ void	run_commands(t_struct *shell)
 		i++;
 	}
 	run_commands_next(shell);
+	get_exit_status(shell);
 }
 
 void	run_commands_next(t_struct *shell)
@@ -49,7 +62,6 @@ void	run_commands_next(t_struct *shell)
 	if (shell->path)
 		ft_free_cmd(shell->path);
 	ft_cmd(shell->commands);
-	ft_wait_pid(shell);
 }
 
 void	ft_wait_pid(t_struct *shell)

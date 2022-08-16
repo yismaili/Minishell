@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/14 19:52:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:48:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	next_inredirection(t_struct *shell)
 		((ft_strlen(fichier2) == 2) || (ft_strlen(fichier2) == 0))) || \
 		(ft_strlen(fichier2) == 0))
 	{
-		g_var.g_status = 258;
+	//	g_var.g_status = 258;
 		ft_putstr_fd("Minishell: : No such file or directory\n", 2);
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/15 11:56:08 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:26:22 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*ft_split_cmd(char	*cmd)
 
 void	cmd_not_found2(t_struct *shell)
 {
-	g_var.g_status = 127;
 	if (shell->arguments[0][0] != '|')
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -63,13 +62,16 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 		test = ft_split(aux, '<');
 		shell->arguments[1] = test[0];
 	}
+	if (ft_strchr(shell->arguments[i - 1], '$'))
+	{	char	*strrm = ft_strtrim(shell->arguments[i - 1], "$");
+		shell->arguments[i - 1] = find_env(shell, strrm);
+	}
 	command = ft_strjoin(command, shell->arguments[i - 1]);
 	execve(command, &shell->arguments[i - 1], shell->env.env);
 }
 
 void	cmd_not_found(t_struct *shell)
 {
-	g_var.g_status = 127;
 	if (shell->arguments[0][0] != '|')
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -82,7 +84,7 @@ void	cmd_not_found(t_struct *shell)
 		ft_putstr_fd(shell->arguments[1], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
-	exit(g_var.g_status);
+	exit(127);
 }
 
 char	*find_env(t_struct *shell, char *search)

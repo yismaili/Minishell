@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/15 23:45:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:39:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_var.g_status = 1;
+		//g_var.g_status = 1;
 		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -41,9 +41,9 @@ int	main(void)
 	t_struct	shell;
 	int			size;
 
-	g_var.g_status = 0;
 	start_create_env(&shell);
 	signals();
+	g_var.g_status = 0;
 	while (1)
 	{
 		commande_tape(&shell, &size);
@@ -62,15 +62,6 @@ int	main(void)
 		free(shell.commande_tape);
 	}
 }	
-
-void	print_welcome(void)
-{
-	printf("%s*****************************************************\n", RED);
-	printf("%s|                                                   |\n", RED);
-	printf("%s|     Welcome to Souchen && Yismaili Minishell      |\n", RED);
-	printf("%s|                                                   |\n", RED);
-	printf("%s*****************************************************\n", RED);
-}
 
 int	commande_tape(t_struct	*shell, int *size)
 {

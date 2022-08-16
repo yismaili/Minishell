@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/12 11:58:26 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/16 16:38:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	ft_export(t_struct *shell)
 	i = 1;
 	if (!shell->arguments[1])
 		sort_env(shell);
+	// if (ft_strchr(shell->arguments[1], '+'))
+	// {
+	// 	printf("hey\n");
+	// }
 	if (shell->arguments[i] && check_export(shell, &i) == 0)
 		export_with_arg(shell);
 	else if (shell->arguments[i] && check_export(shell, &i) == 1)
