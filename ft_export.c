@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:42:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:16:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	export_with_arg(t_struct *shell)
 	char	**env_aux;
 	int		i;
 	char	*ptr;
+	char	*rm;
 
 	i = 1;
 	while (shell->arguments[i] && check_export(shell, &i) != 1)
@@ -72,6 +73,25 @@ void	export_with_arg(t_struct *shell)
 			ptr = env_aux[0];
 			env_aux[0] = ft_strtrim(env_aux[0], "+");
 			free(ptr);
+		}
+		if (check_export(shell, &i) == 3)
+		{
+			ptr = env_aux[0];
+			rm = ft_strtrim(env_aux[0], "$");
+			env_aux[0] = find_env(shell, rm);
+			free(ptr);
+			if (check_export_con(env_aux[0]) == 1)
+			{
+				ft_putstr_fd("Export: ", 2);
+				ft_putstr_fd(env_aux[0], 2);
+				ft_putstr_fd(": not a valid identifier\n", 2);
+				return ;
+			}
+			else if (check_export_con(env_aux[0]) == 3)
+			{
+				sort_env(shell);
+				return ;
+			}
 		}
 		if (g_var.g_var == 0)
 		{
@@ -88,7 +108,7 @@ void	export_with_arg(t_struct *shell)
 			env_aux[1] = NULL;
 			verify_if_env_exists(shell, env_aux);
 		}
-		ft_free_cmd(env_aux);
+	//ft_free_cmd(env_aux);
 		i++;
 	}
 }

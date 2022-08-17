@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:00 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:37:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:12:16 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	check_export_tow(t_struct *export)
 	if (g_var.g_var == 0)
 		return (0);
 	splted = ft_split(export->arguments[1], '=');
+	if (splted[0][0] == '$')
+		return (3);
 	if (splted[0][ft_strlen(splted[0]) - 1] == '+')
 	{
 		ft_free_cmd(splted);
@@ -59,5 +61,23 @@ int	check_export_tow(t_struct *export)
 		j++;
 	}
 	ft_free_cmd(splted);
+	return (0);
+}
+
+int	check_export_con(char *export)
+{
+	int		j;
+
+	j = 0;
+	if (!export)
+		return (3);
+	if (export[ft_strlen(export) - 1] == '+')
+		return (2);
+	while (export[j])
+	{
+		if (!ft_isalpha(export[j]))
+			return (1);
+		j++;
+	}
 	return (0);
 }
