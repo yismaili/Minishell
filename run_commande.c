@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:39:00 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/17 21:21:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 void	get_exit_status(t_struct *shell)
 {
-	int	status;
+	int		status;
+	char	*ascii;
 
 	waitpid(shell->pid, &status, 0);
-	if (WIFSIGNALED(status))
-		g_var.g_status = WTERMSIG(status);
-	else if (WIFEXITED(status))
+	// if (WIFSIGNALED(status))
+	// 	g_var.g_status = WTERMSIG(status);
+	if (WIFEXITED(status))
 		g_var.g_status = WEXITSTATUS(status);
+	ascii = ft_itoa(g_var.g_status);
+	if (find_env_tmp(shell, "?"))
+	{
+		free(shell->env.tmp_con[shell->env.position]);
+		shell->env.tmp_con[shell->env.position] = ft_strdup(ascii);
+	}
+	free(ascii);
 	ft_wait_pid(shell);
 }
 

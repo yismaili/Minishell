@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:38:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/17 20:10:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_env(t_struct *shell)
 	n = 0;
 	while (n < shell->env.len)
 	{
-		if (shell->env.tmp_con[n] && ft_strlen(shell->env.tmp_con[n]) != 0)
+		if (shell->env.tmp_con[n] && ft_strlen(shell->env.tmp_con[n]) != 0 && \
+		shell->env.tmp_var[n][0] != '?')
 		{
 			ft_putstr_fd(shell->env.tmp_var[n], shell->output_fd);
 			ft_putchar_fd('=', shell->output_fd);
