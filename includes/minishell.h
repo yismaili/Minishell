@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 01:10:36 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:03:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,4 +222,5 @@ int		ft_loop(char **splted);
 int		ft_with_dlr(char **env_aux, t_struct *shell);
 int		ft_else(t_struct *shell, char **env_aux, int i);
 void	ft_execute_tools(t_struct *shell, int i, char *command);
+char	*ft_return_con(t_struct *shell, char **env_aux);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 01:05:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:07:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void	export_with_arg(t_struct *shell)
 			free(ptr);
 		}
 		if (check_export(shell, &i) == 3)
+		{
+			env_aux[0] = ft_strdup(ft_return_con(shell, env_aux));
 			if (ft_with_dlr(env_aux, shell) == 1)
 				return ;
+		}
 		if (ft_else(shell, env_aux, i) == 1)
 			return ;
 		ft_free_cmd(env_aux);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/15 14:46:00 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:30:06 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,28 @@ int	find_char(char *string, char needle)
 		i++;
 	}
 	return (i);
+}
+
+void	check_second_arg(t_struct	*shell)
+{
+	char	*aux;
+	char	**test;
+	int		k;
+
+	aux = NULL;
+	k = 0;
+	if (shell->arguments[1] && (shell->arguments[1][0] == QUOTE \
+				|| shell->arguments[1][0] == DOUBLE_QUOTE))
+	{
+		while (k < (int)ft_strlen(shell->arguments[1]))
+		{
+			if (shell->arguments[1][k] == '"' || \
+					shell->arguments[1][k] == QUOTE)
+				shell->arguments[1][k] = '<';
+			aux = ft_strtrim(shell->arguments[1], "<");
+			k++;
+		}
+		test = ft_split(aux, '<');
+		shell->arguments[1] = test[0];
+	}
 }

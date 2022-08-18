@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 00:28:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:21:49 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_remplir_env(t_struct *env)
 	char	*buff;
 
 	buff = getcwd(NULL, sizeof(NULL));
-	env->env.len = 4;
+	env->env.len = 5;
 	if (!malloc_env_tmp(env))
 		ft_die_malloc("No spece lift\n");
 	env->env.tmp_var[0] = ft_strdup("?");
@@ -62,5 +62,5 @@ void	ft_remplir_env(t_struct *env)
 	env->env.tmp_con[4] = 0;
 	free(buff);
 	buff = NULL;
-	g_var.g_var = 4;
+	g_var.g_var = 3;
 }

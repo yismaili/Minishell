@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:32:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/17 21:39:06 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ int	commande_tape(t_struct	*shell, int *size)
 	shell->output_fd = 1;
 	shell->input_fd = 0;
 	shell->check = 0;
+	shell->quote_cmd = 0;
+	shell->dquote_cmd = 0;
+	shell->end = 0;
+	shell->start = 0;
 	rl_catch_signals = 0;
 	shell->commande_tape = readline(GREEN"Minishell-1.0$ "WHITE);
 	*size = ft_strlen(shell->commande_tape);

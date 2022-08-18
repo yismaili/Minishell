@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 23:28:36 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/18 01:05:40 by yismaili         ###   ########.fr       */
+/*   Created: 2022/08/17 20:28:47 by souchen           #+#    #+#             */
+/*   Updated: 2022/08/18 16:54:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,6 @@ int	ft_else(t_struct *shell, char **env_aux, int i)
 
 int	ft_with_dlr(char **env_aux, t_struct *shell)
 {
-	char	*ptr;
-	char	*rm;
-
-	ptr = env_aux[0];
-	rm = ft_strtrim(env_aux[0], "$");
-	env_aux[0] = ft_strdup(find_env(shell, rm));
-	free(ptr);
-	free(rm);
 	if (check_export_con(env_aux[0]) == 1)
 	{
 		ft_putstr_fd("Export: ", 2);

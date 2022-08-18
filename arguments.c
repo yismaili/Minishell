@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 16:11:34 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/17 21:38:24 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_check_quote(t_struct *shell)
 	i = 0;
 	while (shell->line_commande[i] != '\0')
 	{
-		if (ft_isalpha(shell->line_commande[i]) || \
+		if (!ft_isalpha(shell->line_commande[i]) || \
 			shell->line_commande[i] == '\"' || shell->line_commande[i] == '\'')
 			return (i);
 		i++;
