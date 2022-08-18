@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:00 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 19:01:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 01:13:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ void	ft_pwd(t_struct *shell)
 
 int	check_export_tow(t_struct *export)
 {
-	int		j;
 	char	**splted;
 
-	j = 0;
 	if (g_var.g_var == 0)
 		return (0);
 	splted = ft_split(export->arguments[1], '=');
@@ -54,6 +52,14 @@ int	check_export_tow(t_struct *export)
 		ft_free_cmd(splted);
 		return (2);
 	}
+	return (ft_loop(splted));
+}
+
+int	ft_loop(char **splted)
+{
+	int		j;
+
+	j = 0;
 	while (splted[0][j])
 	{
 		if (!ft_isalpha(splted[0][j]))

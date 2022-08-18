@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:39:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 01:12:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 {
 	char	*aux;
 	char	**test;
-	char	*strrm;
 	int		k;
 
 	k = 0;
 	aux = NULL;
-	strrm = NULL;
 	if (shell->arguments[1] && (shell->arguments[1][0] == QUOTE || \
 		shell->arguments[1][0] == DOUBLE_QUOTE))
 	{
@@ -64,6 +62,13 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 		test = ft_split(aux, '<');
 		shell->arguments[1] = test[0];
 	}
+	ft_execute_tools(shell, i, command);
+}
+
+void	ft_execute_tools(t_struct *shell, int i, char *command)
+{
+	char	*strrm;
+
 	if (ft_strchr(shell->arguments[i - 1], '$'))
 	{
 		strrm = ft_strtrim(shell->arguments[i - 1], "$");
@@ -88,24 +93,4 @@ void	cmd_not_found(t_struct *shell)
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	exit(127);
-}
-
-char	*find_env(t_struct *shell, char *search)
-{
-	int	i;
-
-	i = 0;
-	shell->env.position = 0;
-	if (g_var.g_var == 0)
-		return (NULL);
-	while (shell->env.tmp_var[i] && i <= shell->env.len)
-	{
-		if (!ft_strcmp(shell->env.tmp_var[i], search))
-		{
-			shell->env.position = i;
-			return (shell->env.tmp_con[i]);
-		}
-		i++;
-	}
-	return (NULL);
 }

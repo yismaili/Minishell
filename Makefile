@@ -6,7 +6,7 @@
 #    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/08/15 22:22:06 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/17 23:30:40 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ INCL = ${HOME}/goinfre/.brew/opt/readline/include/readline/
 FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
        initial_path.c  main.c  run_commande.c \
        divise_commande.c arguments.c arguments_utils.c ft_env.c ft_export.c ft_cd.c ft_pwd.c \
-       ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c  export_tools.c  herDoc_tools.c 
+       ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c  export_tools.c  herDoc_tools.c divise_commandes_tools.c 
  
 
 OBJ_FILES= $(FILES:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 21:21:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 00:31:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	get_exit_status(t_struct *shell)
 	char	*ascii;
 
 	waitpid(shell->pid, &status, 0);
-	// if (WIFSIGNALED(status))
-	// 	g_var.g_status = WTERMSIG(status);
+	if (WIFSIGNALED(status))
+		g_var.g_status = WTERMSIG(status);
 	if (WIFEXITED(status))
 		g_var.g_status = WEXITSTATUS(status);
 	ascii = ft_itoa(g_var.g_status);

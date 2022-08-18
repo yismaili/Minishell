@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:18 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 21:29:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 00:28:14 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	create_env_tmp(t_struct *shell, char **my_env)
 	if (!malloc_env_tmp(shell))
 		ft_die_malloc("No spece lift\n");
 	i = 1;
-	shell->env.tmp_var[0] =  ft_strdup("?");
-	shell->env.tmp_con[0] =  ft_strdup("0");
+	shell->env.tmp_var[0] = ft_strdup("?");
+	shell->env.tmp_con[0] = ft_strdup("0");
 	while (shell->env.env[i])
 	{
 		env_divise = ft_split(shell->env.env[i], '=');
@@ -49,8 +49,8 @@ void	ft_remplir_env(t_struct *env)
 	env->env.len = 4;
 	if (!malloc_env_tmp(env))
 		ft_die_malloc("No spece lift\n");
-	env->env.tmp_var[0] =  ft_strdup("?");
-	env->env.tmp_con[0] =  ft_strdup("0");
+	env->env.tmp_var[0] = ft_strdup("?");
+	env->env.tmp_con[0] = ft_strdup("0");
 	env->env.tmp_var[1] = ft_strdup("OLDPWD");
 	env->env.tmp_con[1] = ft_strdup(buff);
 	env->env.tmp_var[2] = ft_strdup("PWD");

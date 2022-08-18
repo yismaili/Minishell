@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:35:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 21:04:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 00:29:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int					ft_strcmp(char *s1, char *s2);
 int					ft_isalpha(int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strchr(const char *s, int c);
-char                *ft_itoa(int n);
+char				*ft_itoa(int n);
 #endif

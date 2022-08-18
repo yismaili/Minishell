@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 13:53:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 01:10:36 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_struct
 	char		*commands[600000];
 	char		**arguments;
 	int			i;
+	int			j;
 	int			len;
 	t_env		env_aux;
 	t_env		env;
@@ -106,6 +107,10 @@ typedef struct s_struct
 	int			indice;
 	char		**path;
 	int			check;
+	int			quote_cmd;
+	int			dquote_cmd;
+	int			start;
+	int			end;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -208,5 +213,13 @@ void	run_commands_next(t_struct *shell);
 void	ft_remplir_env(t_struct *env);
 int		check_export_tow(t_struct *export);
 int		check_export_con(char *export);
-
+void	check_pipe(int i, t_struct *shell, char *commande_read);
+void	check_quote(int i, t_struct *shell, char *commande, char c);
+void	divise_commande(t_struct *shell, char *commande_read);
+void	check_next_arg(t_struct *shell);
+void	check_aux(t_struct *shell, char **env_aux, int i);
+int		ft_loop(char **splted);
+int		ft_with_dlr(char **env_aux, t_struct *shell);
+int		ft_else(t_struct *shell, char **env_aux, int i);
+void	ft_execute_tools(t_struct *shell, int i, char *command);
 #endif
