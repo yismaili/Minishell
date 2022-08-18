@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 17:03:40 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:52:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_struct
 	int			dquote_cmd;
 	int			start;
 	int			end;
+	int			i_for_chek;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -152,7 +153,7 @@ void	output_input(t_struct *shell);
 void	check_to_execute(t_struct *shell);
 void	sig_handler(int signum);
 void	cmd_not_found(t_struct *shell);
-int		check_export(t_struct *export, int *i);
+int		check_export(t_struct *export);
 int		ft_search(t_struct *env, char *var);
 int		malloc_env_tmp(t_struct *shell);
 char	*find_env_tmp(t_struct *shell, char *search);
@@ -197,7 +198,7 @@ t_arg	*init_arg(void);
 void	echo_with_quote(char *echo_print, t_struct *shell);
 void	echo_with_dollar(t_struct *shell, char *splt_quot);
 void	swap_env(char **dup_env);
-void	export_with_arg(t_struct *shell);
+void	export_with_arg(t_struct *shell, char *arguments);
 void	sort_env(t_struct *shell);
 void	ft_print_export(char **exp, t_struct *shell);
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);

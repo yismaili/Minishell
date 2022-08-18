@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:00 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 17:07:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:54:15 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_export_tow(t_struct *export)
 
 	if (g_var.g_var == 0)
 		return (0);
-	splted = ft_split(export->arguments[1], '=');
+	splted = ft_split(export->arguments[export->i_for_chek], '=');
 	if (splted[0][0] == '$')
 	{
 		ft_free_cmd(splted);

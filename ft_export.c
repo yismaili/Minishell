@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 17:07:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:56:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,48 +40,47 @@ void	ft_print_export(char **exp, t_struct	*shell)
 
 void	ft_export(t_struct *shell)
 {
-	int		i;
-
-	i = 1;
+	shell->i_for_chek = 1;
 	if (!shell->arguments[1])
 		sort_env(shell);
-	if (shell->arguments[i] && check_export(shell, &i) != 1)
-		export_with_arg(shell);
-	else if (shell->arguments[i] && check_export(shell, &i) == 1)
+	while (shell->arguments[shell->i_for_chek])
 	{
-		ft_putstr_fd("Export: ", 2);
-		ft_putstr_fd(shell->arguments[1], 2);
-		ft_putstr_fd(": not a valid identifier\n", 2);
-	}
+		if (shell->arguments[shell->i_for_chek] && check_export(shell) != 1)
+			export_with_arg(shell, shell->arguments[shell->i_for_chek]);
+		else if (shell->arguments[shell->i_for_chek] && \
+		check_export(shell) == 1)
+		{
+			ft_putstr_fd("Export: ", 2);
+			ft_putstr_fd(shell->arguments[shell->i_for_chek], 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
+		}
+		shell->i_for_chek++;
+	}	
 }
 
-void	export_with_arg(t_struct *shell)
+void	export_with_arg(t_struct *shell, char *arguments)
 {
 	char	**env_aux;
 	int		i;
 	char	*ptr;
 
 	i = 1;
-	while (shell->arguments[i] && check_export(shell, &i) != 1)
+	env_aux = ft_split(arguments, '=');
+	if (check_export(shell) == 2)
 	{
-		env_aux = ft_split(shell->arguments[i], '=');
-		if (check_export(shell, &i) == 2)
-		{
-			ptr = env_aux[0];
-			env_aux[0] = ft_strtrim(env_aux[0], "+");
-			free(ptr);
-		}
-		if (check_export(shell, &i) == 3)
-		{
-			env_aux[0] = ft_strdup(ft_return_con(shell, env_aux));
-			if (ft_with_dlr(env_aux, shell) == 1)
-				return ;
-		}
-		if (ft_else(shell, env_aux, i) == 1)
-			return ;
-		ft_free_cmd(env_aux);
-		i++;
+		ptr = env_aux[0];
+		env_aux[0] = ft_strtrim(env_aux[0], "+");
+		free(ptr);
 	}
+	if (check_export(shell) == 3)
+	{
+		env_aux[0] = ft_strdup(ft_return_con(shell, env_aux));
+		if (ft_with_dlr(env_aux, shell) == 1)
+			return ;
+	}
+	if (ft_else(shell, env_aux, i) == 1)
+		return ;
+	ft_free_cmd(env_aux);
 }
 
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
@@ -96,9 +95,9 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 	shell->env.tmp_con[shell->env.len] = 0;
 }
 
-int	check_export(t_struct *export, int *i)
+int	check_export(t_struct *export)
 {
-	if (export->arguments[*i][0] == '=')
+	if (export->arguments[export->i_for_chek][0] == '=')
 	{
 		ft_putstr_fd("not a valid identifier\n", 2);
 		return (1);
