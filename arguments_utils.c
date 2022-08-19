@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 15:30:06 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/19 16:13:11 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_arg	*init_arg(void)
 	return (arg);
 }
 
-char	*ft_remove_quot(char *s1, char c)
+char	*ft_remove_quot(char *s1, char c, t_struct *shell)
 {
 	char	*dst;
 	int		len;
@@ -46,11 +46,11 @@ char	*ft_remove_quot(char *s1, char c)
 			len++;
 		i++;
 	}
-	dst = remplir(s1, c, len);
+	dst = remplir(s1, c, len, shell);
 	return (dst);
 }
 
-char	*remplir(char *s1, char c, int len)
+char	*remplir(char *s1, char c, int len, t_struct *shell)
 {
 	int		i;
 	int		j;
@@ -58,6 +58,7 @@ char	*remplir(char *s1, char c, int len)
 
 	i = 0;
 	j = 0;
+	shell->qot = 0;
 	dst = (char *) malloc((len + 1) * sizeof(char));
 	while (s1[i])
 	{
@@ -66,6 +67,8 @@ char	*remplir(char *s1, char c, int len)
 			dst[j] = s1[i];
 			j++;
 		}
+		else
+			shell->qot++;
 		i++;
 	}
 	dst[j] = 0;
@@ -84,28 +87,4 @@ int	find_char(char *string, char needle)
 		i++;
 	}
 	return (i);
-}
-
-void	check_second_arg(t_struct	*shell)
-{
-	char	*aux;
-	char	**test;
-	int		k;
-
-	aux = NULL;
-	k = 0;
-	if (shell->arguments[1] && (shell->arguments[1][0] == QUOTE \
-				|| shell->arguments[1][0] == DOUBLE_QUOTE))
-	{
-		while (k < (int)ft_strlen(shell->arguments[1]))
-		{
-			if (shell->arguments[1][k] == '"' || \
-					shell->arguments[1][k] == QUOTE)
-				shell->arguments[1][k] = '<';
-			aux = ft_strtrim(shell->arguments[1], "<");
-			k++;
-		}
-		test = ft_split(aux, '<');
-		shell->arguments[1] = test[0];
-	}
 }

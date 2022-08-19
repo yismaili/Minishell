@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 21:14:18 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:30:45 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_echo(t_struct *shell)
 	}
 	if (!ft_strncmp(shell->arguments[1], "-n", 2))
 			i++;
-	while (shell->arguments[i])
+	while (shell->arguments[i] && shell->qot % 2 == 0)
 	{
 		if (shell->arguments[i])
 		{
@@ -50,7 +50,7 @@ void	print_echo(t_struct *shell, char *echo_print)
 		ft_putstr_fd(" ", shell->output_fd);
 		return ;
 	}
-	if (!ft_strncmp(echo_print, "$", 1))
+	if (!ft_strncmp(echo_print, "$", 1) && shell->check == 0)
 		echo_with_dollar(shell, echo_print);
 	else if (echo_print != NULL || shell->right == 1)
 		ft_putstr_fd(echo_print, shell->output_fd);

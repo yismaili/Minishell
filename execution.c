@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 14:34:15 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:48:50 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ char	*execute_cmd(t_struct *shell)
 	while (shell->path[i])
 	{
 		cmd_path = ft_strjoin(shell->path[i], "/");
-		if (shell->quote % 2 != 0 || shell->double_quote % 2 != 0
-			|| (shell->right == 1))
+		if (shell->right == 1 || (shell->indice != 1 && \
+					(shell->quote % 2 != 0 || shell->double_quote % 2 != 0)))
 		{
 			cmd_not_found(shell);
 		}

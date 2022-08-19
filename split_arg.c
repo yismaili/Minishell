@@ -6,21 +6,37 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 17:13:15 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:33:50 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-char	*ft_split_cmd(char	*cmd)
+char	*ft_split_cmd(char	*cmd, t_struct *shell)
 {
 	char	*join;
 
 	join = NULL;
+	if (cmd[shell->pos] == '\"')
+		join = ft_remove_quot(cmd, '\"', shell);
+	else if (cmd[shell->pos] == '\'')
+		join = ft_remove_quot(cmd, '\'', shell);
+	return (join);
+}
+
+char	*ft_split_cmd2(char	*cmd, t_struct *shell)
+{
+	char	*join;
+
+	join = NULL;
+	shell->qot = 0;
 	if (ft_strchr(cmd, '\"'))
-		join = ft_remove_quot(cmd, '\"');
+		join = ft_remove_quot(cmd, '\"', shell);
 	else if (ft_strchr(cmd, '\''))
-		join = ft_remove_quot(cmd, '\'');
+	{
+		join = ft_remove_quot(cmd, '\'', shell);
+		shell->qot = 1;
+	}
 	return (join);
 }
 
@@ -42,34 +58,12 @@ void	cmd_not_found2(t_struct *shell)
 
 void	next_execute_commands(t_struct *shell, int i, char *command)
 {
-	char	*aux;
-	char	**test;
+	char	*strrm;
 	int		k;
 
 	k = 0;
-	aux = NULL;
-	if (shell->arguments[1] && (shell->arguments[1][0] == QUOTE || \
-		shell->arguments[1][0] == DOUBLE_QUOTE))
-	{
-		while (k < (int)ft_strlen(shell->arguments[1]))
-		{
-			if (shell->arguments[1][k] == '"' \
-				|| shell->arguments[1][k] == QUOTE)
-				shell->arguments[1][k] = '<';
-			aux = ft_strtrim(shell->arguments[1], "<");
-			k++;
-		}
-		test = ft_split(aux, '<');
-		shell->arguments[1] = test[0];
-	}
-	ft_execute_tools(shell, i, command);
-}
-
-void	ft_execute_tools(t_struct *shell, int i, char *command)
-{
-	char	*strrm;
-
-	if (ft_strchr(shell->arguments[i - 1], '$'))
+	strrm = NULL;
+	if (ft_strchr(shell->arguments[i - 1], '$') && shell->check == 0)
 	{
 		strrm = ft_strtrim(shell->arguments[i - 1], "$");
 		shell->arguments[i - 1] = find_env(shell, strrm);

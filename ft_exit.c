@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 17:07:23 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:49:46 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ char	*ft_return_con(t_struct *shell, char **env_aux)
 	free(ptr);
 	free(rm);
 	return (env_aux[0]);
+}
+
+void	check_char(t_struct *shell, char *commande_line)
+{
+	int	i;
+
+	i = 0;
+	shell->not_alpha = 0;
+	shell->failed = 0;
+	while (commande_line[i] != '\0')
+	{
+		if (!ft_isalpha(commande_line[i]) && commande_line[i] != '$' \
+		&& commande_line[i + 1] != '?')
+		{
+			shell->not_alpha++;
+		}
+		i++;
+	}
+	if (shell->not_alpha == (int)ft_strlen(commande_line))
+	{
+		shell->failed = 1;
+	}
 }

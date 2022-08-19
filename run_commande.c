@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 16:08:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:43:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	next_run_commands(t_struct	*shell)
 {
 	if (fun_redirection(shell) == 0)
 		return (1);
-	if (shell->commands[0][0] != '>')
+	if (shell->commands[0][0] != '>' && shell->commands[0][0] != '<')
 	{
 		arguments_func(shell);
 		if (execution(shell) == 1)

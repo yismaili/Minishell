@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:38:43 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:33:07 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	outredirection(t_struct *shell)
 		fichier1 = ft_check_quotes_scnd(shell);
 		if (!fichier1)
 			return (0);
-		printf("fichier1 =%s\n", fichier1);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (shell->output_fd == -1)
 			return (ft_putstr_fd("Open Error\n", 2), 0);
@@ -48,7 +47,7 @@ int	inredirection(t_struct	*shell)
 	if (shell->commands[shell->cmp][1] == '<')
 	{
 		fichier2 = ft_check_quotes_frst(shell);
-		if (!fichier2)
+		if (!fichier2 || shell->qot % 2 != 0 || shell->qot_tow == 1)
 			return (0);
 		line = ft_strdup("");
 		ft_play_herdoc(shell, fichier2, line);
@@ -80,7 +79,7 @@ int	next_inredirection(t_struct *shell)
 	(fichier2[ft_strlen(fichier2) - 1] == '\"' || \
 	fichier2[ft_strlen(fichier2) - 1] == '\'')) && (ft_strlen(fichier2) > 2))
 	{
-			fichier2 = ft_split_cmd(fichier2);
+			fichier2 = ft_split_cmd(fichier2, shell);
 	}
 	shell->input_fd = open(fichier2, O_RDONLY, 0777);
 	if (shell->input_fd == -1)

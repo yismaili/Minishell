@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/17 21:39:06 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/19 14:48:52 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	main(void)
 	while (1)
 	{
 		commande_tape(&shell, &size);
-		if (shell.commande_tape && !is_empty(shell.commande_tape))
+		check_char(&shell, shell.commande_tape);
+		if (shell.commande_tape && !is_empty(shell.commande_tape) \
+				&& shell.failed == 0)
 		{
 			if (shell.commande_tape[0])
 			{

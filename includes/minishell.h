@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 19:52:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:17:27 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_struct
 	char		*commande_tape;
 	char		*home;
 	pid_t		pid;
+	int			test;
 	char		*commands[600000];
 	char		**arguments;
 	int			i;
@@ -99,6 +100,7 @@ typedef struct s_struct
 	t_arg		arg;
 	int			q1;
 	int			q2;
+	int			size;
 	int			dup_pipe;
 	int			quote;
 	int			double_quote;
@@ -112,6 +114,11 @@ typedef struct s_struct
 	int			start;
 	int			end;
 	int			i_for_chek;
+	int			pos;
+	int			not_alpha;
+	int			failed;
+	int			qot;
+	int			qot_tow;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -168,7 +175,6 @@ void	ft_free_env(char **env);
 void	ft_free_cmd(char **cmd);
 int		is_empty(char *input);
 void	ft_not_found(char *dir);
-char	*ft_split_cmd(char *cmd);
 int		ft_search_in_env(t_struct *env, char	*var, char *con);
 void	ft_wait_pid(t_struct *shell);
 void	ft_free(t_struct *shell);
@@ -188,11 +194,11 @@ int		ft_check_cd(t_struct *shell);
 void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
 void	ft_echo_tool(t_struct *shell, char *echo_print);
-char	*remplir(char *s1, char c, int len);
+char	*remplir(char *s1, char c, int len, t_struct *shell);
 void	arg_func(t_struct *shell);
 int		find_char(char *string, char c);
-char	*ft_split_cmd(char *cmd);
-char	*ft_remove_quot(char *s1, char c);
+char	*ft_split_cmd(char *cmd, t_struct *shell);
+char	*ft_remove_quot(char *s1, char c, t_struct *shell);
 int		next_inredirection(t_struct *shell);
 t_arg	*init_arg(void);
 void	echo_with_quote(char *echo_print, t_struct *shell);
@@ -224,4 +230,12 @@ int		ft_with_dlr(char **env_aux, t_struct *shell);
 int		ft_else(t_struct *shell, char **env_aux, int i);
 void	ft_execute_tools(t_struct *shell, int i, char *command);
 char	*ft_return_con(t_struct *shell, char **env_aux);
+void	split_arg(t_struct *shell, char *cmd_joined);
+int		check_quotes_next(t_struct *shell);
+int		ft_check_quote(t_struct *shell);
+void	ft_check_space(t_struct *shell);
+void	ft_check_quote_pos(t_struct *shell, char	*cmd_joined);
+void	check_char(t_struct *shell, char *commande_line);
+char	*ft_split_cmd2(char	*cmd, t_struct *shell);
+
 #endif
