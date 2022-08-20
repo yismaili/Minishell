@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 16:17:27 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:41:38 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,5 +237,9 @@ void	ft_check_space(t_struct *shell);
 void	ft_check_quote_pos(t_struct *shell, char	*cmd_joined);
 void	check_char(t_struct *shell, char *commande_line);
 char	*ft_split_cmd2(char	*cmd, t_struct *shell);
-
+void	to_remove_quotes(t_struct *shell);
+int		split_and_cas_error(t_struct *shell, char *fichier2);
+int		run_commande_next1(t_struct *shell);
+void	cas_error(t_struct *shell);
+int		ft_check_file(t_struct *shell, char	*fichier);
 #endif

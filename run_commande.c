@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 16:43:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:24:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ void	run_commands(t_struct *shell)
 			ft_die("pipe error\n");
 		shell->output_fd = end[1];
 		shell->last_in = end[0];
-		shell->fd_out = end[1];
-		if (next_run_commands(shell) == 1)
+		if (run_commande_next1(shell) == 0)
 			return ;
 		close(shell->output_fd);
 		if (shell->input_fd != 0)
@@ -62,18 +61,6 @@ void	run_commands(t_struct *shell)
 	}
 	run_commands_next(shell);
 	get_exit_status(shell);
-}
-
-void	run_commands_next(t_struct *shell)
-{
-	shell->last_in = -1;
-	if (next_run_commands(shell) == 1)
-		return ;
-	if (shell->input_fd != 0)
-		close(shell->input_fd);
-	if (shell->path)
-		ft_free_cmd(shell->path);
-	ft_cmd(shell->commands);
 }
 
 void	ft_wait_pid(t_struct *shell)

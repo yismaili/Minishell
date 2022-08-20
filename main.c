@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 14:48:52 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/20 15:16:03 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	main(void)
 	int			size;
 
 	start_create_env(&shell);
-	signals();
 	g_var.g_status = 0;
+	signals();
 	while (1)
 	{
 		commande_tape(&shell, &size);
@@ -57,12 +57,18 @@ int	main(void)
 					[size - 1] != '|' && shell.dup_pipe == 0)
 					run_commands(&shell);
 				else
-					ft_putstr_fd(PIPE_ERROR, 2);
+					cas_error(&shell);
 			}
 		}
 		free(shell.commande_tape);
 	}
-}	
+}
+
+void	cas_error(t_struct *shell)
+{
+	ft_cmd(shell->commands);
+	ft_putstr_fd(PIPE_ERROR, 2);
+}
 
 int	commande_tape(t_struct	*shell, int *size)
 {

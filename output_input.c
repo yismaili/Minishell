@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 17:33:07 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/20 14:40:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,22 @@ int	outredirection(t_struct *shell)
 	if (shell->commands[shell->cmp][1] == '>')
 	{
 		fichier1 = ft_check_quotes_frst(shell);
-		if (!fichier1)
+		if (ft_check_file(shell, fichier1) == 0)
 			return (0);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_APPEND, 0777);
 		if (shell->output_fd == -1)
-			return (ft_putstr_fd("Open Error\n", 2), 0);
-		free(fichier1);
+			return (ft_putstr_fd("Open Error\n", 2), free(fichier1), 0);
 	}
 	else
 	{
 		fichier1 = ft_check_quotes_scnd(shell);
-		if (!fichier1)
+		if (ft_check_file(shell, fichier1) == 0)
 			return (0);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (shell->output_fd == -1)
-			return (ft_putstr_fd("Open Error\n", 2), 0);
-		free(fichier1);
+			return (ft_putstr_fd("Open Error\n", 2), free(fichier1), 0);
 	}
+	free(fichier1);
 	return (1);
 }
 
@@ -47,8 +46,10 @@ int	inredirection(t_struct	*shell)
 	if (shell->commands[shell->cmp][1] == '<')
 	{
 		fichier2 = ft_check_quotes_frst(shell);
-		if (!fichier2 || shell->qot % 2 != 0 || shell->qot_tow == 1)
+		if (!fichier2)
 			return (0);
+		if (shell->qot % 2 != 0 || shell->qot_tow == 1)
+			return (free(fichier2), 0);
 		line = ft_strdup("");
 		ft_play_herdoc(shell, fichier2, line);
 		free(fichier2);
@@ -75,15 +76,9 @@ int	next_inredirection(t_struct *shell)
 		ft_putstr_fd("Minishell: : No such file or directory\n", 2);
 		return (0);
 	}
-	else if (((fichier2[0] == '\"' || fichier2[0] == '\'') || \
-	(fichier2[ft_strlen(fichier2) - 1] == '\"' || \
-	fichier2[ft_strlen(fichier2) - 1] == '\'')) && (ft_strlen(fichier2) > 2))
-	{
-			fichier2 = ft_split_cmd(fichier2, shell);
-	}
-	shell->input_fd = open(fichier2, O_RDONLY, 0777);
-	if (shell->input_fd == -1)
-		return (ft_putstr_fd("Open Error\n", 2), 0);
+	if (split_and_cas_error(shell, fichier2) != 1)
+		return (0);
+	free(fichier2);
 	return (1);
 }
 

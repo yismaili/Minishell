@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 16:13:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:03:33 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ t_arg	*init_arg(void)
 
 char	*ft_remove_quot(char *s1, char c, t_struct *shell)
 {
-	char	*dst;
 	int		len;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	dst = NULL;
 	len = 0;
 	if (!s1 || !c)
 		return (NULL);
@@ -46,8 +44,7 @@ char	*ft_remove_quot(char *s1, char c, t_struct *shell)
 			len++;
 		i++;
 	}
-	dst = remplir(s1, c, len, shell);
-	return (dst);
+	return (remplir(s1, c, len, shell));
 }
 
 char	*remplir(char *s1, char c, int len, t_struct *shell)

@@ -6,7 +6,7 @@
 /*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 17:20:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:10:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_unset(t_struct *shell)
 	int	i;
 
 	i = 1;
+	if (!shell->arguments[1])
+		return ;
 	if (shell->arguments[1][0] == '?')
 	{
 		ft_putstr_fd("Minishell: unset: `?': not a valid identifier\n", 2);

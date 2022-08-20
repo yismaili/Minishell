@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 14:48:50 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/20 13:47:23 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ char	*execute_cmd(t_struct *shell)
 	{
 		cmd_path = ft_strjoin(shell->path[i], "/");
 		if (shell->right == 1 || (shell->indice != 1 && \
-					(shell->quote % 2 != 0 || shell->double_quote % 2 != 0)))
+					(shell->quote % 2 != 0 || shell->double_quote % 2 != 0)) || \
+				(shell->indice == 1 && (shell->quote % 2 != 0 || \
+										shell->double_quote % 2 != 0) && \
+				(ft_strncmp(shell->arguments[0], "echo", 4)) && \
+				(ft_strncmp(shell->arguments[1], "echo", 4))))
 		{
 			cmd_not_found(shell);
 		}
