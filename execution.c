@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/25 00:09:01 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 16:18:19 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,12 @@ int	create_process(t_struct *shell)
 
 int	ft_check_arg(t_struct *shell, char *cmd_path)
 {
-	int nb;
+	int	nb;
+
 	if (shell->arguments[0][0] == '|' && shell->arguments[1])
 	{
 		if (!shell->arguments[0][1])
-		{
 			nb = next_execute_commands(shell, 2, cmd_path);
-		}
 		else
 		{
 			shell->arguments[0] = &shell->arguments[0][1];
@@ -78,12 +77,10 @@ int	ft_check_arg(t_struct *shell, char *cmd_path)
 		nb = next_execute_commands(shell, 1, cmd_path);
 	}
 	else
-	{
 		nb = next_execute_commands(shell, 1, cmd_path);
-	}
-	if(nb == 0)
-		return 0;
-	return 1;
+	if (nb == 0)
+		return (0);
+	return (1);
 }
 
 char	*execute_cmd(t_struct *shell)
@@ -101,17 +98,16 @@ char	*execute_cmd(t_struct *shell)
 					(shell->quote % 2 != 0 || shell->double_quote % 2 != 0)) || \
 				(shell->indice == 1 && (shell->quote % 2 != 0 || \
 										shell->double_quote % 2 != 0) && \
-				(ft_strncmp(shell->arguments[0], "echo", 4)) && (ft_strncmp(shell->arguments[1], "echo", 4)) && (ft_strncmp(&shell->arguments[0][1], "echo", 4))))
+				(ft_strncmp(shell->arguments[0], "echo", 4)) && \
+				(ft_strncmp(shell->arguments[1], "echo", 4)) && \
+				(ft_strncmp(&shell->arguments[0][1], "echo", 4))))
 		{
 			cmd_not_found(shell);
 		}
-		if(ft_check_arg(shell, cmd_path) == 0)
-			return NULL;
+		if (ft_check_arg(shell, cmd_path) == 0)
+			return (NULL);
 		i++;
 	}
-	//if (shell->indice_space == 2 && shell->arguments[0][0] != '>' && shell->arguments[0][0] != '<')
-		cmd_not_found(shell);
-	//else
-		//exit(1);
+	cmd_not_found(shell);
 	return (NULL);
 }

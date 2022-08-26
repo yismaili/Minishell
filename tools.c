@@ -6,32 +6,31 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/26 14:45:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:51:13 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	ft_change_dir(t_struct *shell, char *chpath)
+int	ft_change_dir(t_struct *shell, char *chpath)
 {
-	int fd;
+	int		fd;
 	char	*path = NULL;
 	char	*join_slch;
 	char	*join_path;
 
+	path = NULL;
 	path = getcwd(path, sizeof(path));
 	join_slch = ft_strjoin(path, "/");
 	join_path = ft_strjoin(join_slch, shell->arguments[1]);
 	fd = open(join_path, O_RDONLY);
     if (fd < 0)
-	{
-       ft_not_found(shell->arguments[1]);
-		return ;
-	}
+       return (ft_not_found(shell->arguments[1]), 0);
 	replace_oldpwd(shell);
 	if (chdir(chpath) < 0)
-		ft_not_found(shell->arguments[1]);
+		return (ft_not_found(shell->arguments[1]), 0);
 	replace_pwd(shell);
+	return (0);
 }
 
 char	*ft_oldpath(t_struct *shell)

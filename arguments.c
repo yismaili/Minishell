@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/25 00:09:16 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 15:39:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,25 +93,4 @@ void	ft_check_quote_pos(t_struct *shell, char *cmd_joined)
 	split_arg(shell, cmd_joined);
 	if (check_quotes_next(shell) == 0)
 		return ;
-}
-
-int	check_quotes_next(t_struct	*shell)
-{
-	int	i;
-
-	i = 0;
-	if (shell->space == 1 && shell->indice == 1 && ((shell->quote == 2 && \
-					shell->double_quote != 2) || \
-				(shell->quote != 2 && shell->double_quote == 2)))
-	{
-		while (shell->arguments[i] != NULL)
-		{
-			if (!ft_strncmp(shell->arguments[i], "echo", 4) || !ft_strncmp(&shell->arguments[i][1], "echo", 4) || !ft_strncmp(shell->arguments[i], "export", 6) || !ft_strncmp(&shell->arguments[i][1], "export", 6))
-				return (0);
-			i++;
-		}
-		shell->right = 1;
-	}
-
-	return (1);
 }

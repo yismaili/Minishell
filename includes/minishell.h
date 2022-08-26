@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 10:56:58 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:22:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ typedef struct s_struct
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
-void	run_builtin(t_struct *shell);
+int		run_builtin(t_struct *shell);
 int		count_len_env(t_struct *shell);
 void	ft_exit(t_struct *shell);
 void	free_line(char *line_read);
@@ -201,7 +201,7 @@ void	ctrl_c(int sig);
 void	back_slash(int sig);
 int		ft_cd_tool(t_struct *shell);
 char	*ft_oldpath(t_struct *shell);
-void	ft_change_dir(t_struct *shell, char *chpath);
+int		ft_change_dir(t_struct *shell, char *chpath);
 int		ft_check_cd(t_struct *shell);
 void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
@@ -253,4 +253,8 @@ int		split_and_cas_error(t_struct *shell, char *fichier2);
 int		run_commande_next1(t_struct *shell);
 void	cas_error(t_struct *shell, char *msg);
 int		ft_check_file(t_struct *shell, char	*fichier);
+int		ft_builtin_exist_next(t_struct	*shell);
+int		divise_pipe_redir_next(t_struct *shell, char *commande_read);
+int		ft_next_echo(t_struct *shell);
+void	ft_identifier_export(t_struct *shell);
 #endif

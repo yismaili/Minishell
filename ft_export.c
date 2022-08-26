@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 12:17:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:22:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,15 @@ void	ft_print_export(char **exp, t_struct	*shell)
 
 void	ft_export(t_struct *shell)
 {
-	int j;
+	int	j;
 
 	j = 0;
-	shell->f_pipe=0;
+	shell->f_pipe = 0;
 	shell->i_for_chek = 1;
-	if(shell->arguments[0][0] == '|')
-	{
-		shell->f_pipe=1;
-	}
-	while(shell->variable == 1 && shell->arguments[j] != NULL && shell->f_pipe != 0)
+	if (shell->arguments[0][0] == '|')
+		shell->f_pipe = 1;
+	while (shell->variable == 1 && shell->arguments[j] != NULL && \
+	shell->f_pipe != 0)
 	{
 		shell->arguments[j] = shell->arguments[j + 1];
 		j++;
@@ -58,15 +57,12 @@ void	ft_export(t_struct *shell)
 		sort_env(shell);
 	while (shell->arguments[shell->i_for_chek])
 	{
-		if (shell->arguments[shell->i_for_chek] && check_export(shell) != 1 && shell->f_pipe==0)
+		if (shell->arguments[shell->i_for_chek] && \
+		check_export(shell) != 1 && shell->f_pipe == 0)
 			export_with_arg(shell, shell->arguments[shell->i_for_chek]);
 		else if (shell->arguments[shell->i_for_chek] && \
 		check_export(shell) == 1)
-		{
-			ft_putstr_fd("Export: ", 2);
-			ft_putstr_fd(shell->arguments[shell->i_for_chek], 2);
-			ft_putstr_fd(": not a valid identifier\n", 2);
-		}
+			ft_identifier_export(shell);
 		shell->i_for_chek++;
 	}	
 }

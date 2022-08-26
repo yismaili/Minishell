@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:06 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/24 18:22:08 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 15:35:21 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,49 @@ int	builtin_exist(t_struct	*shell)
 {
 	shell->variable = 0;
 	if (!ft_strcmp(shell->arguments[0], "exit"))
-	{
-		shell->builtin_exist = 1;
-		return 1;
-	}
+		return ((shell->builtin_exist = 1), 1);
 	else if (!ft_strcmp(shell->arguments[0], "unset"))
-	{
 		shell->builtin_exist = 1;
-	}
 	else if (!ft_strcmp(shell->arguments[0], "env"))
-	{
-		shell->builtin_exist = 1;
-		return 1;
-	}
+		return ((shell->builtin_exist = 1), 1);
 	else if (!ft_strcmp(shell->arguments[0], "cd"))
-	{
-		shell->builtin_exist = 1;
-		return 1;
-	}
+		return ((shell->builtin_exist = 1), 1);
 	else if (!ft_strcmp(shell->arguments[0], "pwd"))
+		return ((shell->builtin_exist = 1), 1);
+	else if (!ft_strcmp(shell->arguments[0], "echo") || \
+		!ft_strcmp(&shell->arguments[0][1], "echo"))
 	{
-		shell->builtin_exist = 1;
-		return 1;
-	}
-	else if (!ft_strcmp(shell->arguments[0], "echo") || !ft_strcmp(&shell->arguments[0][1], "echo"))
-	{
-		if(shell->last == 1 && !ft_strcmp(&shell->arguments[0][1], "echo"))
+		if (shell->last == 1 && !ft_strcmp(&shell->arguments[0][1], "echo"))
 			shell->variable = 1;
-		shell->builtin_exist = 1;
-		return 1;
+		return ((shell->builtin_exist = 1), 1);
 	}
-	else if (!ft_strcmp(shell->arguments[0], "export") || !ft_strcmp(&shell->arguments[0][1], "export"))
+	else
+		return (ft_builtin_exist_next(shell));
+	return (0);
+}
+
+int	ft_builtin_exist_next(t_struct	*shell)
+{
+	if (!ft_strcmp(shell->arguments[0], "export") || \
+		!ft_strcmp(&shell->arguments[0][1], "export"))
 	{
-		if(shell->last == 1 && !ft_strcmp(&shell->arguments[0][1], "export"))
+		if (shell->last == 1 && !ft_strcmp(&shell->arguments[0][1], "export"))
 			shell->variable = 1;
-		shell->builtin_exist = 1;
-		return 1;
+		return ((shell->builtin_exist = 1), 1);
 	}
-	
-	else if(shell->arguments[1] != NULL)
+	else if (shell->arguments[1] != NULL)
 	{
-		
-		
 		if (!ft_strcmp(shell->arguments[1], "echo"))
 		{
-			shell->builtin_exist = 1;
-			if(shell->last == 1)
+			if (shell->last == 1)
 				shell->variable = 1;
-			return 1;
+			return ((shell->builtin_exist = 1), 1);
 		}
 		else if (!ft_strcmp(shell->arguments[1], "export"))
 		{
-			shell->builtin_exist = 1;
-			if(shell->last == 1)
+			if (shell->last == 1)
 				shell->variable = 1;
-			return 1;
+			return ((shell->builtin_exist = 1), 1);
 		}
 	}
 	else
@@ -78,55 +66,30 @@ int	builtin_exist(t_struct	*shell)
 	return (0);
 }
 
-void	run_builtin(t_struct *shell)
+int	run_builtin(t_struct *shell)
 {
 	if (!ft_strcmp(shell->arguments[0], "exit"))
-	{
-		ft_exit(shell);
-		return ;
-	}
+		return (ft_exit(shell), 0);
 	else if (!ft_strcmp(shell->arguments[0], "unset"))
-	{
-		ft_unset(shell);
-		return ;
-	}
+		return (ft_unset(shell), 0);
 	else if (!ft_strcmp(shell->arguments[0], "env"))
-	{
-		ft_env(shell);
-		return ;
-	}
+		return (ft_env(shell), 0);
 	else if (!ft_strcmp(shell->arguments[0], "cd"))
-	{
-		ft_cd(shell);
-		return ;
-	}
+		return (ft_cd(shell), 0);
 	else if (!ft_strcmp(shell->arguments[0], "pwd"))
-	{
-		ft_pwd(shell);
-		return ;
-	}
-	else if (!ft_strcmp(shell->arguments[0], "echo") || !ft_strcmp(&shell->arguments[0][1], "echo"))
-	{
-		ft_echo(shell);
-		return ;
-	}
-	else if (!ft_strcmp(shell->arguments[0], "export") || !ft_strcmp(&shell->arguments[0][1], "export"))
-	{
-		ft_export(shell);
-		return ;
-	}
-	else if(shell->arguments[1] != NULL)
+		return (ft_pwd(shell), 0);
+	else if (!ft_strcmp(shell->arguments[0], "echo") || \
+		!ft_strcmp(&shell->arguments[0][1], "echo"))
+		return (ft_echo(shell), 0);
+	else if (!ft_strcmp(shell->arguments[0], "export") || \
+		!ft_strcmp(&shell->arguments[0][1], "export"))
+		return (ft_export(shell), 0);
+	else if (shell->arguments[1] != NULL)
 	{
 		if (!ft_strcmp(shell->arguments[1], "echo"))
-		{
-			ft_echo(shell);
-			return ;
-		}
+			return (ft_echo(shell), 0);
 		else if (!ft_strcmp(shell->arguments[1], "export"))
-		{
-			ft_export(shell);
-			return ;
-		}
+			return (ft_export(shell), 0);
 	}
-	
+	return (1);
 }
