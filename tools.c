@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/14 22:39:35 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:45:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 void	ft_change_dir(t_struct *shell, char *chpath)
 {
+	int fd;
+	char	*path = NULL;
+	char	*join_slch;
+	char	*join_path;
+
+	path = getcwd(path, sizeof(path));
+	join_slch = ft_strjoin(path, "/");
+	join_path = ft_strjoin(join_slch, shell->arguments[1]);
+	fd = open(join_path, O_RDONLY);
+    if (fd < 0)
+	{
+       ft_not_found(shell->arguments[1]);
+		return ;
+	}
 	replace_oldpwd(shell);
 	if (chdir(chpath) < 0)
 		ft_not_found(shell->arguments[1]);

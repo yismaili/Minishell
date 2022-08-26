@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 23:14:00 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/23 18:26:24 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 14:31:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	to_remove_quotes(t_struct *shell)
 
 	i = 0;
 	while (shell->arguments[i] != NULL && \
-			(ft_strncmp(shell->arguments[i], "echo", 4) && ft_strncmp(&shell->arguments[0][1], "echo", 4)))
+		(ft_strncmp(shell->arguments[i], "echo", 4) && ft_strncmp(&shell->arguments[0][1], "echo", 4)))
 	{
 		tmp = shell->arguments[i];
 		shell->arguments[i] = ft_remove_quot(shell->arguments[i], '\"', shell);
