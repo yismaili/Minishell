@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
+#    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/08/20 15:10:47 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/26 11:19:57 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ RESET = \033[0m
 BBlue=\033[0;34m
 BYellow=\033[1;33m
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g 
-#-fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 RM = rm -rf
 LIB = ${HOME}/goinfre/.brew/opt/readline/lib
 INCL = ${HOME}/goinfre/.brew/opt/readline/include/readline/

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   divise_commande.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 00:37:54 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 23:06:18 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	initial_divise(t_struct *shell, char *commande_read)
+int	initial_divise(t_struct *shell)
 {
 	int	i;
 
@@ -26,18 +26,16 @@ void	initial_divise(t_struct *shell, char *commande_read)
 	shell->j = 0;
 	shell->len = 0;
 	shell->dup_pipe = 0;
-	while (commande_read[i] != '\0')
-	{
-		if (commande_read[i] == QUOTE)
-			shell->quote_cmd++;
-		else if (commande_read[i] == DOUBLE_QUOTE)
-			shell->dquote_cmd++;
-		i++;
-	}
+	shell->dup_red = 0;
+	shell->var = 0;
+	return 1;
 }
 
-void	command(t_struct *shell, char *commande_read)
+int	command(t_struct *shell, char *commande_read)
 {
+	int j;
+	j = 0;
+	shell->var = 0;
 	if (shell->i > 1)
 	{
 		shell->commands[shell->divise.number_command] = \
@@ -46,23 +44,47 @@ void	command(t_struct *shell, char *commande_read)
 		shell->len = 0;
 		shell->divise.number_command++;
 	}
+		
+	return 1;
 }
 
-void	divise_pipe_redir(t_struct *shell, char *commande_read)
+int	divise_pipe_redir(t_struct *shell, char *commande_read)
 {
 	check_pipe(shell->j, shell, commande_read);
 	if ((commande_read[shell->i] == '|' || \
 				commande_read[shell->i] == '<' || \
 				commande_read[shell->i] == '>') \
-			&& (shell->i < shell->start || shell->i > shell->end))
+			&& (shell->i <= shell->start || shell->i >= shell->end))
 	{
 		if (commande_read[shell->i] == '|')
 			shell->divise.pipe++;
 		if (commande_read[shell->i] == '|' \
 				&& commande_read[shell->i + 1] == '|')
-			shell->dup_pipe = 1;
-		command(shell, commande_read);
-		if (commande_read[shell->i + 1] == commande_read[shell->i])
+				{
+					shell->msg = PIPE_ERROR;
+					return 0;
+				}
+		else if((commande_read[shell->i] == '<' || commande_read[shell->i] == '>') && \
+		(commande_read[shell->i + 1] == '<' || commande_read[shell->i + 1] == '>') && \
+		(commande_read[shell->i + 2] == '<' || commande_read[shell->i + 2] == '>'))
+		{
+			shell->msg = RED_ERROR;
+			return 0;
+		}
+		else if(commande_read[shell->i] == '|' && (int)ft_strlen(commande_read) == shell->i + 1)
+		{
+			shell->msg = PIPE_ERROR;
+			return 0;
+		}
+		else if((commande_read[shell->i] == '<' || commande_read[shell->i] == '>') && \
+		(int)ft_strlen(commande_read) == shell->i + 1)
+		{
+			shell->msg = RED_ERROR;
+			return 0;
+		}
+		if(command(shell, commande_read) == 0)
+			return 0;
+		if (commande_read[shell->i + 1] == commande_read[shell->i] && (int)ft_strlen(commande_read) != shell->i + 2)
 		{
 			shell->i++;
 			shell->len = 1;
@@ -71,29 +93,49 @@ void	divise_pipe_redir(t_struct *shell, char *commande_read)
 	shell->j++;
 	shell->i++;
 	shell->len++;
+	return 1;
 }
 
-void	divise_commande(t_struct *shell, char *commande_read)
+int	divise_commande(t_struct *shell, char *commande_read)
 {
 	int	i;
-
-	initial_divise(shell, commande_read);
 	i = 0;
-	while (shell->i < (int)ft_strlen(commande_read))
-		divise_pipe_redir(shell, commande_read);
-	next (shell, commande_read);
+	initial_divise(shell) ;
+	while (shell->i <= (int)ft_strlen(commande_read))
+		if (divise_pipe_redir(shell, commande_read) == 0)
+		{
+			return 0;
+		}
+	if(next (shell, commande_read)== 0)
+		return 0;
+	return 1;
 }
 
-void	next(t_struct *shell, char *commande_read)
+int	next(t_struct *shell, char *commande_read)
 {
 	int	i;
+	int j;
 
 	i = 0;
+	j = 0;
+	shell->var = 0;
 	if (ft_strlen(commande_read) > 0)
 	{
 		shell->commands[shell->divise.number_command] = \
 			ft_substr(commande_read, shell->divise.initial, shell->i);
 		shell->divise.number_command++;
 	}
+	printf("cmd[0]=%s\n", shell->commands[0]);
 	shell->commands[shell->divise.number_command] = NULL;
-}
+	/*while(shell->commands[shell->divise.number_command - 1][j] != '\0')
+	{
+		if(!ft_isalpha(shell->commands[shell->divise.number_command - 1][j]))
+			shell->var++;
+		j++;
+	}
+	if(shell->var == (int)ft_strlen(shell->commands[shell->divise.number_command - 1]))
+	{
+		return 0;
+	}*/
+	return 1;
+} 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 14:43:51 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/25 00:18:25 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	cmd_not_found2(t_struct *shell)
 	}
 }
 
-void	next_execute_commands(t_struct *shell, int i, char *command)
+int	next_execute_commands(t_struct *shell, int i, char *command)
 {
 	char	*strrm;
 	int		k;
@@ -64,11 +64,16 @@ void	next_execute_commands(t_struct *shell, int i, char *command)
 	strrm = NULL;
 	if (ft_strchr(shell->arguments[i - 1], '$') && shell->check == 0)
 	{
+		printf("here nop\n");
 		strrm = ft_strtrim(shell->arguments[i - 1], "$");
 		shell->arguments[i - 1] = find_env(shell, strrm);
+		if(shell->arguments[i - 1] == NULL)
+			return 0;
 	}
 	command = ft_strjoin(command, shell->arguments[i - 1]);
+
 	execve(command, &shell->arguments[i - 1], shell->env.env);
+	return 1;
 }
 
 void	cmd_not_found(t_struct *shell)

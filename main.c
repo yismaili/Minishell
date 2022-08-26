@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 15:16:03 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/24 22:59:28 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,26 @@ int	main(void)
 		{
 			if (shell.commande_tape[0])
 			{
-				divise_commande(&shell, shell.commande_tape);
-				if (shell.commands[0][0] != '|' && shell.commande_tape
-					[size - 1] != '|' && shell.dup_pipe == 0)
-					run_commands(&shell);
+				if (divise_commande(&shell, shell.commande_tape) != 0 && \
+				shell.commande_tape[0] != '|' && shell.commande_tape
+					[size - 1] != '|')
+					{
+					 run_commands(&shell);
+					}
 				else
-					cas_error(&shell);
+				{
+					cas_error(&shell, shell.msg);
+				}
 			}
 		}
 		free(shell.commande_tape);
 	}
 }
 
-void	cas_error(t_struct *shell)
+void	cas_error(t_struct *shell, char *msg)
 {
 	ft_cmd(shell->commands);
-	ft_putstr_fd(PIPE_ERROR, 2);
+	ft_putstr_fd(msg, 2);
 }
 
 int	commande_tape(t_struct	*shell, int *size)
@@ -84,6 +88,8 @@ int	commande_tape(t_struct	*shell, int *size)
 	shell->end = 0;
 	shell->start = 0;
 	rl_catch_signals = 0;
+	shell-> qot = 0;
+	shell->msg = NULL;
 	shell->commande_tape = readline(GREEN"Minishell-1.0$ "WHITE);
 	*size = ft_strlen(shell->commande_tape);
 	if (shell->commande_tape && is_empty(shell->commande_tape) != 1)

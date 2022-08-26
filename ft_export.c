@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 15:03:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:17:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,25 @@ void	ft_print_export(char **exp, t_struct	*shell)
 
 void	ft_export(t_struct *shell)
 {
+	int j;
+
+	j = 0;
+	shell->f_pipe=0;
 	shell->i_for_chek = 1;
+	if(shell->arguments[0][0] == '|')
+	{
+		shell->f_pipe=1;
+	}
+	while(shell->variable == 1 && shell->arguments[j] != NULL && shell->f_pipe != 0)
+	{
+		shell->arguments[j] = shell->arguments[j + 1];
+		j++;
+	}
 	if (!shell->arguments[1])
 		sort_env(shell);
 	while (shell->arguments[shell->i_for_chek])
 	{
-		if (shell->arguments[shell->i_for_chek] && check_export(shell) != 1)
+		if (shell->arguments[shell->i_for_chek] && check_export(shell) != 1 && shell->f_pipe==0)
 			export_with_arg(shell, shell->arguments[shell->i_for_chek]);
 		else if (shell->arguments[shell->i_for_chek] && \
 		check_export(shell) == 1)
@@ -85,10 +98,10 @@ void	export_with_arg(t_struct *shell, char *arguments)
 
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 {
-	ft_free_cmd(shell->env.tmp_var);
-	ft_free_cmd(shell->env.tmp_con);
 	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
 	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
+	ft_free_cmd(shell->env.tmp_var);
+	ft_free_cmd(shell->env.tmp_con);
 	shell->env.tmp_var = shell->env_aux.tmp_var;
 	shell->env.tmp_con = shell->env_aux.tmp_con;
 	shell->env.tmp_var[shell->env.len] = 0;

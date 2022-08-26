@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:56:43 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 14:40:44 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/25 00:09:10 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	outredirection(t_struct *shell)
 
 	if (shell->commands[shell->cmp][1] == '>')
 	{
-		fichier1 = ft_check_quotes_frst(shell);
+		fichier1 = ft_strtrim(&shell->commands[shell->cmp][2], " ");
 		if (ft_check_file(shell, fichier1) == 0)
 			return (0);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_APPEND, 0777);
@@ -27,8 +27,9 @@ int	outredirection(t_struct *shell)
 	}
 	else
 	{
-		fichier1 = ft_check_quotes_scnd(shell);
-		if (ft_check_file(shell, fichier1) == 0)
+		fichier1 = ft_strtrim(&shell->commands[shell->cmp][1], " ");
+
+		if (!fichier1)
 			return (0);
 		shell->output_fd = open(fichier1, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (shell->output_fd == -1)
@@ -40,18 +41,18 @@ int	outredirection(t_struct *shell)
 
 int	inredirection(t_struct	*shell)
 {
-	char	*fichier2;
-	char	*line;
-
+	char	**fichier2 = NULL;
+	char	*line = NULL;
 	if (shell->commands[shell->cmp][1] == '<')
 	{
-		fichier2 = ft_check_quotes_frst(shell);
+		fichier2 = ft_split(&shell->commands[shell->cmp][2], ' ');
 		if (!fichier2)
 			return (0);
-		if (shell->qot % 2 != 0 || shell->qot_tow == 1)
-			return (free(fichier2), 0);
 		line = ft_strdup("");
-		ft_play_herdoc(shell, fichier2, line);
+		if (ft_play_herdoc(shell, fichier2[0], line) == 0)
+			return (0);
+		shell->input_fd = open(fichier2[0], O_RDONLY | O_CREAT, 0777);
+		shell->name = ft_strdup(fichier2[0]);
 		free(fichier2);
 	}
 	else
@@ -67,15 +68,6 @@ int	next_inredirection(t_struct *shell)
 	char	*fichier2;
 
 	fichier2 = ft_strtrim(&shell->commands[shell->cmp][2], " ");
-	if ((((fichier2[0] == '\"' || fichier2[0] == '\'') || \
-		(fichier2[ft_strlen(fichier2) - 1] == '\"' || \
-		fichier2[ft_strlen(fichier2) - 1] == '\'')) && \
-		((ft_strlen(fichier2) == 2) || (ft_strlen(fichier2) == 0))) || \
-		(ft_strlen(fichier2) == 0))
-	{
-		ft_putstr_fd("Minishell: : No such file or directory\n", 2);
-		return (0);
-	}
 	if (split_and_cas_error(shell, fichier2) != 1)
 		return (0);
 	free(fichier2);
@@ -84,13 +76,57 @@ int	next_inredirection(t_struct *shell)
 
 int	fun_redirection(t_struct *shell)
 {
-	shell->line_commande = ft_strdup(shell->commands[shell->cmp]);
+	int i;
+	int size;
+	int length;
+	i = 0;
+	size = 0;
+	
+	length = 0;
+	shell->indice_space = 0;
+	while(shell->commands[shell->cmp][i] != '\0')
+	{
+		if (shell->commands[shell->cmp][i] == ' ')
+			length++;
+		i++;
+	}
+	if(length == (int)ft_strlen(shell->commands[shell->cmp]))
+	{
+		shell->line_commande = ft_strdup(shell->commands[shell->cmp + 1]);
+		shell->indice_space = 1;
+	}else
+	{
+		shell->line_commande = ft_strdup(shell->commands[shell->cmp]);
+		shell->space = 2;
+	}
 	if (shell->divise.number_command > 1)
 		shell->cmp++;
 	while (shell->commands[shell->cmp] && \
 			(shell->commands[shell->cmp][0] == '<' || \
 			shell->commands[shell->cmp][0] == '>'))
 	{
+		size = ft_strlen(shell->commands[shell->cmp]);
+		if(((shell->commands[shell->cmp][3] == '\"' && shell->commands[shell->cmp][size - 1] == '\"' && ft_strlen(&shell->commands[shell->cmp][3]) == 0) ||
+		(shell->commands[shell->cmp][2] == '\"' && shell->commands[shell->cmp][size - 1] == '\"' && ft_strlen(&shell->commands[shell->cmp][2]) == 0)))
+		{
+			return 0;
+		}
+		if((shell->commands[shell->cmp][3] == '\'' && shell->commands[shell->cmp][size - 1] == '\'' && ft_strlen(&shell->commands[shell->cmp][3]) == 0) ||
+		(shell->commands[shell->cmp][2] == '\'' && shell->commands[shell->cmp][size - 1] == '\'' && ft_strlen(&shell->commands[shell->cmp][2])== 0))
+		{
+			return 0;
+		}
+		if(((shell->commands[shell->cmp][3] == '\"' && shell->commands[shell->cmp][size - 1] == '\"') ||
+		(shell->commands[shell->cmp][2] == '\"' && shell->commands[shell->cmp][size - 1] == '\"')) && (shell->quote_cmd % 2 == 0 && shell->dquote_cmd % 2 == 0 ))
+		{
+			shell->commands[shell->cmp] = ft_remove_quot(shell->commands[shell->cmp], '\"', shell);
+		}
+		else if(((shell->commands[shell->cmp][3] == '\'' && shell->commands[shell->cmp][size - 1] == '\'' && ft_strlen((&shell->commands[shell->cmp])[3]) != 0) ||
+		(shell->commands[shell->cmp][2] == '\'' && shell->commands[shell->cmp][size - 1] == '\'' && ft_strlen((&shell->commands[shell->cmp])[2]) != 0)) && (shell->quote_cmd % 2 == 0 && shell->dquote_cmd % 2 == 0 ))
+		{
+			shell->commands[shell->cmp] = ft_remove_quot(shell->commands[shell->cmp], '\"', shell);
+		}
+		
 		if (shell->commands[shell->cmp][0] == '>')
 		{
 			if (outredirection(shell) == 0)
@@ -118,6 +154,7 @@ void	output_input(t_struct	*shell)
 		close(shell->output_fd);
 		close(shell->last_in);
 	}
+
 	if (shell->input_fd != 0)
 	{
 		dup2(shell->input_fd, STDIN_FILENO);

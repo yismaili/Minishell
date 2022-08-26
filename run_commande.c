@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commande.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 15:24:56 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/25 00:09:32 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	get_exit_status(t_struct *shell)
 	if (!WIFEXITED(status) && WIFSIGNALED(status))
 	{
 		g_var.g_status = WTERMSIG(status) + 128;
-		printf("\n");
 	}
 	else
 		g_var.g_status = WEXITSTATUS(status);
@@ -42,6 +41,7 @@ void	run_commands(t_struct *shell)
 	int	end[2];
 
 	i = 0;
+	shell->last = 0;
 	if (g_var.g_var == 0)
 		ft_remplir_env(shell);
 	shell->path = get_path(shell);
@@ -52,7 +52,9 @@ void	run_commands(t_struct *shell)
 		shell->output_fd = end[1];
 		shell->last_in = end[0];
 		if (run_commande_next1(shell) == 0)
+		{
 			return ;
+		}
 		close(shell->output_fd);
 		if (shell->input_fd != 0)
 			close(shell->input_fd);
@@ -79,11 +81,10 @@ int	next_run_commands(t_struct	*shell)
 {
 	if (fun_redirection(shell) == 0)
 		return (1);
-	if (shell->commands[0][0] != '>' && shell->commands[0][0] != '<')
-	{
-		arguments_func(shell);
-		if (execution(shell) == 1)
-			return (1);
-	}
+	arguments_func(shell);
+	if (execution(shell) == 1)
+		return (1);
+	if(shell->name)
+		unlink(shell->name);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 14:41:38 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 10:56:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define GREEN "\001\033[1;32m\002"
 # define RED "\033[0;31m"
 # define PIPE_ERROR "Minishell: syntax error near unexpected token `|'\n"
+# define QUOTE_ERROR "> bash: unexpected EOF while looking for matching quote\n"
+# define RED_ERROR "bash: syntax error near unexpected token `newline'\n"
 
 typedef struct s_gl
 {
@@ -48,6 +50,7 @@ typedef struct s_env
 	int		len;
 	char	**tmp_var;
 	char	**tmp_con;
+	char	**str;
 	int		position;
 }	t_env;
 
@@ -97,28 +100,37 @@ typedef struct s_struct
 	t_env		env_aux;
 	t_env		env;
 	t_divise	divise;
+	int			indice_space;
 	t_arg		arg;
 	int			q1;
+	int			variable;
 	int			q2;
 	int			size;
 	int			dup_pipe;
 	int			quote;
 	int			double_quote;
+	int			var;
 	int			space;
 	int			right;
 	int			indice;
 	char		**path;
+	int			inc;
 	int			check;
+	int			last;
 	int			quote_cmd;
 	int			dquote_cmd;
 	int			start;
 	int			end;
+	int			dup_red;
 	int			i_for_chek;
 	int			pos;
 	int			not_alpha;
 	int			failed;
 	int			qot;
 	int			qot_tow;
+	char		*name;
+	char		*msg;
+	int			f_pipe;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -133,7 +145,7 @@ void	run_commands(t_struct *shell);
 void	run_commande_next(t_struct *shell);
 int		fun_redirection(t_struct *shell);
 int		execution(t_struct *shell);
-void	divise_commande(t_struct *shell, char *in);
+int		divise_commande(t_struct *shell, char *in);
 void	arguments_func(t_struct *shell);
 int		argument_find_char(char *string, char needle);
 void	free_arg(t_arg *arg);
@@ -154,7 +166,7 @@ void	pipe_next(t_struct *shell, int i, char *command);
 int		inredirection(t_struct *shell);
 int		outredirection(t_struct *shell);
 int		next_run_commands(t_struct *shell);
-void	next(t_struct *shell, char*commande_read);
+int		next(t_struct *shell, char*commande_read);
 char	*execute_cmd(t_struct *shell);
 void	output_input(t_struct *shell);
 void	check_to_execute(t_struct *shell);
@@ -208,7 +220,7 @@ void	export_with_arg(t_struct *shell, char *arguments);
 void	sort_env(t_struct *shell);
 void	ft_print_export(char **exp, t_struct *shell);
 void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
-void	next_execute_commands(t_struct *shell, int i, char *command);
+int		next_execute_commands(t_struct *shell, int i, char *command);
 void	ft_cmd(char **env);
 void	cmd_not_found2(t_struct *shell);
 int		create_process(t_struct *shell);
@@ -222,7 +234,6 @@ int		check_export_tow(t_struct *export);
 int		check_export_con(char *export);
 void	check_pipe(int i, t_struct *shell, char *commande_read);
 void	check_quote(int i, t_struct *shell, char *commande, char c);
-void	divise_commande(t_struct *shell, char *commande_read);
 void	check_next_arg(t_struct *shell);
 void	check_aux(t_struct *shell, char **env_aux, int i);
 int		ft_loop(char **splted);
@@ -240,6 +251,6 @@ char	*ft_split_cmd2(char	*cmd, t_struct *shell);
 void	to_remove_quotes(t_struct *shell);
 int		split_and_cas_error(t_struct *shell, char *fichier2);
 int		run_commande_next1(t_struct *shell);
-void	cas_error(t_struct *shell);
+void	cas_error(t_struct *shell, char *msg);
 int		ft_check_file(t_struct *shell, char	*fichier);
 #endif

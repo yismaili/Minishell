@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 10:41:21 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/25 00:09:16 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,12 @@ int	check_quotes_next(t_struct	*shell)
 	{
 		while (shell->arguments[i] != NULL)
 		{
-			if (!ft_strncmp(shell->arguments[i], "echo", 4))
+			if (!ft_strncmp(shell->arguments[i], "echo", 4) || !ft_strncmp(&shell->arguments[i][1], "echo", 4) || !ft_strncmp(shell->arguments[i], "export", 6) || !ft_strncmp(&shell->arguments[i][1], "export", 6))
 				return (0);
 			i++;
 		}
 		shell->right = 1;
 	}
+
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 12:11:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/20 12:15:35 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/24 17:14:11 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	run_commande_next1(t_struct *shell)
 void	run_commands_next(t_struct *shell)
 {
 	shell->last_in = -1;
+	shell->last = 1;
+	shell-> output_fd = 1;
 	if (next_run_commands(shell) == 1)
 	{
 		if (shell->path)

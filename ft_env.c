@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/19 12:09:17 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 12:20:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
 	}
 	if (!malloc_env_aux_tmp(shell))
 		ft_die_malloc("No space left\n");
-	while (i < shell->env.len)
+	while (i < shell->env.len - 1)
 	{
 		shell->env_aux.tmp_var[i] = ft_strdup(shell->env.tmp_var[i]);
 		shell->env_aux.tmp_con[i] = ft_strdup(shell->env.tmp_con[i]);

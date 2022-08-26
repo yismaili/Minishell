@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/14 22:37:20 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:34:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	replace_oldpwd(t_struct *env)
 		}
 		i++;
 	}
+	export_to_env(env, "OLDPWD", buff);
 }
 
 void	replace_pwd(t_struct *env)
@@ -65,6 +66,7 @@ void	replace_pwd(t_struct *env)
 		}
 		i++;
 	}
+	export_to_env(env, "PWD", buff);
 }
 
 int	ft_cd(t_struct *shell)
