@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/26 17:41:53 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:59:58 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int	ft_change_dir(t_struct *shell, char *chpath)
 	path = NULL;
 	path = getcwd(path, sizeof(path));
 	join_slch = ft_strjoin(path, "/");
+	free(path);
 	join_path = ft_strjoin(join_slch, shell->arguments[1]);
+	free(join_slch);
 	fd = open(join_path, O_RDONLY);
 	if (fd < 0)
-		return (ft_not_found(shell->arguments[1]), 0);
+		return (ft_not_found(shell->arguments[1]), free(join_path), 0);
+	free(join_path);
 	replace_oldpwd(shell);
 	if (chdir(chpath) < 0)
 		return (ft_not_found(shell->arguments[1]), 0);

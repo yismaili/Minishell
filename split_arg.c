@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 17:39:57 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:46:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	next_execute_commands(t_struct *shell, int i, char *command)
 	strrm = NULL;
 	if (ft_strchr(shell->arguments[i - 1], '$') && shell->check == 0)
 	{
-		printf("here nop\n");
 		strrm = ft_strtrim(shell->arguments[i - 1], "$");
 		shell->arguments[i - 1] = find_env(shell, strrm);
 		if (shell->arguments[i - 1] == NULL)

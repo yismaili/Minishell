@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 16:18:19 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:40:55 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	execution(t_struct *shell)
 
 int	create_process(t_struct *shell)
 {
-	shell->pid = fork();
 	signals();
+	shell->pid = fork();
 	if (shell->pid < 0)
 	{
 		ft_putstr_fd("Minishell: fork: Resource", 2);
@@ -50,9 +50,7 @@ int	create_process(t_struct *shell)
 	{
 		output_input(shell);
 		if (shell->arguments[0] != NULL)
-		{
 			execute_cmd(shell);
-		}
 	}
 	return (0);
 }
