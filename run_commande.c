@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commande.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/25 00:09:32 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 17:38:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	run_commands(t_struct *shell)
 		shell->output_fd = end[1];
 		shell->last_in = end[0];
 		if (run_commande_next1(shell) == 0)
-		{
 			return ;
-		}
 		close(shell->output_fd);
 		if (shell->input_fd != 0)
 			close(shell->input_fd);
@@ -84,7 +82,7 @@ int	next_run_commands(t_struct	*shell)
 	arguments_func(shell);
 	if (execution(shell) == 1)
 		return (1);
-	if(shell->name)
+	if (shell->name)
 		unlink(shell->name);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/24 22:59:28 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 17:36:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,9 @@ int	main(void)
 				if (divise_commande(&shell, shell.commande_tape) != 0 && \
 				shell.commande_tape[0] != '|' && shell.commande_tape
 					[size - 1] != '|')
-					{
-					 run_commands(&shell);
-					}
+					run_commands(&shell);
 				else
-				{
 					cas_error(&shell, shell.msg);
-				}
 			}
 		}
 		free(shell.commande_tape);
@@ -88,7 +84,7 @@ int	commande_tape(t_struct	*shell, int *size)
 	shell->end = 0;
 	shell->start = 0;
 	rl_catch_signals = 0;
-	shell-> qot = 0;
+	shell->qot = 0;
 	shell->msg = NULL;
 	shell->commande_tape = readline(GREEN"Minishell-1.0$ "WHITE);
 	*size = ft_strlen(shell->commande_tape);

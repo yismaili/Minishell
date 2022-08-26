@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_commande_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 12:11:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/24 17:14:11 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/26 17:39:00 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	run_commands_next(t_struct *shell)
 {
 	shell->last_in = -1;
 	shell->last = 1;
-	shell-> output_fd = 1;
+	shell->output_fd = 1;
 	if (next_run_commands(shell) == 1)
 	{
 		if (shell->path)
