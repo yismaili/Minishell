@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 12:20:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 16:20:51 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,23 @@ int	is_empty(char	*input)
 	return (1);
 }
 
-void	verify_if_env_exists(t_struct *shell, char **env_aux)
+void	verify_if_env_exists(t_struct *shell)
 {
 	char	*ptr;
 
 	ptr = NULL;
-	if (find_env_tmp(shell, env_aux[0]))
+	if (find_env_tmp(shell, shell->frst))
 	{
 		ptr = shell->env.tmp_con[shell->env.position];
 		if (check_export_tow(shell) == 2)
 			shell->env.tmp_con[shell->env.position] = \
-			ft_strjoin(shell->env.tmp_con[shell->env.position], env_aux[1]);
+			ft_strjoin(shell->env.tmp_con[shell->env.position], shell->scnd);
 		else
-			shell->env.tmp_con[shell->env.position] = ft_strdup(env_aux[1]);
+			shell->env.tmp_con[shell->env.position] = ft_strdup(shell->scnd);
 		free(ptr);
 	}
-	else if (!find_env_tmp(shell, env_aux[0]))
-		export_to_env(shell, env_aux[0], env_aux[1]);
+	else if (!find_env_tmp(shell, shell->frst))
+		export_to_env(shell, shell->frst, shell->scnd);
 }
 
 void	export_to_env(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)

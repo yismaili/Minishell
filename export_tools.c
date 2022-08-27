@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/18 13:25:20 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/27 16:26:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ void	swap_env(char **dup_env)
 	}
 }
 
-void	check_aux(t_struct *shell, char **env_aux, int i)
+void	check_aux(t_struct *shell, int i)
 {
-	if (env_aux[0] && \
+	if (shell->frst && \
 			shell->arguments[i][ft_strlen(shell->arguments[1] - 1)] \
-			!= '=' && env_aux[1] != NULL)
-		verify_if_env_exists(shell, env_aux);
-	else if (env_aux[0] && env_aux[1] == NULL)
+			!= '=' && shell->scnd != NULL)
+		verify_if_env_exists(shell);
+	else if (shell->frst && shell->scnd == NULL)
 	{
-		env_aux[1] = NULL;
-		verify_if_env_exists(shell, env_aux);
+		shell->scnd = NULL;
+		verify_if_env_exists(shell);
 	}
 }

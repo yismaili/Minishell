@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 12:57:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 20:52:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ typedef struct s_struct
 	char		*name;
 	char		*msg;
 	int			f_pipe;
+	int			chek_equl;
+	char		*frst;
+	char		*scnd;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -160,7 +163,7 @@ void	ft_echo(t_struct *shell);
 int		init_echo(t_struct *shell, int n);
 void	print_echo(t_struct *shell, char *shell_print);
 void	ft_export(t_struct *shell);
-void	verify_if_env_exists(t_struct *shell, char **env_aux);
+void	verify_if_env_exists(t_struct *shell);
 void	export_to_env(t_struct *shell, char *tab1, char *tab2);
 void	pipe_next(t_struct *shell, int i, char *command);
 int		inredirection(t_struct *shell);
@@ -235,12 +238,12 @@ int		check_export_con(char *export);
 void	check_pipe(int i, t_struct *shell, char *commande_read);
 void	check_quote(int i, t_struct *shell, char *commande, char c);
 void	check_next_arg(t_struct *shell);
-void	check_aux(t_struct *shell, char **env_aux, int i);
+void	check_aux(t_struct *shell, int i);
 int		ft_loop(char **splted);
-int		ft_with_dlr(char **env_aux, t_struct *shell);
-int		ft_else(t_struct *shell, char **env_aux, int i);
+int		ft_with_dlr(t_struct *shell);
+int		ft_else(t_struct *shell, int i);
 void	ft_execute_tools(t_struct *shell, int i, char *command);
-char	*ft_return_con(t_struct *shell, char **env_aux);
+char	*ft_return_con(t_struct *shell);
 void	split_arg(t_struct *shell, char *cmd_joined);
 int		check_quotes_next(t_struct *shell);
 int		ft_check_quote(t_struct *shell);
@@ -258,4 +261,9 @@ int		divise_pipe_redir_next(t_struct *shell, char *commande_read);
 int		ft_next_echo(t_struct *shell);
 void	ft_identifier_export(t_struct *shell);
 int		check_unset(char *arg);
+int		len_ofarg(char *str);
+void	ft_split_argu(t_struct *shell, char *arguments);
+void	ft_eles_exit(t_struct *shell, int chek_alph, int chek_digt);
+void	ft_print_qot(t_struct *shell);
+void	ft_malloc_tmp(t_struct *shell, char *arguments);
 #endif

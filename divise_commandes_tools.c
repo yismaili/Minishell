@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divise_commandes_tools.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:28:47 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/18 19:11:16 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:30:14 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,40 +52,40 @@ void	check_quote(int i, t_struct *shell, char *commande_read, char character)
 	}
 }
 
-int	ft_else(t_struct *shell, char **env_aux, int i)
+int	ft_else(t_struct *shell, int i)
 {
 	if (g_var.g_var == 0)
 	{
-		verify_if_env_exists(shell, env_aux);
-		ft_free_cmd(env_aux);
+		verify_if_env_exists(shell);
+		free(shell->frst);
+		free(shell->scnd);
 		return (1);
 	}
-	if (env_aux[0] && shell->arguments[i] \
+	if (shell->frst && shell->arguments[i] \
 		[ft_strlen(shell->arguments[1]) - 1] != '=' && \
-			env_aux[1] != NULL)
-		verify_if_env_exists(shell, env_aux);
-	else if (env_aux[0] && env_aux[1] == NULL)
-	{
-		env_aux[1] = NULL;
-		verify_if_env_exists(shell, env_aux);
-	}
+			shell->scnd != NULL)
+		verify_if_env_exists(shell);
+	else if (shell->frst && shell->scnd == NULL)
+		verify_if_env_exists(shell);
 	return (0);
 }
 
-int	ft_with_dlr(char **env_aux, t_struct *shell)
+int	ft_with_dlr(t_struct *shell)
 {
-	if (check_export_con(env_aux[0]) == 1)
+	if (check_export_con(shell->frst) == 1)
 	{
 		ft_putstr_fd("Export: ", 2);
-		ft_putstr_fd(env_aux[0], 2);
+		ft_putstr_fd(shell->frst, 2);
 		ft_putstr_fd(": not a valid identifier\n", 2);
-		ft_free_cmd(env_aux);
+		free(shell->frst);
+		free(shell->scnd);
 		return (1);
 	}
-	else if (check_export_con(env_aux[0]) == 3)
+	else if (check_export_con(shell->frst) == 3)
 	{
 		sort_env(shell);
-		ft_free_cmd(env_aux);
+		free(shell->frst);
+		free(shell->scnd);
 		return (1);
 	}
 	return (0);

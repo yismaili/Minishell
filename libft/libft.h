@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:35:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 11:33:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:04:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int					ft_isalpha(int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_itoa(int n);
-int                 ft_isdigit(int c);
+int					ft_isdigit(int c);
+
 #endif

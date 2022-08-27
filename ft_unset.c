@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 13:00:41 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:03:17 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_unset(t_struct *shell)
 		i++;
 	}
 }
+
 int	check_unset(char *arg)
 {
 	if (arg[0] == '_')
@@ -44,6 +45,7 @@ int	check_unset(char *arg)
 		return (1);
 	return (0);
 }
+
 void	remove_env(t_struct *shell)
 {
 	int	i;

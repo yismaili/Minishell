@@ -6,7 +6,7 @@
 #    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/08/26 19:53:54 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/27 19:50:27 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ RESET = \033[0m
 BBlue=\033[0;34m
 BYellow=\033[1;33m
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g 
-#-fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 RM = rm -rf
 LIB = ${HOME}/goinfre/.brew/opt/readline/lib
 INCL = ${HOME}/goinfre/.brew/opt/readline/include/readline/
@@ -29,7 +28,7 @@ FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
        initial_path.c  main.c  run_commande.c \
        divise_commande.c arguments.c arguments_utils.c ft_env.c ft_export.c ft_cd.c ft_pwd.c \
        ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c  export_tools.c  \
-	   herDoc_tools.c divise_commandes_tools.c arguments_tools.c run_commande_tools.c arguments_tool.c
+	   herDoc_tools.c divise_commandes_tools.c arguments_tools.c run_commande_tools.c arguments_tool.c export_env.c
  
 
 OBJ_FILES= $(FILES:.c=.o)

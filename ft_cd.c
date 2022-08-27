@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 20:04:48 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:30:32 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	replace_oldpwd(t_struct *env)
 		i++;
 	}
 	export_to_env(env, "OLDPWD", buff);
-	free(buff);
 }
 
 void	replace_pwd(t_struct *env)

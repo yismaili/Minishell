@@ -6,36 +6,45 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 17:22:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 21:17:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"includes/minishell.h"
 
-void	ft_print_export(char **exp, t_struct	*shell)
+void	ft_print_export(char **exp, t_struct *shell)
 {
 	int	i;
 	int	j;
+	int	k;
 
-	i = 0;
-	while (exp[i])
+	i = -1;
+	while (exp[++i])
 	{
 		j = 0;
 		if (ft_strlen(exp[i]) != 1 && exp[i][0] != '?')
 		{
+				k = 0;
 			ft_putstr_fd("declare -x ", shell->output_fd);
 			while (exp[i][j])
 			{
 				ft_putchar_fd(exp[i][j], shell->output_fd);
-				if (exp[i][j] == '=')
+				if (exp[i][j] == '=' && k == 0)
+				{
 					ft_putchar_fd('"', shell->output_fd);
+					k = 1;
+				}
 				j++;
 			}
-			ft_putchar_fd('"', shell->output_fd);
-			ft_putchar_fd('\n', shell->output_fd);
+			ft_print_qot(shell);
 		}
-		i++;
 	}
+}
+
+void	ft_print_qot(t_struct *shell)
+{
+	ft_putchar_fd('"', shell->output_fd);
+	ft_putchar_fd('\n', shell->output_fd);
 }
 
 void	ft_export(t_struct *shell)
@@ -67,49 +76,40 @@ void	ft_export(t_struct *shell)
 	}	
 }
 
+void	ft_malloc_tmp(t_struct *shell, char *arguments)
+{
+	shell->scnd = NULL;
+	shell->frst = NULL;
+	shell->frst = malloc(sizeof(char) * len_ofarg(arguments));
+	if ((int)ft_strlen(arguments) != len_ofarg(arguments))
+		shell->scnd = malloc(sizeof(char) * ft_strlen(arguments) - \
+		len_ofarg(arguments) - 1);
+}
+
 void	export_with_arg(t_struct *shell, char *arguments)
 {
-	char	**env_aux;
 	int		i;
 	char	*ptr;
+	int		j;
 
 	i = 1;
-	env_aux = ft_split(arguments, '=');
+	j = 0;
+	ft_malloc_tmp(shell, arguments);
+	ft_split_argu(shell, arguments);
 	if (check_export(shell) == 2)
 	{
-		ptr = env_aux[0];
-		env_aux[0] = ft_strtrim(env_aux[0], "+");
+		ptr = shell->frst;
+		shell->frst = ft_strtrim(shell->frst, "+");
 		free(ptr);
 	}
 	if (check_export(shell) == 3)
 	{
-		env_aux[0] = ft_strdup(ft_return_con(shell, env_aux));
-		if (ft_with_dlr(env_aux, shell) == 1)
+		shell->frst = ft_strdup(ft_return_con(shell));
+		if (ft_with_dlr(shell) == 1)
 			return ;
 	}
-	if (ft_else(shell, env_aux, i) == 1)
+	if (ft_else(shell, i) == 1)
 		return ;
-	ft_free_cmd(env_aux);
-}
-
-void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2)
-{
-	shell->env_aux.tmp_var[shell->env.len - 1] = ft_strdup(new_elem_tab1);
-	shell->env_aux.tmp_con[shell->env.len - 1] = ft_strdup(new_elem_tab2);
-	ft_free_cmd(shell->env.tmp_var);
-	ft_free_cmd(shell->env.tmp_con);
-	shell->env.tmp_var = shell->env_aux.tmp_var;
-	shell->env.tmp_con = shell->env_aux.tmp_con;
-	shell->env.tmp_var[shell->env.len] = 0;
-	shell->env.tmp_con[shell->env.len] = 0;
-}
-
-int	check_export(t_struct *export)
-{
-	if (export->arguments[export->i_for_chek][0] == '=')
-	{
-		ft_putstr_fd("not a valid identifier\n", 2);
-		return (1);
-	}
-	return (check_export_tow(export));
+	free(shell->frst);
+	free(shell->scnd);
 }
