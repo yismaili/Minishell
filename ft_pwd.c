@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:00 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/24 17:46:24 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/27 12:50:56 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,12 @@ int	ft_loop(char **splted)
 	int		j;
 
 	j = 0;
-	while (splted[0][j])
+	if (splted[0][0] == '_')
+		return (0);
+	if (!ft_isalpha(splted[0][0]))
 	{
-		if (!ft_isalpha(splted[0][j]))
-		{
-			ft_free_cmd(splted);
-			return (1);
-		}
-		j++;
+		ft_free_cmd(splted);
+		return (1);
 	}
 	ft_free_cmd(splted);
 	return (0);
@@ -80,13 +78,11 @@ int	check_export_con(char *export)
 	j = 0;
 	if (!export)
 		return (3);
+	if (export[0] == '_')
+		return (0);
 	if (export[ft_strlen(export) - 1] == '+')
 		return (2);
-	while (export[j])
-	{
-		if (!ft_isalpha(export[j]))
-			return (1);
-		j++;
-	}
+	if (!ft_isalpha(export[0]))
+		return (1);
 	return (0);
 }
