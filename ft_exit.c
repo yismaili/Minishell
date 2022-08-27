@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 12:14:24 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:27:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,13 @@ void	ft_exit(t_struct *shell)
 		ft_putstr_fd("exit\n", shell->output_fd);
 		exit(0);
 	}
-	if (chek_digt == 1 && chek_alph == 1)
+	if (chek_digt == 0 && chek_alph == 1)
 	{
 		ft_putstr_fd("Minishell: exit: numeric argument required\n", shell->output_fd);
 		exit(0);
 	}
-	if (chek_digt != 0)
-	{
+	if (chek_digt != 0 || chek_alph != 0)
 		ft_putstr_fd("Minishell: exit: too many arguments\n", shell->output_fd);
-		return ;
-	}
-	if (chek_digt != 0 && chek_alph != 0)
-	{
-		ft_putstr_fd("Minishell: exit: too many arguments\n", shell->output_fd);
-		return ;
-	}
-	if (chek_alph != 0)
-		ft_putstr_fd("Minishell: exit: numeric argument required\n", shell->output_fd);
 }
 
 char	*find_env(t_struct *shell, char *search)
