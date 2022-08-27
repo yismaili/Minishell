@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:52 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/24 17:45:48 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/27 12:14:24 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,48 @@
 
 void	ft_exit(t_struct *shell)
 {
-	ft_putstr_fd("exit\n", shell->output_fd);
-	exit(0);
+	int i;
+	int chek_digt;
+	int chek_alph;
+
+	i = 1;
+	chek_digt = 0;
+	chek_alph = 0;
+	if (shell->arguments[i] == NULL)
+	{
+		ft_putstr_fd("exit\n", shell->output_fd);
+		exit(0);
+	}
+	while (shell->arguments[i])
+	{
+		if (ft_isdigit(shell->arguments[i][0]))
+			chek_digt++;
+		if (!ft_isdigit(shell->arguments[i][0]))
+			chek_alph++;
+		i++;
+	}
+	if (chek_digt == 1 && chek_alph == 0)
+	{
+		ft_putstr_fd("exit\n", shell->output_fd);
+		exit(0);
+	}
+	if (chek_digt == 1 && chek_alph == 1)
+	{
+		ft_putstr_fd("Minishell: exit: numeric argument required\n", shell->output_fd);
+		exit(0);
+	}
+	if (chek_digt != 0)
+	{
+		ft_putstr_fd("Minishell: exit: too many arguments\n", shell->output_fd);
+		return ;
+	}
+	if (chek_digt != 0 && chek_alph != 0)
+	{
+		ft_putstr_fd("Minishell: exit: too many arguments\n", shell->output_fd);
+		return ;
+	}
+	if (chek_alph != 0)
+		ft_putstr_fd("Minishell: exit: numeric argument required\n", shell->output_fd);
 }
 
 char	*find_env(t_struct *shell, char *search)

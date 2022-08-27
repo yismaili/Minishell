@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+         #
+#    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:35:52 by souchen           #+#    #+#              #
-#    Updated: 2022/08/17 21:04:59 by yismaili         ###   ########.fr        #
+#    Updated: 2022/08/27 11:49:06 by yismaili         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = ft_atoi.c ft_strlcpy.c\
 		ft_putnbr_fd.c ft_split.c ft_strdup.c ft_strjoin.c \
 		ft_strlen.c ft_strncmp.c \
 		ft_strtrim.c ft_substr.c ft_strchr.c\
-		ft_putstr_fd.c ft_strcmp.c ft_isalpha.c ft_strrchr.c ft_itoa.c 
+		ft_putstr_fd.c ft_strcmp.c ft_isalpha.c ft_strrchr.c ft_itoa.c ft_isdigit.c 
 
 OBJ = $(SRC:.c=.o)
 
