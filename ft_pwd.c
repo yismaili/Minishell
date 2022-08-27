@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:00 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 12:50:56 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:54:14 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ int	ft_loop(char **splted)
 
 int	check_export_con(char *export)
 {
-	int		j;
-
-	j = 0;
 	if (!export)
 		return (3);
 	if (export[0] == '_')

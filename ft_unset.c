@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 13:05:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:00:41 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,24 @@ void	ft_unset(t_struct *shell)
 	}
 	while (shell->arguments[i])
 	{
-		if (find_env_tmp(shell, shell->arguments[i]))
+		if (check_unset(shell->arguments[i]) != 0)
 		{
-			remove_env(shell);
+			ft_putstr_fd("Minishell: unset: ` ': not a valid identifier\n", 2);
+			return ;
 		}
+		if (find_env_tmp(shell, shell->arguments[i]))
+			remove_env(shell);
 		i++;
 	}
 }
-
+int	check_unset(char *arg)
+{
+	if (arg[0] == '_')
+		return (0);
+	if (!ft_isalpha(arg[0]))
+		return (1);
+	return (0);
+}
 void	remove_env(t_struct *shell)
 {
 	int	i;

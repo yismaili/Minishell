@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 17:22:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:57:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,4 +257,5 @@ int		ft_builtin_exist_next(t_struct	*shell);
 int		divise_pipe_redir_next(t_struct *shell, char *commande_read);
 int		ft_next_echo(t_struct *shell);
 void	ft_identifier_export(t_struct *shell);
+int		check_unset(char *arg);
 #endif
