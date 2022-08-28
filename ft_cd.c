@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 19:30:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 12:59:46 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,7 @@ int	ft_cd_tool(t_struct *shell)
 {
 	char	*current_path;
 	char	*old_path;
-	char	*tmp;
 
-	tmp = NULL;
 	current_path = getcwd(NULL, sizeof(NULL));
 	old_path = ft_oldpath(shell);
 	if (!ft_strcmp(current_path, old_path))
@@ -120,10 +118,6 @@ int	ft_cd_tool(t_struct *shell)
 		if (ft_strcmp(old_path, current_path))
 		{
 			ft_change_dir(shell, old_path);
-			tmp = getcwd(NULL, sizeof(NULL));
-			ft_putstr_fd(tmp, shell->output_fd);
-			printf("\n");
-			free(tmp);
 		}
 	}
 	free(current_path);

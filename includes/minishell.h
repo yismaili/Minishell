@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 20:52:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:18:05 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,4 +266,5 @@ void	ft_split_argu(t_struct *shell, char *arguments);
 void	ft_eles_exit(t_struct *shell, int chek_alph, int chek_digt);
 void	ft_print_qot(t_struct *shell);
 void	ft_malloc_tmp(t_struct *shell, char *arguments);
+void	ft_chekexit_status(t_struct *shell);
 #endif

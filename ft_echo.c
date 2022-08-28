@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 17:13:04 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:20:10 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_echo(t_struct *shell)
 	shell->q2 = 0;
 	shell->i = 0;
 	shell->f_pipe = 0;
+	if (shell->arguments[1][0] == '$' && shell->arguments[1][1] == '?')
+		ft_chekexit_status(shell);
 	if (shell->arguments[0][0] == '|')
 		shell->f_pipe = 1;
 	while (shell->variable == 1 && shell->arguments[j] != NULL \
@@ -35,6 +37,19 @@ void	ft_echo(t_struct *shell)
 		return ;
 	}
 	ft_next_echo(shell);
+}
+
+void	ft_chekexit_status(t_struct *shell)
+{
+	char	*rm_es;
+	char	*srch;
+	char	*tmp;
+
+	rm_es = ft_strtrim(shell->arguments[1], "$?");
+	srch = find_env(shell, "?");
+	tmp = shell->arguments[1];
+	shell->arguments[1] = ft_strjoin(srch, rm_es);
+	free(tmp);
 }
 
 int	ft_next_echo(t_struct *shell)
