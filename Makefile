@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+         #
+#    By: souchen <souchen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 11:28:16 by souchen           #+#    #+#              #
-#    Updated: 2022/09/01 17:41:25 by yismaili         ###   ########.fr        #
+#    Updated: 2022/09/01 17:47:20 by souchen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ FILES =builtins.c create_env.c  ft_exit.c  ft_unset.c \
        divise_commande.c arguments.c arguments_utils.c ft_env.c ft_export.c ft_cd.c ft_pwd.c \
        ft_echo.c output_input.c leaks.c execution.c tools.c split_arg.c creat_env_fun.c  export_tools.c  \
 	   herDoc_tools.c divise_commandes_tools.c arguments_tools.c run_commande_tools.c arguments_tool.c \
-	   fun_redirection_next.c export_env.c  echo_tools.c redirction_tools.c output_tools.c 
+	   fun_redirection_next.c export_env.c  echo_tools.c redirction_tools.c output_tools.c echo_tool.c  
  
 
 OBJ_FILES= $(FILES:.c=.o)
