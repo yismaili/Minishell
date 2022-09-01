@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fun_redirection_next.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 23:14:00 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/01 15:53:14 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/01 17:37:54 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,22 +118,4 @@ void	cmd_not_found3(char *fichier)
 	ft_putstr_fd("minishell:", 2);
 	ft_putstr_fd(fichier, 2);
 	ft_putstr_fd(": command not found\n", 2);
-}
-
-int	ft_next_redirection(t_struct *shell, int size)
-{
-	if (shell->not_alpha2 == (int)ft_strlen(shell->commands[shell->cmp]))
-		return (ft_not_found(shell->commands[shell->cmp]), 0);
-	if (cas_error_quote(shell, size) == 0)
-		return (0);
-	if (shell->quote_cmd != 0 || shell->dquote_cmd != 0)
-		shell->commands[shell->cmp] = \
-			ft_split_cmd3(shell->commands[shell->cmp], shell);
-	if (shell->commands[shell->cmp][0] == '>')
-		if (outredirection(shell) == 0)
-			return (0);
-	if (shell->commands[shell->cmp][0] == '<')
-		if (inredirection(shell) == 0)
-			return (0);
-	return (1);
 }

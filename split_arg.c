@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_arg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/01 17:20:42 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/01 17:41:04 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,76 +103,3 @@ int	next_execute_commands(t_struct *shell, int i, char *command)
 	return (1);
 }
 
-char	*ft_chek_dlr_arg(char *arguments, t_struct *shell, char **strrm, \
-char *join)
-{
-	char	*rm;
-	char	*con;
-	int		p;
-	int		j;
-
-	p = 0;
-	j = 0;
-	strrm = ft_splt_dlor_arg(arguments, shell);
-	while (strrm[j])
-	{
-		rm = ft_strtrim(strrm[j], "$");
-		if (!is_empty(rm) && ft_isalpha(rm[0]))
-			con = find_env(shell, rm);
-		else if (rm[0] == '?' )
-			con = find_env(shell, rm);
-		if (shell->chek_plc == 1)
-			con = ft_strjoin(con, "+");
-		shell->chek_plc = 0;
-		join = ft_strjoin(join, con);
-		if (arguments == NULL)
-			exit(127);
-		p = 1;
-		j++;
-	}
-	return (join);
-}
-
-char	**ft_splt_dlor_arg(char	*arguments, t_struct *shell)
-{
-	char	**strrm;
-
-	strrm = NULL;
-	if (ft_strchr(arguments, '+'))
-	{
-		strrm = ft_split(arguments, '+');
-		shell->chek_plc = 1;
-	}
-	else
-		strrm = ft_split(arguments, '$');
-	return (strrm);
-}
-
-void	cmd_not_found(t_struct *shell)
-{
-	if (shell->arguments[0])
-	{
-		if (shell->arguments[0][0] == '<' || shell->arguments[0][0] == '>')
-			exit(127);
-		if (shell->arguments[0][0] != '|' && \
-			ft_strlen(shell->arguments[0]) != 0)
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(shell->arguments[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
-		}	
-	}
-	if (shell->arguments[1])
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(shell->arguments[1], 2);
-		ft_putstr_fd(": command not found\n", 2);
-	}
-	if (shell->arguments[0] == NULL)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(shell->arguments[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-	}
-	exit(127);
-}
