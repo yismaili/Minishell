@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:33:33 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/01 17:47:37 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/01 18:05:55 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,28 @@ void	ft_count_doler(char *echo_print, t_struct *shell)
 	return ;
 }
 
-int	ft_skip_qote(char **splted, t_struct *shell, int *j)
+void	ft_print_env_var_next(t_struct *shell, char *splted, int i, int q)
 {
-	if (splted[*j][ft_strlen(splted[*j]) - 1] == '\"' || \
-			(shell->quote == 2 && shell->double_quote == 0))
+	while (shell->env.tmp_var[i])
 	{
-		ft_putstr_fd("$", shell->output_fd);
-		ft_putstr_fd(splted[*j], shell->output_fd);
-		if (shell->count_dolr > 1 && (splted[*j + 1] != NULL))
-			return (1);
-		else if (*j > shell->count_dolr)
-			return (0);
-		else
-			shell->dif_j = 1;
+		if ((!ft_strcmp(shell->env.tmp_var[i], splted)) && shell->dif_j == 0)
+		{
+			if (shell->quote != 0)
+			{
+				ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
+				q = 0;
+				while (shell->quote / 2 > q)
+				{
+					ft_putstr_fd("\'", shell->output_fd);
+					q++;
+				}
+			}
+			else
+				ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
+			if (shell->chek_plc_ == 1)
+				ft_putstr_fd("+", shell->output_fd);
+			shell->chek_plc_ = 0;
+		}
+		i++;
 	}
-	return (-1);
 }

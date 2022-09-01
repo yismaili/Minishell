@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 23:14:54 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/01 17:38:32 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/01 20:15:06 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ char	*herdoc_with_dolars(char *line, char *fic, t_struct *shell)
 	shell->inc1 = 0;
 	shell->inc2 = 0;
 	j = ft_count_len_ofqut(shell, line, fic);
-	tmp = ft_hndl_qot(shell, fic, line, j);
+	tmp = NULL;
+	if (line[ft_strlen(&line[j])] == '\"')
+		line = ft_strdup(ft_hndl_qot(shell, line, fic, j));
+	if (line[ft_strlen(&line[j])] == '\'')
+		line = ft_strdup(ft_hndl_qot_next(shell, line, fic, j));
 	tmp = search_in_env(j, fic, line, shell);
 	return (tmp);
 }
@@ -74,9 +78,7 @@ char	*ft_hndl_qot(t_struct *shell, char *line, char *fic, int j)
 			shell->inc1 = 0;
 		}
 	}
-	if (line[ft_strlen(&line[j])] == '\'')
-		tmp = ft_hndl_qot_next(shell, fic, line, j);
-	return (tmp);
+	return (line);
 }
 
 char	*ft_hndl_qot_next(t_struct *shell, char *line, char *fic, int j)
@@ -96,5 +98,5 @@ char	*ft_hndl_qot_next(t_struct *shell, char *line, char *fic, int j)
 			shell->inc2 = 0;
 		}
 	}
-	return (tmp);
+	return (line);
 }

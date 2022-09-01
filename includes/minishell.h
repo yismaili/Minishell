@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/01 17:48:32 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/01 19:49:28 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include \
-	</goinfre/souchen/.brew/opt/readline/include/readline/readline.h>
+	</goinfre/yismaili/.brew/opt/readline/include/readline/readline.h>
 # include \
-	</goinfre/souchen/.brew/opt/readline/include/readline/history.h>
+	</goinfre/yismaili/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>

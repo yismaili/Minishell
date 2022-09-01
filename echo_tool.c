@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:46:50 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/01 17:47:08 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/01 18:28:52 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	ft_next_echo_dlr(char **splted, t_struct *shell)
 		}
 		if (splted[j] != NULL)
 			splted[j] = ft_strtrim(splted[j], "$");
-		nb_qot = ft_skip_qote(splted, shell, &j);
+		if (splted[j] != NULL)
+			nb_qot = ft_skip_qote(splted, shell, &j);
 		if (nb_qot == 1)
 			j++;
 		else if (nb_qot == 0)
@@ -51,28 +52,25 @@ int	ft_next_echo_dlr(char **splted, t_struct *shell)
 	return (1);
 }
 
-void	ft_print_env_var_next(t_struct *shell, char *splted, int i, int q)
+int	ft_skip_qote(char **splted, t_struct *shell, int *j)
 {
-	while (shell->env.tmp_var[i])
+	if (splted[*j])
 	{
-		if ((!ft_strcmp(shell->env.tmp_var[i], splted)) && shell->dif_j == 0)
+		if (splted[*j][0] != '\0')
 		{
-			if (shell->quote != 0)
+			if (splted[*j][(ft_strlen(splted[*j])) - 1] == '\"' || \
+					(shell->quote == 2 && shell->double_quote == 0))
 			{
-				ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
-				q = 0;
-				while (shell->quote / 2 > q)
-				{
-					ft_putstr_fd("\'", shell->output_fd);
-					q++;
-				}
+				ft_putstr_fd("$", shell->output_fd);
+				ft_putstr_fd(splted[*j], shell->output_fd);
+				if (shell->count_dolr > 1 && (splted[*j + 1] != NULL))
+					return (1);
+				else if (*j > shell->count_dolr)
+					return (0);
+				else
+					shell->dif_j = 1;
 			}
-			else
-				ft_putstr_fd(shell->env.tmp_con[i], shell->output_fd);
-			if (shell->chek_plc_ == 1)
-				ft_putstr_fd("+", shell->output_fd);
-			shell->chek_plc_ = 0;
 		}
-		i++;
 	}
+	return (-1);
 }
