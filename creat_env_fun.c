@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_env_fun.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:07 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/24 17:45:10 by souchen          ###   ########.fr       */
+/*   Updated: 2022/08/29 13:48:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	count_len_env(t_struct *shell)
 	i = 0;
 	while (shell->env.env[i])
 		i++;
-	shell->env.len = i;
+	shell->env.len = i + 1;
 	return (i);
 }
 

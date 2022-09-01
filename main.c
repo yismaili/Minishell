@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:19 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 21:46:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/31 21:11:40 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	sig_handler(int sig)
 {
+	if (g_var.g_isrun != 0)
+	{
+		ft_putstr_fd("\n", 1);
+		g_var.g_isrun = 0;
+		return ;
+	}
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
@@ -46,15 +52,15 @@ int	main(void)
 	while (1)
 	{
 		commande_tape(&shell, &size);
-		check_char(&shell, shell.commande_tape);
+		cas_failed(&shell);
 		if (shell.commande_tape && !is_empty(shell.commande_tape) \
 				&& shell.failed == 0)
 		{
 			if (shell.commande_tape[0])
 			{
 				if (divise_commande(&shell, shell.commande_tape) != 0 && \
-				shell.commande_tape[0] != '|' && shell.commande_tape
-					[size - 1] != '|')
+						shell.commande_tape[0] != '|' && shell.commande_tape \
+						[size - 1] != '|')
 					run_commands(&shell);
 				else
 					cas_error(&shell, shell.msg);
@@ -76,6 +82,7 @@ int	commande_tape(t_struct	*shell, int *size)
 	shell->double_quote = 0;
 	shell->indice = 0;
 	shell->right = 0;
+	g_var.g_isrun = 0;
 	shell->output_fd = 1;
 	shell->input_fd = 0;
 	shell->check = 0;
@@ -85,8 +92,10 @@ int	commande_tape(t_struct	*shell, int *size)
 	shell->start = 0;
 	rl_catch_signals = 0;
 	shell->qot = 0;
+	shell->name = NULL;
 	shell->msg = NULL;
-	shell->commande_tape = readline(GREEN"Minishell-1.2$ "WHITE);
+	shell->divise.pipe = 0;
+	shell->commande_tape = readline(GREEN"Minishell-1.0$ "WHITE);
 	*size = ft_strlen(shell->commande_tape);
 	if (shell->commande_tape && is_empty(shell->commande_tape) != 1)
 		add_history(shell->commande_tape);

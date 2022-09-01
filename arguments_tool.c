@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 15:39:17 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/26 17:22:37 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 23:06:59 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,28 @@ void	ft_identifier_export(t_struct *shell)
 	ft_putstr_fd(shell->arguments[shell->i_for_chek], 2);
 	ft_putstr_fd(": not a valid identifier\n", 2);
 	return ;
+}
+
+void	cmp_spaces(t_struct *shell)
+{
+	int	i;
+
+	i = 0;
+	while (shell->line_commande[i] != '\0')
+	{
+		if (shell->line_commande[i] == ' ')
+			shell->cmp_space++;
+		i++;
+	}
+}
+
+void	cas_failed(t_struct *shell)
+{
+	check_char(shell, shell->commande_tape);
+	if (shell->failed == 1)
+	{
+		ft_putstr_fd("Minishell: No such file or directory", 2);
+		ft_putstr_fd(shell->commande_tape, 2);
+		ft_putstr_fd("\n", 2);
+	}
 }

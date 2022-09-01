@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/28 13:18:05 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:31:01 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include \
-	</Users/yismaili/goinfre/.brew/opt/readline/include/readline/readline.h>
+	</goinfre/yismaili/.brew/opt/readline/include/readline/readline.h>
 # include \
-	</Users/yismaili/goinfre/.brew/opt/readline/include/readline/history.h>
+	</goinfre/yismaili/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -40,6 +40,7 @@ typedef struct s_gl
 {
 	int	g_var;
 	int	g_status;
+	int	g_isrun;
 }	t_gl;
 
 t_gl	g_var;
@@ -114,7 +115,8 @@ typedef struct s_struct
 	int			right;
 	int			indice;
 	char		**path;
-	int			inc;
+	int			inc1;
+	int			inc2;
 	int			check;
 	int			last;
 	int			quote_cmd;
@@ -131,9 +133,25 @@ typedef struct s_struct
 	char		*name;
 	char		*msg;
 	int			f_pipe;
-	int			chek_equl;
+	int			cmp_space;
+	int			alpha;
+	int			con_failed;
+	int			fic;
+	int			dolar;
+	int			t;
+	int			not_alpha2;
+	int			fd;
 	char		*frst;
 	char		*scnd;
+	int			var2;
+	int			tty;
+	int			chek_plc;
+	int			chek_num;
+	int			chek_plc_;
+	int			chek_dlr;
+	int			chek_test;
+	int			count_dolr;
+	int			dif_j;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -149,7 +167,7 @@ void	run_commande_next(t_struct *shell);
 int		fun_redirection(t_struct *shell);
 int		execution(t_struct *shell);
 int		divise_commande(t_struct *shell, char *in);
-void	arguments_func(t_struct *shell);
+int		arguments_func(t_struct *shell);
 int		argument_find_char(char *string, char needle);
 void	free_arg(t_arg *arg);
 void	finish_put_arg(t_struct *shell, t_arg *arg);
@@ -210,7 +228,7 @@ void	replace_oldpwd(t_struct *env);
 void	replace_pwd(t_struct *env);
 void	ft_echo_tool(t_struct *shell, char *echo_print);
 char	*remplir(char *s1, char c, int len, t_struct *shell);
-void	arg_func(t_struct *shell);
+int		arg_func(t_struct *shell);
 int		find_char(char *string, char c);
 char	*ft_split_cmd(char *cmd, t_struct *shell);
 char	*ft_remove_quot(char *s1, char c, t_struct *shell);
@@ -244,27 +262,66 @@ int		ft_with_dlr(t_struct *shell);
 int		ft_else(t_struct *shell, int i);
 void	ft_execute_tools(t_struct *shell, int i, char *command);
 char	*ft_return_con(t_struct *shell);
-void	split_arg(t_struct *shell, char *cmd_joined);
+int		split_arg(t_struct *shell, char *cmd_joined);
 int		check_quotes_next(t_struct *shell);
 int		ft_check_quote(t_struct *shell);
 void	ft_check_space(t_struct *shell);
-void	ft_check_quote_pos(t_struct *shell, char	*cmd_joined);
+int		ft_check_quote_pos(t_struct *shell, char	*cmd_joined);
 void	check_char(t_struct *shell, char *commande_line);
 char	*ft_split_cmd2(char	*cmd, t_struct *shell);
 void	to_remove_quotes(t_struct *shell);
 int		split_and_cas_error(t_struct *shell, char *fichier2);
 int		run_commande_next1(t_struct *shell);
 void	cas_error(t_struct *shell, char *msg);
-int		ft_check_file(t_struct *shell, char	*fichier);
+int		ft_check_file(t_struct *shell, char	**fichier);
 int		ft_builtin_exist_next(t_struct	*shell);
 int		divise_pipe_redir_next(t_struct *shell, char *commande_read);
 int		ft_next_echo(t_struct *shell);
 void	ft_identifier_export(t_struct *shell);
-int		check_unset(char *arg);
-int		len_ofarg(char *str);
+void	sig_handler2(int sig);
+void	sig(int nb);
+void	cmd_not_found3(char *fichier);
+int		red_with_dolar(char *fichier, t_struct *shell);
+char	*herdoc_with_dolars(char *line, char *fichier, t_struct *shell);
+char	*search_in_env(int j, char *f2, char *l, t_struct *s);
+int		exit_with_arg(t_struct *shell);
+void	cmp_spaces(t_struct *shell);
+void	cas_failed(t_struct *shell);
+int		check_file_dollar(char **f, char *f1, t_struct *shell);
+int		in_check(char **fichier, char *fichier1);
+void	remove_quote_to_file(t_struct *shell, int size);
+int		cas_error_quote(t_struct *shell, int size);
+void	ft_dup_rdtion(t_struct *shell);
+void	cmp_q(t_struct *shell);
+void	ft_identifier_export(t_struct *shell);
 void	ft_split_argu(t_struct *shell, char *arguments);
-void	ft_eles_exit(t_struct *shell, int chek_alph, int chek_digt);
+int		len_ofarg(char *str);
+void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
+int		check_export(t_struct *export);
+int		check_unset(char *arg);
 void	ft_print_qot(t_struct *shell);
-void	ft_malloc_tmp(t_struct *shell, char *arguments);
 void	ft_chekexit_status(t_struct *shell);
+void	for_close(t_struct *shell);
+void	exp_with_pipe(t_struct *shell);
+char	*ft_split_cmd3(char	*cmd, t_struct *shell);
+char	*ft_chek_dlr_arg(char *arguments, t_struct *shell, char \
+	**strrm, char *join);
+char	**ft_splt_dlor_arg(char	*arguments, t_struct *shell);
+int		ft_chek_isdigit(char *echo_print, t_struct	*shell);
+char	**ft_split_num_dlr(t_struct *shell, char *echo_print, char num);
+int		ft_skip_qote(char **splted, t_struct *shell, int *j);
+void	ft_print_env_var(t_struct *shell, char *splted);
+int		ft_next_echo_dlr(char **splted, t_struct *shell);
+void	ft_count_doler(char *echo_print, t_struct *shell);
+void	ft_print_env_var_next(t_struct *shell, char *splted, int i, int q);
+int		ft_builtin_exist_else(t_struct	*shell);
+int		run_builtin_next(t_struct *shell);
+int		ft_failed_fork(void);
+int		ft_next_redirection(t_struct *shell, int size);
+void	ft_print_msg(t_struct *shell, char	*line);
+int		ft_count_len_ofqut(t_struct	*shell, char *line, char *fic);
+char	*ft_hndl_qot(t_struct *shell, char *line, char *fic, int j);
+char	*ft_hndl_qot_next(t_struct *shell, char *line, char *fic, int j);
+int		ft_next_outredirection(t_struct *shell, char **fichier1);
+int		ft_next_inredirection(t_struct	*shell, char **fichier2, char *line);
 #endif

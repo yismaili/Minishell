@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/27 19:49:50 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/27 21:17:46 by yismaili         ###   ########.fr       */
+/*   Created: 2022/06/22 11:22:25 by souchen           #+#    #+#             */
+/*   Updated: 2022/08/28 17:22:55 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ int	check_export(t_struct *export)
 		return (1);
 	}
 	return (check_export_tow(export));
+}
+
+void	exp_with_pipe(t_struct *shell)
+{
+	if (shell->arguments[0][0] == '|' && !shell->arguments[0][1])
+	{
+		shell->f_pipe = 1;
+	}
+	else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
+		shell->arguments[0] = &shell->arguments[0][1];
 }

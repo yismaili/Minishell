@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:19:21 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 21:17:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 17:22:52 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ void	ft_export(t_struct *shell)
 	j = 0;
 	shell->f_pipe = 0;
 	shell->i_for_chek = 1;
-	if (shell->arguments[0][0] == '|')
-		shell->f_pipe = 1;
+	exp_with_pipe(shell);
 	while (shell->variable == 1 && shell->arguments[j] != NULL && \
-	shell->f_pipe != 0)
+	shell->f_pipe == 1)
 	{
 		shell->arguments[j] = shell->arguments[j + 1];
 		j++;

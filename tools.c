@@ -6,11 +6,12 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/28 12:59:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/31 18:45:30 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+#include <errno.h>
 
 int	ft_change_dir(t_struct *shell, char *chpath)
 {
@@ -32,6 +33,12 @@ int	ft_change_dir(t_struct *shell, char *chpath)
 	replace_oldpwd(shell);
 	if (chdir(chpath) < 0)
 		return (ft_not_found(shell->arguments[1]), 0);
+	if (errno == ENOENT)
+	{
+		ft_putstr_fd("cd: error retrieving current directory: getcwd:", 2);
+		ft_putstr_fd("cannot access parent directories: \
+				No such file or directory\n", 2);
+	}
 	replace_pwd(shell);
 	return (0);
 }
@@ -56,12 +63,9 @@ char	*ft_oldpath(t_struct *shell)
 
 void	ft_not_found(char *dir)
 {
-	if (dir)
-	{
-		ft_putstr_fd("Minishell: cd: ", 2);
-		ft_putstr_fd(dir, 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
-	}
+	ft_putstr_fd("Minishell: cd: ", 2);
+	ft_putstr_fd(dir, 2);
+	ft_putstr_fd(": no such file or directory\n", 2);
 }
 
 char	**ft_swap_env(char	**dup_env)

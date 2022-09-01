@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initial_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili < yismaili@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:12 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/16 22:55:25 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:50:57 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,12 @@ void	print_cmd_not_f(t_struct *shell)
 	ft_putstr_fd("Minishell :", 2);
 	ft_putstr_fd(shell->arguments[0], 2);
 	ft_putstr_fd(" : command not found\n", 2);
+}
+
+int	in_check(char **fichier, char *fichier1)
+{
+	(void) fichier1;
+	if (!fichier)
+		return (0);
+	return (1);
 }

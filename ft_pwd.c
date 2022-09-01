@@ -6,21 +6,19 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:00 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 12:54:14 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 21:41:20 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+#include <limits.h>
 
 char	*get_current_dir(void)
 {
-	size_t	size;
-	char	*buf;
+	char	buf[PATH_MAX];
 
-	size = 2000;
-	buf = NULL;
-	buf = getcwd(buf, size);
-	return (buf);
+	getcwd(buf, PATH_MAX);
+	return (strdup(buf));
 }
 
 void	ft_pwd(t_struct *shell)
@@ -73,6 +71,9 @@ int	ft_loop(char **splted)
 
 int	check_export_con(char *export)
 {
+	int		j;
+
+	j = 0;
 	if (!export)
 		return (3);
 	if (export[0] == '_')

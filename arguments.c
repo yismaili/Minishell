@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:20:16 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/26 15:39:55 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:37:58 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	arguments_func(t_struct	*shell)
+int	arguments_func(t_struct	*shell)
 {
 	t_arg	*arg;
 
 	arg = init_arg();
 	shell->arguments = NULL;
 	if (shell->line_commande)
-		arg_func(shell);
+		if (arg_func(shell) == 0)
+			return (0);
 	free(shell->line_commande);
 	free(arg);
+	return (1);
 }
 
 int	ft_check_quote(t_struct *shell)
@@ -67,7 +69,7 @@ void	ft_check_space(t_struct *shell)
 	}
 }
 
-void	ft_check_quote_pos(t_struct *shell, char *cmd_joined)
+int	ft_check_quote_pos(t_struct *shell, char *cmd_joined)
 {
 	if ((((&shell->line_commande[shell->pos])[0] == '\"' \
 					&& (&shell->line_commande[shell->pos])[shell->size - 2] \
@@ -76,9 +78,7 @@ void	ft_check_quote_pos(t_struct *shell, char *cmd_joined)
 					(&shell->line_commande[shell->pos])[shell->size - 2] \
 					== '\'')) \
 			&& (shell->size > 2))
-	{
-		shell->indice++;
-	}
+			shell->indice++;
 	if ((((&shell->line_commande[shell->pos])[0] == '\"' \
 					&& (&shell->line_commande[shell->pos])[shell->size - 1] \
 					== '\"') \
@@ -90,7 +90,9 @@ void	ft_check_quote_pos(t_struct *shell, char *cmd_joined)
 	}
 	if (ft_strchr(shell->line_commande, '\''))
 		shell->check = 1;
-	split_arg(shell, cmd_joined);
+	if (split_arg(shell, cmd_joined) == 0)
+		return (0);
 	if (check_quotes_next(shell) == 0)
-		return ;
+		return (1);
+	return (1);
 }

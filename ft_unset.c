@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:22:05 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/27 21:03:17 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/08/28 16:14:21 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	remove_env(t_struct *shell)
 	int	i;
 	int	j;
 
+	j = 0;
+	i = 0;
 	shell->env.len--;
 	g_var.g_var--;
 	if (!malloc_env_aux_tmp(shell))
 		ft_die_malloc("No spece lift\n");
-	i = 0;
-	j = 0;
 	while (i < shell->env.len +1)
 	{
 		if (i != shell->env.position)
