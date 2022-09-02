@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 19:00:28 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/31 18:45:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/01 21:56:37 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	ft_change_dir(t_struct *shell, char *chpath)
 	if (errno == ENOENT)
 	{
 		ft_putstr_fd("cd: error retrieving current directory: getcwd:", 2);
-		ft_putstr_fd("cannot access parent directories: \
-				No such file or directory\n", 2);
+		ft_putstr_fd("cannot access parent directories: ", 2);
+		ft_putstr_fd("No such file or directory\n", 2);
 	}
 	replace_pwd(shell);
 	return (0);

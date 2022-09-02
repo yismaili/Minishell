@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:37:25 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/01 17:38:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 01:20:12 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 int	ft_next_redirection(t_struct *shell, int size)
 {
+	char	*tmp;
+
 	if (shell->not_alpha2 == (int)ft_strlen(shell->commands[shell->cmp]))
 		return (ft_not_found(shell->commands[shell->cmp]), 0);
 	if (cas_error_quote(shell, size) == 0)
 		return (0);
 	if (shell->quote_cmd != 0 || shell->dquote_cmd != 0)
+	{
+		tmp = shell->commands[shell->cmp];
 		shell->commands[shell->cmp] = \
 			ft_split_cmd3(shell->commands[shell->cmp], shell);
+		free(tmp);
+	}
 	if (shell->commands[shell->cmp][0] == '>')
 		if (outredirection(shell) == 0)
 			return (0);
@@ -35,6 +41,8 @@ int	ft_count_len_ofqut(t_struct	*shell, char *line, char *fic)
 	int	j;
 
 	j = 0;
+	shell->inc1 = 0;
+	shell->inc2 = 0;
 	while (j < (int)ft_strlen(line) && ft_strcmp(line, fic))
 	{
 		if (line[j] == '$')
@@ -48,17 +56,18 @@ int	ft_count_len_ofqut(t_struct	*shell, char *line, char *fic)
 				if (line[j - 1] == '\'')
 					shell->inc2++;
 			}
-			break ;
+			return j;
 		}
 		j = j + 1;
 	}
-	return (j);
+	return (0);
 }
 
 char	*search_in_env(int j, char *fichier2, char *line, t_struct *shell)
 {
 	int			i;
 	char		*rm_dlr;
+	char	*tmp;
 
 	i = 0;
 	rm_dlr = ft_strtrim(&line[j], "$");
@@ -68,7 +77,9 @@ char	*search_in_env(int j, char *fichier2, char *line, t_struct *shell)
 				ft_strcmp(shell->env.tmp_var[i], &fichier2[1]) && \
 				shell->dquote_cmd == 0 && shell->quote_cmd == 0)
 		{
-			line = shell->env.tmp_con[i];
+			tmp = line;
+			line = ft_strdup(shell->env.tmp_con[i]);
+			free(tmp);
 			break ;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/01 19:49:28 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 01:30:42 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,8 +320,9 @@ int		ft_failed_fork(void);
 int		ft_next_redirection(t_struct *shell, int size);
 void	ft_print_msg(t_struct *shell, char	*line);
 int		ft_count_len_ofqut(t_struct	*shell, char *line, char *fic);
-char	*ft_hndl_qot(t_struct *shell, char *line, char *fic, int j);
-char	*ft_hndl_qot_next(t_struct *shell, char *line, char *fic, int j);
+char	*ft_hndl_qot(t_struct *shell, char *line, char *fic);
+char	*ft_hndl_qot_next(t_struct *shell, char *line, char *fic);
 int		ft_next_outredirection(t_struct *shell, char **fichier1);
 int		ft_next_inredirection(t_struct	*shell, char **fichier2, char *line);
+void	ft_print_msg_qot(t_struct *shell, char	*line);
 #endif
