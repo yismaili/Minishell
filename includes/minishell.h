@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/02 02:57:41 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/02 14:25:31 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include \
-	</goinfre/souchen/.brew/opt/readline/include/readline/readline.h>
+	</goinfre/yismaili/.brew/opt/readline/include/readline/readline.h>
 # include \
-	</goinfre/souchen/.brew/opt/readline/include/readline/history.h>
+	</goinfre/yismaili/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -301,7 +301,6 @@ void	next_export(t_struct *shell, char *new_elem_tab1, char *new_elem_tab2);
 int		check_export(t_struct *export);
 int		check_unset(char *arg);
 void	ft_print_qot(t_struct *shell);
-void	ft_chekexit_status(t_struct *shell);
 void	for_close(t_struct *shell);
 void	exp_with_pipe(t_struct *shell);
 char	*ft_split_cmd3(char	*cmd, t_struct *shell);

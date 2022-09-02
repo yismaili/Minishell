@@ -6,7 +6,7 @@
 /*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/01 17:36:26 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:36:39 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_echo(t_struct *shell)
 {
-	int	j;
+	int		j;
+	char	*ptr;
 
 	j = 0;
 	shell->q1 = 0;
@@ -28,7 +29,9 @@ void	ft_echo(t_struct *shell)
 	while (shell->variable == 1 && shell->arguments[j] != NULL \
 	&& shell->f_pipe != 0)
 	{
+		ptr = shell->arguments[j];
 		shell->arguments[j] = shell->arguments[j + 1];
+		free(ptr);
 		j++;
 	}
 	if (shell->arguments[1] == NULL)
@@ -37,19 +40,6 @@ void	ft_echo(t_struct *shell)
 		return ;
 	}
 	ft_next_echo(shell);
-}
-
-void	ft_chekexit_status(t_struct *shell)
-{
-	char	*rm_es;
-	char	*srch;
-	char	*tmp;
-
-	rm_es = ft_strtrim(shell->arguments[1], "$?");
-	srch = find_env(shell, "?");
-	tmp = shell->arguments[1];
-	shell->arguments[1] = ft_strjoin(srch, rm_es);
-	free(tmp);
 }
 
 int	ft_check_n(t_struct *shell)

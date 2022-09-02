@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_tool.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:46:50 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/01 18:28:52 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/02 15:11:30 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,35 @@ void	ft_print_env_var(t_struct *shell, char *splted)
 {
 	int	i;
 	int	q;
+	char	*ptr;
 
 	i = 0;
 	q = 0;
-	splted = ft_remove_quot(splted, '\'', shell);
-	splted = ft_remove_quot(splted, '\"', shell);
+	if (ft_strchr(splted, '\'') || ft_strchr(splted, '\"'))
+	{
+		if(ft_strchr(splted, '\''))
+		{
+			ptr = ft_remove_quot(splted, '\'', shell);
+			free(splted);
+			splted = ft_strdup(ptr);
+			free(ptr);
+		}
+		if(ft_strchr(splted, '\"'))
+		{
+			ptr = ft_remove_quot(splted, '\"', shell);
+			free(splted);
+			splted = ft_strdup(ptr);
+			free(ptr);
+		}
+	}
 	ft_print_env_var_next(shell, splted, i, q);
 }
 
 int	ft_next_echo_dlr(char **splted, t_struct *shell)
 {
-	int	j;
-	int	nb_qot;
+	int		j;
+	int		nb_qot;
+	char	*ptr;
 
 	j = 0;
 	while (splted[j] != NULL)
@@ -39,7 +56,11 @@ int	ft_next_echo_dlr(char **splted, t_struct *shell)
 			break ;
 		}
 		if (splted[j] != NULL)
+		{
+			ptr = splted[j];
 			splted[j] = ft_strtrim(splted[j], "$");
+			free(ptr);
+		}
 		if (splted[j] != NULL)
 			nb_qot = ft_skip_qote(splted, shell, &j);
 		if (nb_qot == 1)

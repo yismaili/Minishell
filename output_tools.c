@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:39:50 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/02 02:37:07 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/02 15:15:25 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ void	cmd_not_found(t_struct *shell)
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(shell->arguments[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
-		}	
+		}		
 	}
-	if (shell->arguments[1])
+	else if (shell->arguments[1])
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(shell->arguments[1], 2);

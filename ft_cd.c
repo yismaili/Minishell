@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:32 by souchen           #+#    #+#             */
-/*   Updated: 2022/08/28 16:31:14 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/02 14:19:44 by yismaili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	replace_oldpwd(t_struct *env)
 	{
 		env->env.tmp_con[0] = ft_strdup(buff);
 		free(buff);
-		return ;
 	}
 	i = 0;
 	while (env->env.tmp_var[i])
@@ -39,6 +38,7 @@ void	replace_oldpwd(t_struct *env)
 		i++;
 	}
 	export_to_env(env, "OLDPWD", buff);
+	free(buff);
 }
 
 void	replace_pwd(t_struct *env)
