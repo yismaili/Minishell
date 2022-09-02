@@ -39,8 +39,7 @@ int	ft_change_dir(t_struct *shell, char *chpath)
 		ft_putstr_fd("cannot access parent directories: ", 2);
 		ft_putstr_fd("No such file or directory\n", 2);
 	}
-	replace_pwd(shell);
-	return (0);
+	return (replace_pwd(shell), 0);
 }
 
 char	*ft_oldpath(t_struct *shell)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/02 01:30:42 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 02:57:41 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include \
-	</goinfre/yismaili/.brew/opt/readline/include/readline/readline.h>
+	</goinfre/souchen/.brew/opt/readline/include/readline/readline.h>
 # include \
-	</goinfre/yismaili/.brew/opt/readline/include/readline/history.h>
+	</goinfre/souchen/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -152,6 +152,7 @@ typedef struct s_struct
 	int			chek_test;
 	int			count_dolr;
 	int			dif_j;
+	int			nop;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -325,4 +326,5 @@ char	*ft_hndl_qot_next(t_struct *shell, char *line, char *fic);
 int		ft_next_outredirection(t_struct *shell, char **fichier1);
 int		ft_next_inredirection(t_struct	*shell, char **fichier2, char *line);
 void	ft_print_msg_qot(t_struct *shell, char	*line);
+void	ft_change_data(t_struct	*shell, char *ptr, char **file, int check);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:39:50 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/01 17:41:11 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 02:37:07 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 int	next_inredirection(t_struct *shell)
 {
 	char	**fichier2;
+	char	*ptr;
 
+	ptr = shell->line_commande;
 	fichier2 = ft_split(&shell->commands[shell->cmp][2], ' ');
 	if (fichier2[1] != NULL && shell->line_commande[0] == '<')
-			shell->line_commande = ft_strdup(fichier2[1]);
+	{
+		shell->line_commande = ft_strdup(fichier2[1]);
+		free(ptr);
+	}
 	else if (fichier2[1] != NULL)
-			shell->line_commande = \
-				ft_strjoin(shell->line_commande, fichier2[1]);
+	{
+		shell->line_commande = ft_strjoin(shell->line_commande, fichier2[1]);
+		free(ptr);
+	}
 	if (red_with_dolar(fichier2[0], shell) == 0)
 		return (ft_free_cmd(fichier2), 0);
 	if (split_and_cas_error(shell, fichier2[0]) != 1)

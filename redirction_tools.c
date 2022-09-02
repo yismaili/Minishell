@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirction_tools.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:37:25 by yismaili          #+#    #+#             */
-/*   Updated: 2022/09/02 01:20:12 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 02:53:44 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_count_len_ofqut(t_struct	*shell, char *line, char *fic)
 				if (line[j - 1] == '\'')
 					shell->inc2++;
 			}
-			return j;
+			return (j);
 		}
 		j = j + 1;
 	}
@@ -65,8 +65,8 @@ int	ft_count_len_ofqut(t_struct	*shell, char *line, char *fic)
 
 char	*search_in_env(int j, char *fichier2, char *line, t_struct *shell)
 {
-	int			i;
-	char		*rm_dlr;
+	int		i;
+	char	*rm_dlr;
 	char	*tmp;
 
 	i = 0;
@@ -84,7 +84,7 @@ char	*search_in_env(int j, char *fichier2, char *line, t_struct *shell)
 		}
 		i++;
 	}
-	if (ft_strcmp(line, fichier2) && shell->inc1 <= 1 && shell->inc2 <= 1)
+	if (ft_strcmp(line, fichier2) && shell->inc1 == 0 && shell->inc2 == 0)
 		ft_putendl_fd(line, shell->fd);
 	free(rm_dlr);
 	return (line);
