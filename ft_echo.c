@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:21:38 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/02 14:36:39 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 15:28:57 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	ft_echo(t_struct *shell)
+int	ft_echo(t_struct *shell)
 {
 	int		j;
 	char	*ptr;
@@ -26,8 +26,7 @@ void	ft_echo(t_struct *shell)
 		shell->f_pipe = 1;
 	else if (shell->arguments[0][0] == '|' && shell->arguments[0][1])
 		shell->arguments[0] = &shell->arguments[0][1];
-	while (shell->variable == 1 && shell->arguments[j] != NULL \
-	&& shell->f_pipe != 0)
+	while (shell->variable == 1 && shell->arguments[j] && shell->f_pipe != 0)
 	{
 		ptr = shell->arguments[j];
 		shell->arguments[j] = shell->arguments[j + 1];
@@ -35,11 +34,9 @@ void	ft_echo(t_struct *shell)
 		j++;
 	}
 	if (shell->arguments[1] == NULL)
-	{
-		ft_putstr_fd("\n", shell->output_fd);
-		return ;
-	}
+		return (ft_putstr_fd("\n", shell->output_fd), 0);
 	ft_next_echo(shell);
+	return (0);
 }
 
 int	ft_check_n(t_struct *shell)

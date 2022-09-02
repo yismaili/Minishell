@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_tool.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 17:46:50 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/02 15:11:30 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:27:47 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	ft_print_env_var(t_struct *shell, char *splted)
 {
-	int	i;
-	int	q;
+	int		i;
+	int		q;
 	char	*ptr;
 
 	i = 0;
 	q = 0;
 	if (ft_strchr(splted, '\'') || ft_strchr(splted, '\"'))
 	{
-		if(ft_strchr(splted, '\''))
+		if (ft_strchr(splted, '\''))
 		{
 			ptr = ft_remove_quot(splted, '\'', shell);
 			free(splted);
 			splted = ft_strdup(ptr);
 			free(ptr);
 		}
-		if(ft_strchr(splted, '\"'))
+		if (ft_strchr(splted, '\"'))
 		{
 			ptr = ft_remove_quot(splted, '\"', shell);
 			free(splted);
@@ -43,18 +43,14 @@ void	ft_print_env_var(t_struct *shell, char *splted)
 int	ft_next_echo_dlr(char **splted, t_struct *shell)
 {
 	int		j;
-	int		nb_qot;
 	char	*ptr;
 
 	j = 0;
 	while (splted[j] != NULL)
 	{
 		shell->dif_j = 0;
-		if (shell->chek_test == 1)
-		{
-			print_echo(shell, splted[j + 1]);
+		if (print_echo_exit(shell, j, splted) == 0)
 			break ;
-		}
 		if (splted[j] != NULL)
 		{
 			ptr = splted[j];
@@ -62,15 +58,32 @@ int	ft_next_echo_dlr(char **splted, t_struct *shell)
 			free(ptr);
 		}
 		if (splted[j] != NULL)
-			nb_qot = ft_skip_qote(splted, shell, &j);
-		if (nb_qot == 1)
-			j++;
-		else if (nb_qot == 0)
+			shell->nb_qot = ft_skip_qote(splted, shell, &j);
+		if (test_quotes(shell, &j) == 0)
 			return (0);
 		ft_print_env_var(shell, splted[j]);
 		j++;
 	}
 	return (1);
+}
+
+int	test_quotes(t_struct *shell, int *j)
+{
+	if (shell->nb_qot == 1)
+		*j = *j + 1;
+	else if (shell->nb_qot == 0)
+		return (0);
+	return (1);
+}
+
+char	*ft_rm_doler(char **splted, int j)
+{
+	char	*ptr;
+
+	ptr = splted[j];
+	splted[j] = ft_strtrim(splted[j], "$");
+	free(ptr);
+	return (splted[j]);
 }
 
 int	ft_skip_qote(char **splted, t_struct *shell, int *j)

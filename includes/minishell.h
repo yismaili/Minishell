@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yismaili <yismaili@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:30:46 by souchen           #+#    #+#             */
-/*   Updated: 2022/09/02 14:25:31 by yismaili         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:20:52 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include \
-	</goinfre/yismaili/.brew/opt/readline/include/readline/readline.h>
+	</goinfre/souchen/.brew/opt/readline/include/readline/readline.h>
 # include \
-	</goinfre/yismaili/.brew/opt/readline/include/readline/history.h>
+	</goinfre/souchen/.brew/opt/readline/include/readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -153,6 +153,7 @@ typedef struct s_struct
 	int			count_dolr;
 	int			dif_j;
 	int			nop;
+	int			nb_qot;
 }				t_struct;
 
 int		builtin_exist(t_struct *shell);
@@ -178,7 +179,7 @@ void	ft_export(t_struct *shell);
 bool	there_is_home(t_struct *shell);
 int		ft_cd(t_struct *shell);
 void	ft_pwd(t_struct *shell);
-void	ft_echo(t_struct *shell);
+int		ft_echo(t_struct *shell);
 int		init_echo(t_struct *shell, int n);
 void	print_echo(t_struct *shell, char *shell_print);
 void	ft_export(t_struct *shell);
@@ -326,4 +327,7 @@ int		ft_next_outredirection(t_struct *shell, char **fichier1);
 int		ft_next_inredirection(t_struct	*shell, char **fichier2, char *line);
 void	ft_print_msg_qot(t_struct *shell, char	*line);
 void	ft_change_data(t_struct	*shell, char *ptr, char **file, int check);
+char	*ft_rm_doler(char **splted, int j);
+int		test_quotes(t_struct *shell, int *j);
+int		print_echo_exit(t_struct *shell, int j, char **splted);
 #endif

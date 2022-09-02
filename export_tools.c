@@ -6,7 +6,7 @@
 /*   By: souchen <souchen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 12:56:27 by yismaili          #+#    #+#             */
-/*   Updated: 2022/08/28 16:13:08 by souchen          ###   ########.fr       */
+/*   Updated: 2022/09/02 16:21:42 by souchen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,14 @@ void	check_aux(t_struct *shell, int i)
 		shell->scnd = NULL;
 		verify_if_env_exists(shell);
 	}
+}
+
+int	print_echo_exit(t_struct *shell, int j, char **splted)
+{
+	if (shell->chek_test == 1)
+	{
+		print_echo(shell, splted[j + 1]);
+		return (0);
+	}
+	return (1);
 }
